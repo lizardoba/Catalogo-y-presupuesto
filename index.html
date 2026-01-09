@@ -36,7 +36,7 @@
   --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
   --color-success: #22c55e;
   --color-error: #ef4444;
-  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-size-base: 14px;
   --font-size-sm: 12px;
   --font-size-lg: 16px;
@@ -78,14 +78,15 @@
   }
 }
 
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -124,12 +125,11 @@ body {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(4px);
   border-radius: var(--radius-base);
-  padding: var(--space-8) var(--space-12);
+  padding: var(--space-4) var(--space-8);
   border: none;
   color: white;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  cursor: pointer;
 }
 
 .container {
@@ -211,13 +211,6 @@ body {
   border-color: var(--color-primary);
 }
 
-.service-card__image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-}
-
 .service-card__content {
   padding: var(--space-20);
   flex: 1;
@@ -283,12 +276,6 @@ body {
   background-color: #128C7E;
 }
 
-.btn-sm {
-  padding: var(--space-8) var(--space-12);
-  font-size: var(--font-size-sm);
-  flex: unset;
-}
-
 .modal {
   display: none;
   position: fixed;
@@ -300,7 +287,6 @@ body {
   z-index: 1000;
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
 }
 
 .modal.active {
@@ -317,7 +303,6 @@ body {
   overflow-y: auto;
   box-shadow: var(--shadow-lg);
   position: relative;
-  margin: var(--space-32) auto;
 }
 
 .modal__close {
@@ -380,7 +365,6 @@ body {
 .form-textarea {
   resize: vertical;
   min-height: 100px;
-  font-family: inherit;
 }
 
 .subcategories-section {
@@ -449,8 +433,9 @@ body {
   gap: var(--space-8);
 }
 
-.subcategory-item__edit, .subcategory-item__remove {
+.subcategory-item__edit {
   padding: var(--space-8) var(--space-12);
+  background-color: var(--color-primary);
   color: white;
   border: none;
   border-radius: var(--radius-base);
@@ -460,17 +445,21 @@ body {
   font-weight: var(--font-weight-semibold);
 }
 
-.subcategory-item__edit {
-  background-color: var(--color-primary);
-}
-
 .subcategory-item__edit:hover {
   background-color: var(--color-primary-hover);
   transform: scale(1.05);
 }
 
 .subcategory-item__remove {
+  padding: var(--space-8) var(--space-12);
   background-color: var(--color-error);
+  color: white;
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+  font-weight: var(--font-weight-semibold);
 }
 
 .subcategory-item__remove:hover {
@@ -498,12 +487,6 @@ body {
   grid-template-columns: 1fr 120px 180px auto;
   gap: var(--space-8);
   margin-bottom: var(--space-12);
-}
-
-@media (max-width: 768px) {
-  .add-subcategory__inputs {
-    grid-template-columns: 1fr;
-  }
 }
 
 .add-subcategory__input {
@@ -576,7 +559,6 @@ body {
   text-align: center;
   padding: var(--space-32);
   color: var(--color-text-secondary);
-  grid-column: 1 / -1;
 }
 
 .empty-state__icon {
@@ -597,6 +579,39 @@ body {
   color: var(--color-text);
 }
 
+.button-group {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--font-size-sm);
+}
+
+.export-section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  margin-top: var(--space-32);
+  border: 1px solid var(--color-card-border);
+}
+
+.export-section__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+}
+
+.export-section__buttons {
+  display: flex;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+/* === PRESUPUESTOS === */
 .budget-form {
   background: var(--color-surface);
   padding: var(--space-24);
@@ -715,54 +730,9 @@ body {
   display: flex;
   gap: var(--space-8);
   margin-top: var(--space-16);
-  flex-wrap: wrap;
 }
 
-.export-section {
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
-  padding: var(--space-20);
-  margin-top: var(--space-32);
-  border: 1px solid var(--color-card-border);
-}
-
-.export-section__title {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-16);
-}
-
-.export-section__buttons {
-  display: flex;
-  gap: var(--space-12);
-  flex-wrap: wrap;
-}
-
-.image-preview {
-  margin-top: var(--space-12);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background-color: var(--color-background);
-  border: 2px solid var(--color-border);
-  max-height: 200px;
-}
-
-.image-preview img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.no-image-placeholder {
-  width: 100%;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
-
+/* Modal de vista detallada - IMÁGENES MÁS GRANDES */
 .detail-modal__image {
   width: 100%;
   height: 350px;
@@ -790,6 +760,40 @@ body {
   color: var(--color-primary);
 }
 
+.subcategory-preview {
+  display: inline-block;
+  width: 140px;
+  height: 140px;
+  margin-right: var(--space-16);
+  margin-bottom: var(--space-16);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  border: 2px solid var(--color-border);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.subcategory-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.subcategory-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.subcategory-preview__label {
+  display: block;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-6);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Lightbox para imagen ampliada */
 .lightbox {
   display: none;
   position: fixed;
@@ -822,25 +826,6 @@ body {
   color: white;
   font-size: 30px;
   cursor: pointer;
-  z-index: 2001;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: var(--space-16) var(--space-12);
-  }
-  
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .budget-card__actions {
-    flex-direction: column;
-  }
-  
-  .budget-card__actions button {
-    width: 100%;
-  }
 }
 </style>
 </head>
@@ -865,16 +850,18 @@ body {
     <button class="tab-btn" data-tab="export">📊 Exportar</button>
   </div>
 
+  <!-- TAB: VER TRATAMIENTOS -->
   <div id="view" class="tab-content active">
     <div class="services-grid" id="servicesGrid"></div>
   </div>
 
+  <!-- TAB: GESTIONAR -->
   <div id="manage" class="tab-content">
     <div id="successMessage"></div>
-    <button class="btn btn-primary" onclick="openModal()" style="margin-bottom: var(--space-24);">➕ Nuevo Tratamiento</button>
     <div class="services-grid" id="manageGrid"></div>
   </div>
 
+  <!-- TAB: PRESUPUESTOS -->
   <div id="budgets" class="tab-content">
     <div class="budget-form">
       <h2 class="budget-form__title">➕ Nuevo Presupuesto</h2>
@@ -911,7 +898,9 @@ body {
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody id="budgetItemsList"></tbody>
+          <tbody id="budgetItemsList">
+            <!-- Items dinámicos -->
+          </tbody>
         </table>
         <div class="budget-total">Total: <span id="budgetTotal">S/ 0.00</span></div>
         <div class="budget-actions">
@@ -924,15 +913,18 @@ body {
 
     <div class="budget-list">
       <h2 class="budget-list__title">📋 Presupuestos Guardados</h2>
-      <div id="savedBudgetsList"></div>
+      <div id="savedBudgetsList">
+        <!-- Lista dinámica -->
+      </div>
     </div>
   </div>
 
+  <!-- TAB: EXPORTAR -->
   <div id="export" class="tab-content">
     <div class="export-section">
       <h2 class="export-section__title">Exportar y Descargar Datos</h2>
       <p style="margin-bottom: var(--space-16); color: var(--color-text-secondary);">
-        Descarga todos tus tratamientos en formato JSON para respaldo o transferencia.
+        Descarga todos tus tratamientos y subcategorías en formato JSON para respaldo o transferencia.
       </p>
       <div class="export-section__buttons">
         <button class="btn btn-primary btn-sm" onclick="exportToJSON()">📥 Descargar JSON</button>
@@ -944,6 +936,7 @@ body {
   </div>
 </div>
 
+<!-- MODAL PARA EDITAR/CREAR TRATAMIENTO -->
 <div id="treatmentModal" class="modal">
   <div class="modal__content">
     <button class="modal__close" onclick="closeModal()">&times;</button>
@@ -961,7 +954,7 @@ body {
 
     <div class="form-group">
       <label class="form-label">Descripción Ampliada</label>
-      <textarea id="treatmentLongDesc" class="form-textarea" placeholder="Descripción detallada"></textarea>
+      <textarea id="treatmentLongDesc" class="form-textarea" placeholder="Descripción detallada del tratamiento"></textarea>
     </div>
 
     <div class="form-group">
@@ -970,24 +963,25 @@ body {
     </div>
 
     <div class="form-group">
-      <label class="form-label">URL de Imagen</label>
+      <label class="form-label">URL de Imagen del Tratamiento</label>
       <input type="text" id="treatmentImage" class="form-input" placeholder="https://ejemplo.com/imagen.jpg" onchange="updateImagePreview(this.value)">
-      <small style="color: var(--color-text-secondary); display: block; margin-top: var(--space-4);">Usa URL de imagen externa</small>
-      <div class="image-preview">
-        <img id="previewImg" style="display: none;" alt="Preview">
-        <div id="noImagePlaceholder" class="no-image-placeholder">📸 Sin imagen</div>
+      <small style="color: var(--color-text-secondary); display: block; margin-top: var(--space-4);">Usa URL de imagen externa (Unsplash, Pixabay, etc.)</small>
+      <div id="imagePreview" style="margin-top: var(--space-12); border-radius: var(--radius-lg); overflow: hidden; background-color: var(--color-background); border: 2px solid var(--color-border);">
+        <img id="previewImg" style="width: 100%; height: 200px; object-fit: cover; display: none;">
+        <div id="noImagePlaceholder" style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">📸 Sin imagen seleccionada</div>
       </div>
     </div>
 
+    <!-- SUBCATEGORÍAS -->
     <div class="subcategories-section">
       <h3 class="subcategories-section__title">Subcategorías</h3>
       
       <div class="add-subcategory">
         <div class="add-subcategory__title">➕ Agregar Subcategoría</div>
         <div class="add-subcategory__inputs">
-          <input type="text" id="subName" class="add-subcategory__input" placeholder="Nombre">
+          <input type="text" id="subName" class="add-subcategory__input" placeholder="Nombre (Ej: Brackets Metálicos)">
           <input type="number" id="subPrice" class="add-subcategory__input" placeholder="Precio" step="0.01" min="0">
-          <input type="text" id="subImage" class="add-subcategory__input" placeholder="URL de imagen">
+          <input type="text" id="subImage" class="add-subcategory__input" placeholder="URL de imagen (opcional)">
           <button class="add-subcategory__btn" onclick="addSubcategoryToModal()">Agregar</button>
         </div>
       </div>
@@ -1002,28 +996,45 @@ body {
   </div>
 </div>
 
+<!-- MODAL DE VISTA DETALLADA -->
 <div id="detailModal" class="modal">
   <div class="modal__content">
     <button class="modal__close" onclick="closeDetailModal()">&times;</button>
     <h2 class="modal__title" id="detailModalTitle"></h2>
     <img id="detailModalImage" class="detail-modal__image" src="" alt="Tratamiento">
     <p id="detailModalDescription" class="detail-modal__description"></p>
-    <div class="subcategories-gallery" id="detailSubcategoriesGallery"></div>
+
+    <div class="subcategories-gallery" id="detailSubcategoriesGallery">
+      <!-- Galería dinámica -->
+    </div>
   </div>
 </div>
 
+<!-- LIGHTBOX PARA IMAGEN AMPLIADA -->
 <div id="lightbox" class="lightbox">
   <span class="lightbox__close" onclick="closeLightbox()">&times;</span>
   <img id="lightboxImg" class="lightbox__img" src="" alt="Imagen ampliada">
 </div>
 
 <script>
-const exchangeRates = { PEN: 1, USD: 0.265, EUR: 0.245, GBP: 0.210 };
-const currencySymbols = { PEN: 'S/', USD: 'US$', EUR: '€', GBP: '£' };
+// ============= CONFIGURACIÓN DE MONEDA =============
+const exchangeRates = {
+  PEN: 1,
+  USD: 0.265,
+  EUR: 0.245,
+  GBP: 0.210
+};
+
+const currencySymbols = {
+  PEN: 'S/',
+  USD: 'US$',
+  EUR: '€',
+  GBP: '£'
+};
+
 let currentCurrency = localStorage.getItem('selectedCurrency') || 'PEN';
-let currentEditId = null;
-let modalSubcategories = [];
-let currentBudgetItems = [];
+
+// ============= CLASES Y DATOS =============
 
 class TreatmentManager {
   constructor() {
@@ -1048,20 +1059,32 @@ class TreatmentManager {
         id: Date.now() + 1,
         nombre: "Ortodoncia",
         descripcion_corta: "Alineación dental con brackets",
-        descripcion_ampliada: "Corrige la posición de los dientes mediante brackets y arcos metálicos.",
+        descripcion_ampliada: "Corrige la posición de los dientes mediante brackets y arcos metálicos, mejorando la estética y oclusión.",
         precio: 2500,
         imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop",
         subcategorias: [
-          { id: 1, nombre: "Brackets Metálicos", precio: 2500, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" },
-          { id: 2, nombre: "Brackets Autoligado", precio: 3500, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
+          { id: 1, nombre: "Brackets Metálicos Convencionales", precio: 2500, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Brackets de Autoligado", precio: 3500, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
           { id: 3, nombre: "Alineadores Invisibles", precio: 4500, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=400&fit=crop" }
         ]
       },
       {
         id: Date.now() + 2,
-        nombre: "Limpieza Dental",
+        nombre: "Endodoncia",
+        descripcion_corta: "Tratamiento de conducto radicular",
+        descripcion_ampliada: "Extrae la pulpa dental dañada y rellena el conducto, salvando el diente de la extracción.",
+        precio: 700,
+        imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Endodoncia Monoradicular", precio: 600, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Endodoncia Multiradicular", precio: 1000, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 3,
+        nombre: "Profilaxis Dental",
         descripcion_corta: "Limpieza profesional profunda",
-        descripcion_ampliada: "Remoción de placa y cálculo con instrumentos ultrasónicos.",
+        descripcion_ampliada: "Remoción de placa y cálculo con instrumentos ultrasónicos y pulido especializado.",
         precio: 120,
         imagen: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
         subcategorias: [
@@ -1070,39 +1093,120 @@ class TreatmentManager {
         ]
       },
       {
-        id: Date.now() + 3,
-        nombre: "Blanqueamiento",
-        descripcion_corta: "Aclara el color de los dientes",
-        descripcion_ampliada: "Tratamiento profesional para dientes más blancos.",
-        precio: 600,
-        imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=600&h=400&fit=crop",
-        subcategorias: [
-          { id: 1, nombre: "Blanqueamiento En Consultorio", precio: 600, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=400&fit=crop" },
-          { id: 2, nombre: "Blanqueamiento Casero", precio: 400, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" }
-        ]
-      },
-      {
         id: Date.now() + 4,
         nombre: "Implante Dental",
         descripcion_corta: "Reemplazo permanente de diente",
-        descripcion_ampliada: "Tornillo de titanio + corona para restaurar función y estética.",
+        descripcion_ampliada: "Tornillo de titanio + corona personalizada para restaurar función y estética.",
         precio: 3200,
         imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=600&h=400&fit=crop",
         subcategorias: [
           { id: 1, nombre: "Implante Unitario", precio: 3200, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
-          { id: 2, nombre: "Implante + Corona", precio: 4500, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" }
+          { id: 2, nombre: "Implante + Corona", precio: 4500, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Implante Inmediato", precio: 3800, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" }
         ]
       },
       {
         id: Date.now() + 5,
-        nombre: "Restauración",
-        descripcion_corta: "Reparación de caries",
-        descripcion_ampliada: "Reparación con resinas para devolver funcionalidad y estética.",
+        nombre: "Blanqueamiento Dental",
+        descripcion_corta: "Aclara el color de los dientes",
+        descripcion_ampliada: "Tratamiento profesional con peróxido para eliminar manchas y lograr dientes más blancos.",
+        precio: 600,
+        imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Blanqueamiento En Consultorio", precio: 600, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Blanqueamiento Casero", precio: 400, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Tratamiento Completo", precio: 900, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 6,
+        nombre: "Corona Dental",
+        descripcion_corta: "Protección de diente dañado",
+        descripcion_ampliada: "Funda cerámica o metálica que protege dientes fracturados o tratados endodónticamente.",
+        precio: 800,
+        imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Corona de Porcelana", precio: 800, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Corona Zirconio", precio: 1200, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Corona Temporal", precio: 300, imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 7,
+        nombre: "Restauración Dental",
+        descripcion_corta: "Reparación de caries con resinas",
+        descripcion_ampliada: "Reparación de cavidades con materiales adhesivos para devolver funcionalidad y estética.",
         precio: 250,
+        imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Resina Anterior", precio: 250, imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Resina Posterior", precio: 350, imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Restauración Compleja", precio: 500, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 8,
+        nombre: "Exodoncia",
+        descripcion_corta: "Extracción segura y profesional",
+        descripcion_ampliada: "Extracción profesional con anestesia y técnicas modernas para mínimas molestias.",
+        precio: 150,
         imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=600&h=400&fit=crop",
         subcategorias: [
-          { id: 1, nombre: "Resina Anterior", precio: 250, imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=400&h=400&fit=crop" },
-          { id: 2, nombre: "Resina Posterior", precio: 350, imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=400&h=400&fit=crop" }
+          { id: 1, nombre: "Extracción Simple", precio: 150, imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Extracción Quirúrgica", precio: 350, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Múltiples Extracciones", precio: 800, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 9,
+        nombre: "Prótesis Removibles",
+        descripcion_corta: "Dentaduras parciales removibles",
+        descripcion_ampliada: "Solución removible para reemplazar varios dientes perdidos de forma económica.",
+        precio: 1200,
+        imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Prótesis Parcial Removible", precio: 1200, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Prótesis Completa", precio: 1800, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Reparación de Prótesis", precio: 250, imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 10,
+        nombre: "Periodoncia",
+        descripcion_corta: "Tratamiento de encías y hueso",
+        descripcion_ampliada: "Tratamiento especializado para gingivitis, periodontitis y regeneración ósea.",
+        precio: 500,
+        imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Raspado y Alisado", precio: 400, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Cirugía Periodontal", precio: 1500, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Injerto de Encía", precio: 1200, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 11,
+        nombre: "Ortopedia Dental",
+        descripcion_corta: "Corrección de malformaciones",
+        descripcion_ampliada: "Tratamiento para corregir problemas óseos y dentales en etapas tempranas.",
+        precio: 1500,
+        imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Expansor Maxilar", precio: 1500, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Disyuntores", precio: 1200, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Aparatología Funcional", precio: 1800, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 12,
+        nombre: "Odontología Cosmética",
+        descripcion_corta: "Mejora estética de la sonrisa",
+        descripcion_ampliada: "Tratamientos estéticos para mejorar la aparencia de tu sonrisa y confianza.",
+        precio: 700,
+        imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Carillas Directas", precio: 500, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Carillas Indirectas", precio: 1200, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Remodelado Dental", precio: 300, imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=400&h=400&fit=crop" }
         ]
       }
     ];
@@ -1111,7 +1215,6 @@ class TreatmentManager {
 
   addTreatment(treatment) {
     treatment.id = Date.now() + Math.random();
-    treatment.subcategorias = treatment.subcategorias || [];
     this.treatments.push(treatment);
     this.saveToLocalStorage();
   }
@@ -1119,7 +1222,6 @@ class TreatmentManager {
   updateTreatment(id, treatment) {
     const index = this.treatments.findIndex(t => t.id === id);
     if (index !== -1) {
-      treatment.subcategorias = treatment.subcategorias || [];
       this.treatments[index] = { ...treatment, id };
       this.saveToLocalStorage();
     }
@@ -1192,9 +1294,11 @@ class BudgetManager {
   }
 }
 
+// ============= INSTANCIAS GLOBALES =============
 const manager = new TreatmentManager();
 const budgetManager = new BudgetManager();
 
+// ============= FUNCIONES DE MONEDA =============
 function formatPrice(price) {
   if (price == null || isNaN(price)) return `${currencySymbols[currentCurrency]} 0.00`;
   const rate = exchangeRates[currentCurrency];
@@ -1215,6 +1319,13 @@ document.getElementById('currencySelector').addEventListener('change', function(
   updateCurrencySelector();
 });
 
+// ============= VARIABLES DE MODAL Y PRESUPUESTO =============
+let currentEditId = null;
+let modalSubcategories = [];
+let currentBudgetItems = [];
+
+// ============= FUNCIONES DE UI =============
+
 function openModal(treatmentId = null) {
   const modal = document.getElementById('treatmentModal');
   const titleEl = document.getElementById('modalTitle');
@@ -1227,7 +1338,6 @@ function openModal(treatmentId = null) {
   document.getElementById('treatmentImage').value = '';
   document.getElementById('subName').value = '';
   document.getElementById('subPrice').value = '';
-  document.getElementById('subImage').value = '';
   document.getElementById('subcategoriesList').innerHTML = '';
   updateImagePreview('');
 
@@ -1335,10 +1445,14 @@ function renderSubcategoriesInModal() {
   }
 
   modalSubcategories.forEach(sub => {
+    const imgHTML = sub.imagen 
+      ? `<img src="${sub.imagen.trim()}" alt="${sub.nombre}" class="subcategory-item__image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
+      : '';
+    const fallbackHTML = `<div class="subcategory-item__image" style="display: ${sub.imagen ? 'none' : 'flex'}; align-items: center; justify-content: center; color: var(--color-text-secondary);">📷</div>`;
     const div = document.createElement('div');
     div.className = 'subcategory-item';
     div.innerHTML = `
-      <img src="${sub.imagen || ''}" alt="${sub.nombre}" class="subcategory-item__image" onerror="this.style.opacity='0.3';">
+      ${imgHTML}${fallbackHTML}
       <div class="subcategory-item__info">
         <div class="subcategory-item__name">${sub.nombre}</div>
         <div class="subcategory-item__price">${formatPrice(sub.precio)}</div>
@@ -1419,6 +1533,8 @@ function showSuccessMessage(message) {
   }, 4000);
 }
 
+// ============= RENDERIZADO DE SERVICIOS =============
+
 function openDetailModal(treatmentId) {
   const treatment = manager.getTreatment(treatmentId);
   if (!treatment) return;
@@ -1426,32 +1542,23 @@ function openDetailModal(treatmentId) {
   const modal = document.getElementById('detailModal');
   document.getElementById('detailModalTitle').textContent = treatment.nombre;
   document.getElementById('detailModalImage').src = treatment.imagen || '';
-  document.getElementById('detailModalImage').onerror = function() { this.style.display = 'none'; };
   document.getElementById('detailModalDescription').textContent = treatment.descripcion_ampliada;
 
   const gallery = document.getElementById('detailSubcategoriesGallery');
   gallery.innerHTML = '';
 
   if (treatment.subcategorias && treatment.subcategorias.length > 0) {
-    const title = document.createElement('h3');
-    title.className = 'subcategories-gallery__title';
-    title.textContent = 'Subcategorías';
-    gallery.appendChild(title);
-    
+    gallery.innerHTML = '<h3 class="subcategories-gallery__title">Subcategorías</h3>';
     const div = document.createElement('div');
     div.style.display = 'flex';
     div.style.flexWrap = 'wrap';
-    div.style.gap = '16px';
-    
     treatment.subcategorias.forEach(sub => {
       const preview = document.createElement('div');
-      preview.style.cursor = 'pointer';
-      preview.style.textAlign = 'center';
+      preview.className = 'subcategory-preview';
       preview.onclick = () => openLightbox(sub.imagen);
       preview.innerHTML = `
-        <img src="${sub.imagen || ''}" alt="${sub.nombre}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid var(--color-border); margin-bottom: 8px;" onerror="this.style.opacity='0.5';">
-        <div style="font-size: 12px; color: var(--color-text-secondary);">${sub.nombre}</div>
-        <div style="font-weight: bold; color: var(--color-primary);">${formatPrice(sub.precio)}</div>
+        <img src="${sub.imagen || ''}" alt="${sub.nombre}" onerror="this.parentElement.style.opacity='0.6'">
+        <span class="subcategory-preview__label">${sub.nombre}<br>${formatPrice(sub.precio)}</span>
       `;
       div.appendChild(preview);
     });
@@ -1462,17 +1569,22 @@ function openDetailModal(treatmentId) {
 }
 
 function renderTreatmentCard(treatment, showButtons = false) {
-  const card = document.createElement('div');
-  card.className = 'service-card';
-  
   let subcategoriesHTML = '';
   if (treatment.subcategorias && treatment.subcategorias.length > 0) {
-    subcategoriesHTML = '<div style="margin-top: var(--space-16); border-top: 2px solid var(--color-border); padding-top: var(--space-16);"><div style="font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); margin-bottom: var(--space-12); color: var(--color-primary);">💊 Opciones:</div>';
+    subcategoriesHTML = '<div style="margin-top: var(--space-16); border-top: 2px solid var(--color-border); padding-top: var(--space-16);">';
+    subcategoriesHTML += '<div style="font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); margin-bottom: var(--space-12); color: var(--color-primary);">💊 Opciones disponibles:</div>';
     treatment.subcategorias.forEach(sub => {
+      const imgUrl = sub.imagen ? sub.imagen.trim() : '';
+      const subImg = imgUrl 
+        ? `<img src="${imgUrl}" alt="${sub.nombre}" style="width: 40px; height: 40px; border-radius: var(--radius-base); object-fit: cover; margin-right: var(--space-8);" onerror="this.style.opacity=0.5;">`
+        : '';
       subcategoriesHTML += `
-        <div style="display: flex; justify-content: space-between; font-size: var(--font-size-sm); margin-bottom: var(--space-8); padding: var(--space-8); background-color: rgba(33, 128, 141, 0.05); border-radius: var(--radius-base); border-left: 3px solid var(--color-primary);">
-          <span>${sub.nombre}</span>
-          <span style="color: var(--color-primary); font-weight: var(--font-weight-bold);">${formatPrice(sub.precio)}</span>
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: var(--font-size-sm); margin-bottom: var(--space-8); padding: var(--space-8); background-color: rgba(33, 128, 141, 0.05); border-radius: var(--radius-base); border-left: 3px solid var(--color-primary);">
+          <div style="display: flex; align-items: center;">
+            ${subImg}
+            <span style="font-weight: var(--font-weight-medium);">${sub.nombre}</span>
+          </div>
+          <span style="color: var(--color-primary); font-weight: var(--font-weight-bold); background-color: var(--color-primary); color: white; padding: var(--space-4) var(--space-8); border-radius: var(--radius-base);">${formatPrice(sub.precio)}</span>
         </div>
       `;
     });
@@ -1484,8 +1596,12 @@ function renderTreatmentCard(treatment, showButtons = false) {
     priceDisplay = `<div style="margin-top: var(--space-8); font-weight: var(--font-weight-bold); color: var(--color-primary);">${formatPrice(treatment.precio)}</div>`;
   }
 
-  const imageHTML = treatment.imagen ? `<img src="${treatment.imagen.trim()}" alt="${treatment.nombre}" class="service-card__image" onerror="this.style.display='none';">` : '';
+  const imageHTML = treatment.imagen 
+    ? `<img src="${treatment.imagen.trim()}" alt="${treatment.nombre}" style="width: 100%; height: 220px; object-fit: cover; display: block;" onerror="this.parentElement.querySelector('.service-card__content').previousElementSibling.style.display='none';">`
+    : '';
 
+  const card = document.createElement('div');
+  card.className = 'service-card';
   if (showButtons) {
     card.innerHTML = `
       ${imageHTML}
@@ -1512,7 +1628,6 @@ function renderTreatmentCard(treatment, showButtons = false) {
     `;
     card.addEventListener('click', () => openDetailModal(treatment.id));
   }
-  
   return card;
 }
 
@@ -1521,7 +1636,7 @@ function renderServicesGrid(containerId, showButtons = false) {
   container.innerHTML = '';
 
   if (manager.treatments.length === 0) {
-    container.innerHTML = '<div class="empty-state"><div class="empty-state__icon">📭</div><div class="empty-state__text">Sin tratamientos aún. ¡Crea uno nuevo!</div></div>';
+    container.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><div class="empty-state__icon">📭</div><div class="empty-state__text">Sin tratamientos aún. ¡Crea uno nuevo!</div></div>';
     return;
   }
 
@@ -1534,6 +1649,8 @@ function renderAllTabs() {
   renderServicesGrid('servicesGrid', false);
   renderServicesGrid('manageGrid', true);
 }
+
+// ============= EXPORT/IMPORT =============
 
 function exportToJSON() {
   const json = manager.exportJSON();
@@ -1579,6 +1696,8 @@ document.getElementById('jsonImportInput').addEventListener('change', function(e
   };
   reader.readAsText(file);
 });
+
+// ============= PRESUPUESTOS =============
 
 function populateTreatmentSelect() {
   const select = document.getElementById('treatmentSelect');
@@ -1687,7 +1806,7 @@ function saveCurrentBudget() {
   const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
   const budget = {
     clientName,
-    items: currentBudgetItems.map(item => ({ ...item })),
+    items: currentBudgetItems,
     total: currentBudgetItems.reduce((sum, item) => sum + item.price, 0)
   };
 
@@ -1731,9 +1850,9 @@ function renderSavedBudgets() {
       <div class="budget-card__items">${itemsHTML}</div>
       <div class="budget-card__total">Total: ${formatPrice(budget.total)}</div>
       <div class="budget-card__actions">
-        <button class="btn btn-primary btn-sm" onclick="printBudget('${budget.id}')">🖨️ Imprimir</button>
-        <button class="btn btn-whatsapp btn-sm" onclick="sendBudgetToWhatsApp('${budget.id}')">📱 WhatsApp</button>
-        <button class="btn btn-secondary btn-sm" onclick="deleteBudget('${budget.id}')">🗑️ Eliminar</button>
+        <button class="btn btn-primary btn-sm" onclick="printBudget(${budget.id})">🖨️ Imprimir</button>
+        <button class="btn btn-whatsapp btn-sm" onclick="sendBudgetToWhatsApp(${budget.id})">📱 WhatsApp</button>
+        <button class="btn btn-secondary btn-sm" onclick="deleteBudget(${budget.id})">🗑️ Eliminar</button>
       </div>
     `;
     container.appendChild(div);
@@ -1742,21 +1861,16 @@ function renderSavedBudgets() {
 
 function deleteBudget(id) {
   if (confirm('¿Eliminar este presupuesto?')) {
-    budgetManager.deleteBudget(parseFloat(id));
+    budgetManager.deleteBudget(id);
     renderSavedBudgets();
     showSuccessMessage('✅ Presupuesto eliminado');
   }
 }
 
+// ============= IMPRESIÓN FIABLE =============
 function printBudget(budgetId) {
-  const budget = budgetManager.getAllBudgets().find(b => b.id == budgetId);
+  const budget = budgetManager.getAllBudgets().find(b => b.id === budgetId);
   if (!budget) return;
-
-  const win = window.open('', '_blank');
-  if (!win) {
-    alert('Permite ventanas emergentes para imprimir');
-    return;
-  }
 
   const clientName = budget.clientName || 'Cliente sin nombre';
   const date = new Date(budget.date).toLocaleDateString('es-ES');
@@ -1774,53 +1888,59 @@ function printBudget(budgetId) {
     total += item.price;
   });
 
-  const html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="UTF-8">
-      <title>Presupuesto Dental - ${clientName}</title>
-      <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        h1 { text-align: center; color: #1f2937; margin-bottom: 20px; }
-        .header { text-align: center; margin-bottom: 30px; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #333; padding: 10px; text-align: left; }
-        th { background-color: #f3f4f6; }
-        .total { text-align: right; font-weight: bold; font-size: 1.2em; margin-top: 20px; }
-      </style>
-    </head>
-    <body>
-      <h1>💊 Catálogo Dental - Presupuesto</h1>
-      <div class="header">
-        <p><strong>Cliente:</strong> ${clientName}</p>
-        <p><strong>Fecha:</strong> ${date}</p>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Tratamiento</th>
-            <th>Subcategoría</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${itemsHTML}
-        </tbody>
-      </table>
-      <div class="total">TOTAL: ${formatPrice(total)}</div>
-      <script>
-        window.onload = function() {
-          window.print();
-          setTimeout(() => window.close(), 1000);
-        };
-      </script>
-    </body>
-    </html>
-  `;
+  // ⚠️ CORRECCIÓN CRÍTICA: Escapar </script>
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Presupuesto Dental - ${clientName}</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { text-align: center; color: #1f2937; margin-bottom: 20px; }
+    .header { text-align: center; margin-bottom: 30px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { border: 1px solid #333; padding: 10px; text-align: left; }
+    th { background-color: #f3f4f6; }
+    .total { text-align: right; font-weight: bold; font-size: 1.2em; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>DentiStudio - Presupuesto Dental</h1>
+  <div class="header">
+    <p><strong>Cliente:</strong> ${clientName}</p>
+    <p><strong>Fecha:</strong> ${date}</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Tratamiento</th>
+        <th>Subcategoría</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${itemsHTML}
+    </tbody>
+  </table>
+  <div class="total">TOTAL: ${formatPrice(total)}</div>
+  <script>
+    window.onload = function() {
+      window.print();
+      setTimeout(function() { window.close(); }, 1000);
+    };
+  <\\/script>
+</body>
+</html>
+`;
 
-  win.document.write(html);
-  win.document.close();
+  const win = window.open('', '_blank');
+  if (win) {
+    win.document.write(htmlContent);
+    win.document.close();
+  } else {
+    alert('Permite ventanas emergentes para imprimir');
+  }
 }
 
 function printCurrentBudget() {
@@ -1838,32 +1958,35 @@ function printCurrentBudget() {
     id: Date.now()
   };
 
+  const tempId = budget.id;
   budgetManager.budgets.push(budget);
-  printBudget(budget.id);
-  budgetManager.budgets = budgetManager.budgets.filter(b => b.id !== budget.id);
+  printBudget(tempId);
+  budgetManager.budgets = budgetManager.budgets.filter(b => b.id !== tempId);
+  localStorage.setItem('dental_budgets', JSON.stringify(budgetManager.budgets));
 }
 
+// ============= ENVIAR POR WHATSAPP =============
 function sendBudgetToWhatsApp(budgetId) {
-  const budget = budgetManager.getAllBudgets().find(b => b.id == budgetId);
+  const budget = budgetManager.getAllBudgets().find(b => b.id === budgetId);
   if (!budget) return;
 
-  let message = `¡Hola! Aquí tienes tu presupuesto dental de *DentiStudio*:\n\n`;
-  message += `*Cliente:* ${budget.clientName}\n`;
-  message += `*Detalles:*\n`;
+  let message = `¡Hola! Aquí tienes tu presupuesto dental de *DentiStudio*:\\n\\n`;
+  message += `*Cliente:* ${budget.clientName}\\n`;
+  message += `*Detalles:*\\n`;
 
   budget.items.forEach(item => {
     const subcat = item.subcategoryName ? ` (${item.subcategoryName})` : '';
-    message += `- ${item.treatmentName}${subcat}: ${formatPrice(item.price)}\n`;
+    message += `- ${item.treatmentName}${subcat}: ${formatPrice(item.price)}\\n`;
   });
 
-  message += `\n*Total:* ${formatPrice(budget.total)}\n`;
-  message += `\n¿Te gustaría agendar una cita? 😊`;
+  message += `\\n*Total:* ${formatPrice(budget.total)}\\n`;
+  message += `\\n¿Te gustaría agendar una cita? 😊`;
 
   const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-
-  window.open(whatsappUrl, '_blank');
+  window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
 }
+
+// ============= TABS =============
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
@@ -1882,19 +2005,21 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-document.getElementById('treatmentSelect').addEventListener('change', onTreatmentChange);
+// ============= INICIALIZACIÓN =============
 
+window.addEventListener('DOMContentLoaded', function() {
+  updateCurrencySelector();
+  renderAllTabs();
+  document.getElementById('treatmentSelect').addEventListener('change', onTreatmentChange);
+});
+
+// Cerrar modales al hacer clic fuera
 ['treatmentModal', 'detailModal', 'lightbox'].forEach(id => {
   document.getElementById(id).addEventListener('click', function(e) {
     if (e.target === this) {
       this.classList.remove('active');
     }
   });
-});
-
-window.addEventListener('DOMContentLoaded', function() {
-  updateCurrencySelector();
-  renderAllTabs();
 });
 </script>
 
