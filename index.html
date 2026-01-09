@@ -1888,7 +1888,7 @@ function printBudget(budgetId) {
     total += item.price;
   });
 
-  // ⚠️ CORRECCIÓN CRÍTICA: Escapar </script>
+  // ⚠️ CORRECCIÓN CRÍTICA: Escapar </script> como <\/script>
   const htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -1940,6 +1940,8 @@ function printBudget(budgetId) {
     win.document.close();
   } else {
     alert('Permite ventanas emergentes para imprimir');
+  }
+}
   }
 }
 
