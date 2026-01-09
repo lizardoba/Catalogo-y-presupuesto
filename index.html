@@ -73,6 +73,8 @@
     --color-text-secondary: rgba(167, 169, 169, 0.7);
     --color-primary: var(--color-teal-300);
     --color-primary-hover: var(--color-teal-400);
+    --color-gray-200: rgba(60, 60, 60, 1);
+    --color-gray-300: rgba(80, 80, 80, 1);
   }
 }
 
@@ -171,7 +173,7 @@ body {
   overflow: hidden;
   border: 2px solid var(--color-card-border);
   box-shadow: var(--shadow-md);
-  transition: all var(--duration-normal) var(--ease-standard));
+  transition: all var(--duration-normal) var(--ease-standard);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -900,7 +902,7 @@ class TreatmentManager {
   }
 
   addTreatment(treatment) {
-    treatment.id = Date.now();
+    treatment.id = Date.now() + Math.random();
     this.treatments.push(treatment);
     this.saveToLocalStorage();
   }
@@ -930,7 +932,15 @@ class TreatmentManager {
     try {
       const imported = JSON.parse(jsonString);
       if (Array.isArray(imported)) {
-        this.treatments = imported;
+        // Asegurar IDs únicos al importar
+        this.treatments = imported.map(t => ({
+          ...t,
+          id: t.id || Date.now() + Math.random(),
+          subcategorias: (t.subcategorias || []).map(s => ({
+            ...s,
+            id: s.id || Date.now() + Math.random()
+          }))
+        }));
         this.saveToLocalStorage();
         return true;
       }
@@ -976,7 +986,10 @@ function openModal(treatmentId = null) {
       document.getElementById('treatmentPrice').value = treatment.precio || '';
       document.getElementById('treatmentImage').value = treatment.imagen || '';
       updateImagePreview(treatment.imagen || '');
-      modalSubcategories = JSON.parse(JSON.stringify(treatment.subcategorias || []));
+      modalSubcategories = (treatment.subcategorias || []).map(sub => ({
+        ...sub,
+        id: sub.id || Date.now() + Math.random()
+      }));
       renderSubcategoriesInModal();
     }
   } else {
@@ -996,10 +1009,11 @@ function closeModal() {
 }
 
 function updateImagePreview(url) {
+  url = (url || '').trim();
   const previewImg = document.getElementById('previewImg');
   const noImagePlaceholder = document.getElementById('noImagePlaceholder');
   
-  if (url && url.trim() !== '') {
+  if (url !== '') {
     previewImg.src = url;
     previewImg.style.display = 'block';
     previewImg.onerror = function() {
@@ -1029,7 +1043,7 @@ function addSubcategoryToModal() {
   }
 
   modalSubcategories.push({
-    id: Date.now(),
+    id: Date.now() + Math.random(),
     nombre: name,
     precio: price,
     imagen: image
@@ -1051,11 +1065,14 @@ function renderSubcategoriesInModal() {
   }
 
   modalSubcategories.forEach(sub => {
+    const imgHTML = sub.imagen 
+      ? `<img src="${sub.imagen.trim()}" alt="${sub.nombre}" class="subcategory-item__image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
+      : '';
+    const fallbackHTML = `<div class="subcategory-item__image" style="display: ${sub.imagen ? 'none' : 'flex'}; align-items: center; justify-content: center; color: var(--color-text-secondary);">📷</div>`;
     const div = document.createElement('div');
     div.className = 'subcategory-item';
-    const imgHTML = sub.imagen ? `<img src="${sub.imagen}" alt="${sub.nombre}" class="subcategory-item__image">` : `<div class="subcategory-item__image" style="background-color: var(--color-gray-200); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary);">📷</div>`;
     div.innerHTML = `
-      ${imgHTML}
+      ${imgHTML}${fallbackHTML}
       <div class="subcategory-item__info">
         <div class="subcategory-item__name">${sub.nombre}</div>
         <div class="subcategory-item__price">$${sub.precio.toFixed(2)}</div>
@@ -1091,7 +1108,7 @@ function saveTreatment() {
   const shortDesc = document.getElementById('treatmentShortDesc').value.trim();
   const longDesc = document.getElementById('treatmentLongDesc').value.trim();
   const price = parseFloat(document.getElementById('treatmentPrice').value) || 0;
-  const image = document.getElementById('treatmentImage').value.trim();
+  const image = (document.getElementById('treatmentImage').value || '').trim();
 
   if (!name) {
     alert('Por favor ingresa el nombre del tratamiento');
@@ -1142,7 +1159,10 @@ function renderTreatmentCard(treatment, showButtons = false) {
     subcategoriesHTML = '<div style="margin-top: var(--space-16); border-top: 2px solid var(--color-border); padding-top: var(--space-16);">';
     subcategoriesHTML += '<div style="font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); margin-bottom: var(--space-12); color: var(--color-primary);">💊 Opciones disponibles:</div>';
     treatment.subcategorias.forEach(sub => {
-      const subImg = sub.imagen ? `<img src="${sub.imagen}" alt="${sub.nombre}" style="width: 40px; height: 40px; border-radius: var(--radius-base); object-fit: cover; margin-right: var(--space-8);">` : '';
+      const imgUrl = sub.imagen ? sub.imagen.trim() : '';
+      const subImg = imgUrl 
+        ? `<img src="${imgUrl}" alt="${sub.nombre}" style="width: 40px; height: 40px; border-radius: var(--radius-base); object-fit: cover; margin-right: var(--space-8);" onerror="this.style.opacity=0.5;">`
+        : '';
       subcategoriesHTML += `
         <div style="display: flex; align-items: center; justify-content: space-between; font-size: var(--font-size-sm); margin-bottom: var(--space-8); padding: var(--space-8); background-color: rgba(33, 128, 141, 0.05); border-radius: var(--radius-base); border-left: 3px solid var(--color-primary);">
           <div style="display: flex; align-items: center;">
@@ -1156,7 +1176,15 @@ function renderTreatmentCard(treatment, showButtons = false) {
     subcategoriesHTML += '</div>';
   }
 
-  const imageHTML = treatment.imagen ? `<img src="${treatment.imagen}" alt="${treatment.nombre}" style="width: 100%; height: 220px; object-fit: cover; display: block;">` : '';
+  // Mostrar precio base si no hay subcategorías
+  let priceDisplay = '';
+  if (!treatment.subcategorias || treatment.subcategorias.length === 0) {
+    priceDisplay = `<div style="margin-top: var(--space-8); font-weight: var(--font-weight-bold); color: var(--color-primary);">$${treatment.precio?.toFixed(2) || '0.00'}</div>`;
+  }
+
+  const imageHTML = treatment.imagen 
+    ? `<img src="${treatment.imagen.trim()}" alt="${treatment.nombre}" style="width: 100%; height: 220px; object-fit: cover; display: block;" onerror="this.parentElement.querySelector('.service-card__content').previousElementSibling.style.display='none';">`
+    : '';
 
   const card = document.createElement('div');
   card.className = 'service-card';
@@ -1165,6 +1193,7 @@ function renderTreatmentCard(treatment, showButtons = false) {
     <div class="service-card__content">
       <h3 class="service-card__title">${treatment.nombre}</h3>
       <p class="service-card__description">${treatment.descripcion_corta}</p>
+      ${priceDisplay}
       ${subcategoriesHTML}
       ${showButtons ? `
         <div class="service-card__buttons">
