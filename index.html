@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo Dental - Sistema de Tratamientos</title>
+<title>Catálogo Dental - Sistema de Tratamientos y Presupuestos</title>
 <style>
 :root {
   --color-white: rgba(255, 255, 255, 1);
@@ -315,7 +315,7 @@ body {
   font-size: var(--font-size-base);
 }
 
-.form-input, .form-textarea {
+.form-input, .form-textarea, .form-select {
   width: 100%;
   padding: var(--space-8) var(--space-12);
   border: 1px solid var(--color-border);
@@ -327,7 +327,7 @@ body {
   transition: border-color var(--duration-normal) var(--ease-standard);
 }
 
-.form-input:focus, .form-textarea:focus {
+.form-input:focus, .form-textarea:focus, .form-select:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(33, 128, 141, 0.1);
@@ -582,40 +582,180 @@ body {
   flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: var(--space-20) var(--space-16);
-  }
+/* === NUEVO: ESTILOS PARA PRESUPUESTOS === */
+.budget-form {
+  background: var(--color-surface);
+  padding: var(--space-24);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-card-border);
+  margin-bottom: var(--space-32);
+}
 
-  .header {
-    padding: var(--space-20) var(--space-16);
-  }
+.budget-form__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-20);
+  color: var(--color-text);
+}
 
-  .header__title {
-    font-size: var(--font-size-3xl);
-  }
+.budget-items {
+  margin-top: var(--space-24);
+}
 
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
+.budget-items__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+}
 
-  .modal__content {
-    width: 95%;
-    padding: var(--space-20);
-  }
+.budget-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-8);
+}
 
-  .add-subcategory__inputs {
-    grid-template-columns: 1fr;
-  }
+.budget-items-table th,
+.budget-items-table td {
+  padding: var(--space-12);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
 
-  .tabs {
-    gap: var(--space-8);
-  }
+.budget-items-table th {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
 
-  .tab-btn {
-    padding: var(--space-8) var(--space-12);
-    font-size: var(--font-size-base);
+.budget-total {
+  margin-top: var(--space-20);
+  text-align: right;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.budget-actions {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-24);
+  flex-wrap: wrap;
+}
+
+.budget-list {
+  margin-top: var(--space-32);
+}
+
+.budget-list__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-20);
+}
+
+.budget-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  margin-bottom: var(--space-16);
+  box-shadow: var(--shadow-sm);
+}
+
+.budget-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+
+.budget-card__title {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+}
+
+.budget-card__date {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.budget-card__items {
+  margin: var(--space-16) 0;
+}
+
+.budget-card__item {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-8);
+}
+
+.budget-card__total {
+  margin-top: var(--space-16);
+  text-align: right;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+}
+
+.budget-card__actions {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-16);
+}
+
+/* Vista de impresión */
+@media print {
+  .tabs, .header, .container > .tab-content:not(#budgets), .budget-actions, .btn, .modal, body {
+    display: none !important;
   }
+  #printArea {
+    display: block !important;
+  }
+  #printArea * {
+    color: black !important;
+    background: white !important;
+  }
+  #printArea {
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+#printArea {
+  display: none;
+  padding: 20px;
+}
+
+#printArea h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+#printArea .budget-print-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#printArea table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+#printArea th, #printArea td {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: left;
+}
+
+#printArea .total-row {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: right;
 }
 </style>
 </head>
@@ -623,13 +763,14 @@ body {
 
 <div class="header">
   <h1 class="header__title">💊 Catálogo Dental</h1>
-  <p class="header__subtitle">Gestión de Tratamientos y Subcategorías</p>
+  <p class="header__subtitle">Gestión de Tratamientos, Subcategorías y Presupuestos</p>
 </div>
 
 <div class="container">
   <div class="tabs">
     <button class="tab-btn active" data-tab="view">📋 Ver Tratamientos</button>
     <button class="tab-btn" data-tab="manage">⚙️ Gestionar</button>
+    <button class="tab-btn" data-tab="budgets">🧾 Presupuestos</button>
     <button class="tab-btn" data-tab="export">📊 Exportar</button>
   </div>
 
@@ -642,6 +783,64 @@ body {
   <div id="manage" class="tab-content">
     <div id="successMessage"></div>
     <div class="services-grid" id="manageGrid"></div>
+  </div>
+
+  <!-- TAB: PRESUPUESTOS -->
+  <div id="budgets" class="tab-content">
+    <div class="budget-form">
+      <h2 class="budget-form__title">➕ Nuevo Presupuesto</h2>
+      
+      <div class="form-group">
+        <label class="form-label">Nombre del Cliente (opcional)</label>
+        <input type="text" id="budgetClientName" class="form-input" placeholder="Ej: Juan Pérez">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Seleccionar Tratamiento</label>
+        <select id="treatmentSelect" class="form-select">
+          <option value="">-- Selecciona un tratamiento --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Subcategoría (opcional)</label>
+        <select id="subcategorySelect" class="form-select" disabled>
+          <option value="">-- Sin subcategoría --</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" onclick="addTreatmentToBudget()">➕ Agregar al Presupuesto</button>
+
+      <div class="budget-items">
+        <h3 class="budget-items__title">Tratamientos Seleccionados</h3>
+        <table class="budget-items-table">
+          <thead>
+            <tr>
+              <th>Tratamiento</th>
+              <th>Subcategoría</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="budgetItemsList">
+            <!-- Items dinámicos -->
+          </tbody>
+        </table>
+        <div class="budget-total">Total: <span id="budgetTotal">$0.00</span></div>
+        <div class="budget-actions">
+          <button class="btn btn-primary" onclick="saveCurrentBudget()">💾 Guardar Presupuesto</button>
+          <button class="btn btn-secondary" onclick="clearCurrentBudget()">🗑️ Limpiar</button>
+          <button class="btn btn-secondary" onclick="printCurrentBudget()">🖨️ Imprimir</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="budget-list">
+      <h2 class="budget-list__title">📋 Presupuestos Guardados</h2>
+      <div id="savedBudgetsList">
+        <!-- Lista dinámica -->
+      </div>
+    </div>
   </div>
 
   <!-- TAB: EXPORTAR -->
@@ -659,6 +858,31 @@ body {
       <input type="file" id="jsonImportInput" accept=".json" style="display: none;">
     </div>
   </div>
+</div>
+
+<!-- Área de impresión oculta -->
+<div id="printArea">
+  <h1>DentiStudio - Presupuesto Dental</h1>
+  <div class="budget-print-header">
+    <p id="printClientName">Cliente: -</p>
+    <p id="printDate">Fecha: <span id="printDateValue"></span></p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Tratamiento</th>
+        <th>Subcategoría</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody id="printItemsList"></tbody>
+    <tfoot>
+      <tr class="total-row">
+        <td colspan="2">TOTAL:</td>
+        <td id="printTotal"></td>
+      </tr>
+    </tfoot>
+  </table>
 </div>
 
 <!-- MODAL PARA EDITAR/CREAR TRATAMIENTO -->
@@ -722,7 +946,7 @@ body {
 </div>
 
 <script>
-// ============= GESTIÓN DE DATOS =============
+// ============= CLASES Y DATOS =============
 
 class TreatmentManager {
   constructor() {
@@ -932,7 +1156,6 @@ class TreatmentManager {
     try {
       const imported = JSON.parse(jsonString);
       if (Array.isArray(imported)) {
-        // Asegurar IDs únicos al importar
         this.treatments = imported.map(t => ({
           ...t,
           id: t.id || Date.now() + Math.random(),
@@ -951,12 +1174,45 @@ class TreatmentManager {
   }
 }
 
-// ============= INSTANCIA GLOBAL =============
-const manager = new TreatmentManager();
+class BudgetManager {
+  constructor() {
+    this.budgets = this.loadFromLocalStorage();
+  }
 
-// ============= VARIABLES DE MODAL =============
+  loadFromLocalStorage() {
+    const stored = localStorage.getItem('dental_budgets');
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('dental_budgets', JSON.stringify(this.budgets));
+  }
+
+  addBudget(budget) {
+    budget.id = Date.now() + Math.random();
+    budget.date = new Date().toISOString();
+    this.budgets.push(budget);
+    this.saveToLocalStorage();
+  }
+
+  deleteBudget(id) {
+    this.budgets = this.budgets.filter(b => b.id !== id);
+    this.saveToLocalStorage();
+  }
+
+  getAllBudgets() {
+    return this.budgets;
+  }
+}
+
+// ============= INSTANCIAS GLOBALES =============
+const manager = new TreatmentManager();
+const budgetManager = new BudgetManager();
+
+// ============= VARIABLES DE MODAL Y PRESUPUESTO =============
 let currentEditId = null;
 let modalSubcategories = [];
+let currentBudgetItems = [];
 
 // ============= FUNCIONES DE UI =============
 
@@ -1132,6 +1388,7 @@ function saveTreatment() {
 
   closeModal();
   renderAllTabs();
+  populateTreatmentSelect(); // Actualiza el select de presupuestos
   showSuccessMessage('✅ Tratamiento guardado correctamente');
 }
 
@@ -1139,6 +1396,7 @@ function deleteTreatment(id) {
   if (confirm('¿Estás seguro de que quieres eliminar este tratamiento?')) {
     manager.deleteTreatment(id);
     renderAllTabs();
+    populateTreatmentSelect();
     showSuccessMessage('✅ Tratamiento eliminado');
   }
 }
@@ -1176,7 +1434,6 @@ function renderTreatmentCard(treatment, showButtons = false) {
     subcategoriesHTML += '</div>';
   }
 
-  // Mostrar precio base si no hay subcategorías
   let priceDisplay = '';
   if (!treatment.subcategorias || treatment.subcategorias.length === 0) {
     priceDisplay = `<div style="margin-top: var(--space-8); font-weight: var(--font-weight-bold); color: var(--color-primary);">$${treatment.precio?.toFixed(2) || '0.00'}</div>`;
@@ -1263,6 +1520,7 @@ document.getElementById('jsonImportInput').addEventListener('change', function(e
     const success = manager.importJSON(event.target.result);
     if (success) {
       renderAllTabs();
+      populateTreatmentSelect();
       showSuccessMessage('✅ Datos importados correctamente');
     } else {
       alert('Error: El archivo JSON no es válido');
@@ -1270,6 +1528,216 @@ document.getElementById('jsonImportInput').addEventListener('change', function(e
   };
   reader.readAsText(file);
 });
+
+// ============= PRESUPUESTOS =============
+
+function populateTreatmentSelect() {
+  const select = document.getElementById('treatmentSelect');
+  select.innerHTML = '<option value="">-- Selecciona un tratamiento --</option>';
+  manager.treatments.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = t.nombre;
+    select.appendChild(opt);
+  });
+}
+
+function onTreatmentChange() {
+  const treatmentId = document.getElementById('treatmentSelect').value;
+  const subSelect = document.getElementById('subcategorySelect');
+  subSelect.innerHTML = '<option value="">-- Sin subcategoría --</option>';
+  subSelect.disabled = true;
+
+  if (treatmentId) {
+    const treatment = manager.getTreatment(parseFloat(treatmentId));
+    if (treatment && treatment.subcategorias && treatment.subcategorias.length > 0) {
+      subSelect.disabled = false;
+      treatment.subcategorias.forEach(sub => {
+        const opt = document.createElement('option');
+        opt.value = sub.id;
+        opt.textContent = `${sub.nombre} - $${sub.precio.toFixed(2)}`;
+        opt.dataset.price = sub.precio;
+        subSelect.appendChild(opt);
+      });
+    }
+  }
+}
+
+function addTreatmentToBudget() {
+  const treatmentId = document.getElementById('treatmentSelect').value;
+  if (!treatmentId) {
+    alert('Selecciona un tratamiento');
+    return;
+  }
+
+  const treatment = manager.getTreatment(parseFloat(treatmentId));
+  if (!treatment) return;
+
+  const subId = document.getElementById('subcategorySelect').value;
+  let item = {
+    treatmentId: treatment.id,
+    treatmentName: treatment.nombre,
+    subcategoryId: null,
+    subcategoryName: null,
+    price: treatment.precio
+  };
+
+  if (subId) {
+    const sub = treatment.subcategorias.find(s => s.id == subId);
+    if (sub) {
+      item.subcategoryId = sub.id;
+      item.subcategoryName = sub.nombre;
+      item.price = sub.precio;
+    }
+  }
+
+  currentBudgetItems.push(item);
+  renderBudgetItems();
+}
+
+function renderBudgetItems() {
+  const tbody = document.getElementById('budgetItemsList');
+  tbody.innerHTML = '';
+  let total = 0;
+
+  currentBudgetItems.forEach((item, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${item.treatmentName}</td>
+      <td>${item.subcategoryName || '—'}</td>
+      <td>$${item.price.toFixed(2)}</td>
+      <td><button class="btn btn-secondary btn-sm" onclick="removeBudgetItem(${index})">🗑️</button></td>
+    `;
+    tbody.appendChild(row);
+    total += item.price;
+  });
+
+  document.getElementById('budgetTotal').textContent = `$${total.toFixed(2)}`;
+}
+
+function removeBudgetItem(index) {
+  currentBudgetItems.splice(index, 1);
+  renderBudgetItems();
+}
+
+function clearCurrentBudget() {
+  currentBudgetItems = [];
+  document.getElementById('budgetClientName').value = '';
+  document.getElementById('treatmentSelect').selectedIndex = 0;
+  document.getElementById('subcategorySelect').innerHTML = '<option value="">-- Sin subcategoría --</option>';
+  document.getElementById('subcategorySelect').disabled = true;
+  renderBudgetItems();
+}
+
+function saveCurrentBudget() {
+  if (currentBudgetItems.length === 0) {
+    alert('Agrega al menos un tratamiento al presupuesto');
+    return;
+  }
+
+  const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
+  const budget = {
+    clientName,
+    items: currentBudgetItems,
+    total: currentBudgetItems.reduce((sum, item) => sum + item.price, 0)
+  };
+
+  budgetManager.addBudget(budget);
+  clearCurrentBudget();
+  renderSavedBudgets();
+  showSuccessMessage('✅ Presupuesto guardado');
+}
+
+function renderSavedBudgets() {
+  const container = document.getElementById('savedBudgetsList');
+  const budgets = budgetManager.getAllBudgets();
+
+  if (budgets.length === 0) {
+    container.innerHTML = '<p style="color: var(--color-text-secondary);">No hay presupuestos guardados aún.</p>';
+    return;
+  }
+
+  container.innerHTML = '';
+  budgets.forEach(budget => {
+    const div = document.createElement('div');
+    div.className = 'budget-card';
+    const date = new Date(budget.date).toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    let itemsHTML = '';
+    budget.items.forEach(item => {
+      itemsHTML += `<div class="budget-card__item"><span>${item.treatmentName}${item.subcategoryName ? ` - ${item.subcategoryName}` : ''}</span> <span>$${item.price.toFixed(2)}</span></div>`;
+    });
+
+    div.innerHTML = `
+      <div class="budget-card__header">
+        <div class="budget-card__title">${budget.clientName}</div>
+        <div class="budget-card__date">${date}</div>
+      </div>
+      <div class="budget-card__items">${itemsHTML}</div>
+      <div class="budget-card__total">Total: $${budget.total.toFixed(2)}</div>
+      <div class="budget-card__actions">
+        <button class="btn btn-primary btn-sm" onclick="loadBudgetForPrint(${budget.id})">🖨️ Imprimir</button>
+        <button class="btn btn-secondary btn-sm" onclick="deleteBudget(${budget.id})">🗑️ Eliminar</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function deleteBudget(id) {
+  if (confirm('¿Eliminar este presupuesto?')) {
+    budgetManager.deleteBudget(id);
+    renderSavedBudgets();
+    showSuccessMessage('✅ Presupuesto eliminado');
+  }
+}
+
+function printCurrentBudget() {
+  if (currentBudgetItems.length === 0) {
+    alert('No hay tratamientos en el presupuesto');
+    return;
+  }
+
+  const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
+  preparePrintView(clientName, currentBudgetItems);
+  window.print();
+}
+
+function loadBudgetForPrint(id) {
+  const budget = budgetManager.getAllBudgets().find(b => b.id === id);
+  if (budget) {
+    preparePrintView(budget.clientName, budget.items);
+    window.print();
+  }
+}
+
+function preparePrintView(clientName, items) {
+  document.getElementById('printClientName').textContent = `Cliente: ${clientName}`;
+  document.getElementById('printDateValue').textContent = new Date().toLocaleDateString('es-ES');
+
+  const tbody = document.getElementById('printItemsList');
+  tbody.innerHTML = '';
+  let total = 0;
+
+  items.forEach(item => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${item.treatmentName}</td>
+      <td>${item.subcategoryName || '—'}</td>
+      <td>$${item.price.toFixed(2)}</td>
+    `;
+    tbody.appendChild(row);
+    total += item.price;
+  });
+
+  document.getElementById('printTotal').textContent = `$${total.toFixed(2)}`;
+}
 
 // ============= TABS =============
 
@@ -1282,6 +1750,11 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     
     this.classList.add('active');
     document.getElementById(tabName).classList.add('active');
+
+    if (tabName === 'budgets') {
+      populateTreatmentSelect();
+      renderSavedBudgets();
+    }
   });
 });
 
@@ -1289,6 +1762,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 window.addEventListener('DOMContentLoaded', function() {
   renderAllTabs();
+  document.getElementById('treatmentSelect').addEventListener('change', onTreatmentChange);
 });
 
 // Cerrar modal al hacer clic fuera
