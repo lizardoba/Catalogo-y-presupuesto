@@ -166,19 +166,30 @@ body {
 }
 
 .service-card {
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-surface) 0%, rgba(33, 128, 141, 0.03) 100%);
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid var(--color-card-border);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--duration-normal) var(--ease-standard);
+  border: 2px solid var(--color-card-border);
+  box-shadow: var(--shadow-md);
+  transition: all var(--duration-normal) var(--ease-standard));
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-teal-400) 100%);
 }
 
 .service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(33, 128, 141, 0.2);
   border-color: var(--color-primary);
 }
 
@@ -338,30 +349,74 @@ body {
 }
 
 .subcategory-item {
-  background-color: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-base);
+  background: linear-gradient(135deg, var(--color-background) 0%, rgba(33, 128, 141, 0.05) 100%);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
   padding: var(--space-16);
   margin-bottom: var(--space-12);
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: var(--space-16);
   align-items: center;
-  gap: var(--space-12);
+  transition: all var(--duration-normal) var(--ease-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+.subcategory-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(33, 128, 141, 0.15);
+  transform: translateY(-2px);
+}
+
+.subcategory-item__image {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-base);
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-gray-200);
 }
 
 .subcategory-item__info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 
 .subcategory-item__name {
   font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--space-4);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
 }
 
 .subcategory-item__price {
   color: var(--color-primary);
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-lg);
+}
+
+.subcategory-item__actions {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.subcategory-item__edit {
+  padding: var(--space-8) var(--space-12);
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+  font-weight: var(--font-weight-semibold);
+}
+
+.subcategory-item__edit:hover {
+  background-color: var(--color-primary-hover);
+  transform: scale(1.05);
 }
 
 .subcategory-item__remove {
@@ -373,10 +428,12 @@ body {
   cursor: pointer;
   font-size: var(--font-size-sm);
   transition: all var(--duration-normal) var(--ease-standard);
+  font-weight: var(--font-weight-semibold);
 }
 
 .subcategory-item__remove:hover {
   background-color: #dc2626;
+  transform: scale(1.05);
 }
 
 .add-subcategory {
@@ -396,7 +453,7 @@ body {
 
 .add-subcategory__inputs {
   display: grid;
-  grid-template-columns: 1fr 120px auto;
+  grid-template-columns: 1fr 120px 180px auto;
   gap: var(--space-8);
   margin-bottom: var(--space-12);
 }
@@ -629,12 +686,12 @@ body {
     </div>
 
     <div class="form-group">
-      <label class="form-label">URL de Imagen</label>
-      <input type="text" id="treatmentImage" class="form-input" placeholder="https://ejemplo.com/imagen.jpg">
+      <label class="form-label">URL de Imagen del Tratamiento</label>
+      <input type="text" id="treatmentImage" class="form-input" placeholder="https://ejemplo.com/imagen.jpg" onchange="updateImagePreview(this.value)">
       <small style="color: var(--color-text-secondary); display: block; margin-top: var(--space-4);">Usa URL de imagen externa (Unsplash, Pixabay, etc.)</small>
-      <div id="imagePreview" style="margin-top: var(--space-12); border-radius: var(--radius-base); overflow: hidden; background-color: var(--color-background); border: 1px solid var(--color-border);">
+      <div id="imagePreview" style="margin-top: var(--space-12); border-radius: var(--radius-lg); overflow: hidden; background-color: var(--color-background); border: 2px solid var(--color-border);">
         <img id="previewImg" style="width: 100%; height: 200px; object-fit: cover; display: none;">
-        <div id="noImagePlaceholder" style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">Sin imagen seleccionada</div>
+        <div id="noImagePlaceholder" style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">📸 Sin imagen seleccionada</div>
       </div>
     </div>
 
@@ -647,6 +704,7 @@ body {
         <div class="add-subcategory__inputs">
           <input type="text" id="subName" class="add-subcategory__input" placeholder="Nombre (Ej: Brackets Metálicos)">
           <input type="number" id="subPrice" class="add-subcategory__input" placeholder="Precio" step="0.01" min="0">
+          <input type="text" id="subImage" class="add-subcategory__input" placeholder="URL de imagen (opcional)">
           <button class="add-subcategory__btn" onclick="addSubcategoryToModal()">Agregar</button>
         </div>
       </div>
@@ -958,6 +1016,7 @@ function updateImagePreview(url) {
 function addSubcategoryToModal() {
   const name = document.getElementById('subName').value.trim();
   const price = parseFloat(document.getElementById('subPrice').value);
+  const image = document.getElementById('subImage').value.trim();
 
   if (!name) {
     alert('Por favor ingresa el nombre de la subcategoría');
@@ -972,11 +1031,13 @@ function addSubcategoryToModal() {
   modalSubcategories.push({
     id: Date.now(),
     nombre: name,
-    precio: price
+    precio: price,
+    imagen: image
   });
 
   document.getElementById('subName').value = '';
   document.getElementById('subPrice').value = '';
+  document.getElementById('subImage').value = '';
   renderSubcategoriesInModal();
 }
 
@@ -992,12 +1053,17 @@ function renderSubcategoriesInModal() {
   modalSubcategories.forEach(sub => {
     const div = document.createElement('div');
     div.className = 'subcategory-item';
+    const imgHTML = sub.imagen ? `<img src="${sub.imagen}" alt="${sub.nombre}" class="subcategory-item__image">` : `<div class="subcategory-item__image" style="background-color: var(--color-gray-200); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary);">📷</div>`;
     div.innerHTML = `
+      ${imgHTML}
       <div class="subcategory-item__info">
         <div class="subcategory-item__name">${sub.nombre}</div>
         <div class="subcategory-item__price">$${sub.precio.toFixed(2)}</div>
       </div>
-      <button class="subcategory-item__remove" onclick="removeSubcategoryFromModal(${sub.id})">Eliminar</button>
+      <div class="subcategory-item__actions">
+        <button class="subcategory-item__edit" onclick="editSubcategoryFromModal(${sub.id})">✏️ Editar</button>
+        <button class="subcategory-item__remove" onclick="removeSubcategoryFromModal(${sub.id})">🗑️</button>
+      </div>
     `;
     container.appendChild(div);
   });
@@ -1006,6 +1072,18 @@ function renderSubcategoriesInModal() {
 function removeSubcategoryFromModal(subId) {
   modalSubcategories = modalSubcategories.filter(s => s.id !== subId);
   renderSubcategoriesInModal();
+}
+
+function editSubcategoryFromModal(subId) {
+  const sub = modalSubcategories.find(s => s.id === subId);
+  if (sub) {
+    document.getElementById('subName').value = sub.nombre;
+    document.getElementById('subPrice').value = sub.precio;
+    document.getElementById('subImage').value = sub.imagen || '';
+    modalSubcategories = modalSubcategories.filter(s => s.id !== subId);
+    renderSubcategoriesInModal();
+    document.getElementById('subName').focus();
+  }
 }
 
 function saveTreatment() {
@@ -1061,20 +1139,24 @@ function showSuccessMessage(message) {
 function renderTreatmentCard(treatment, showButtons = false) {
   let subcategoriesHTML = '';
   if (treatment.subcategorias && treatment.subcategorias.length > 0) {
-    subcategoriesHTML = '<div style="margin-top: var(--space-12); border-top: 1px solid var(--color-border); padding-top: var(--space-12);">';
-    subcategoriesHTML += '<div style="font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); margin-bottom: var(--space-8);">Opciones:</div>';
+    subcategoriesHTML = '<div style="margin-top: var(--space-16); border-top: 2px solid var(--color-border); padding-top: var(--space-16);">';
+    subcategoriesHTML += '<div style="font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); margin-bottom: var(--space-12); color: var(--color-primary);">💊 Opciones disponibles:</div>';
     treatment.subcategorias.forEach(sub => {
+      const subImg = sub.imagen ? `<img src="${sub.imagen}" alt="${sub.nombre}" style="width: 40px; height: 40px; border-radius: var(--radius-base); object-fit: cover; margin-right: var(--space-8);">` : '';
       subcategoriesHTML += `
-        <div style="display: flex; justify-content: space-between; font-size: var(--font-size-sm); margin-bottom: var(--space-4);">
-          <span>• ${sub.nombre}</span>
-          <span style="color: var(--color-primary); font-weight: var(--font-weight-bold);">$${sub.precio.toFixed(2)}</span>
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: var(--font-size-sm); margin-bottom: var(--space-8); padding: var(--space-8); background-color: rgba(33, 128, 141, 0.05); border-radius: var(--radius-base); border-left: 3px solid var(--color-primary);">
+          <div style="display: flex; align-items: center;">
+            ${subImg}
+            <span style="font-weight: var(--font-weight-medium);">${sub.nombre}</span>
+          </div>
+          <span style="color: var(--color-primary); font-weight: var(--font-weight-bold); background-color: var(--color-primary); color: white; padding: var(--space-4) var(--space-8); border-radius: var(--radius-base);">$${sub.precio.toFixed(2)}</span>
         </div>
       `;
     });
     subcategoriesHTML += '</div>';
   }
 
-  const imageHTML = treatment.imagen ? `<img src="${treatment.imagen}" alt="${treatment.nombre}" style="width: 100%; height: 200px; object-fit: cover; display: block;">` : '';
+  const imageHTML = treatment.imagen ? `<img src="${treatment.imagen}" alt="${treatment.nombre}" style="width: 100%; height: 220px; object-fit: cover; display: block;">` : '';
 
   const card = document.createElement('div');
   card.className = 'service-card';
