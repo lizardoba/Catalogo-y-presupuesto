@@ -3,57 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo Dental</title>
-
-<!-- ================= ESTILOS ================= -->
+<title>Catálogo Dental - Sistema de Tratamientos y Presupuestos</title>
 <style>
-/* (ESTILOS SIN CAMBIOS IMPORTANTES – ya estaban bien) */
-/* Solo se eliminaron variables no usadas y errores menores */
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --radius-base: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(167, 169, 169, 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-gray-200: rgba(60, 60, 60, 1);
+    --color-gray-300: rgba(80, 80, 80, 1);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  font-family: Inter, system-ui, sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #1f2937;
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 .header {
-  background: linear-gradient(135deg, #21808d, #1a6873);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-700) 100%);
   color: white;
-  padding: 32px;
+  padding: var(--space-32) var(--space-24);
   text-align: center;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.header__title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-8) 0;
+}
+
+.header__subtitle {
+  font-size: var(--font-size-lg);
+  opacity: 0.95;
+  font-weight: var(--font-weight-normal);
 }
 
 .currency-selector {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: var(--space-16);
+  right: var(--space-24);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  border-radius: var(--radius-base);
+  padding: var(--space-8) var(--space-12);
+  border: none;
+  color: white;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
 }
 
 .container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-32) var(--space-24);
 }
 
 .tabs {
   display: flex;
-  gap: 16px;
-  border-bottom: 2px solid #ddd;
-  margin-bottom: 24px;
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+  border-bottom: 2px solid var(--color-border);
+  flex-wrap: wrap;
 }
 
 .tab-btn {
+  padding: var(--space-12) var(--space-20);
   background: none;
   border: none;
-  padding: 12px 16px;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-normal) var(--ease-standard);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+}
+
+.tab-btn:hover {
+  color: var(--color-text);
 }
 
 .tab-btn.active {
-  color: #21808d;
-  border-bottom: 3px solid #21808d;
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
 }
 
 .tab-content {
@@ -66,47 +178,129 @@ body {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-24);
 }
 
 .service-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+  background: linear-gradient(135deg, var(--color-surface) 0%, rgba(33, 128, 141, 0.03) 100%);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 2px solid var(--color-card-border);
+  box-shadow: var(--shadow-md);
+  transition: all var(--duration-normal) var(--ease-standard);
+  display: flex;
+  flex-direction: column;
+  position: relative;
   cursor: pointer;
-  transition: transform .2s;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-teal-400) 100%);
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(33, 128, 141, 0.2);
+  border-color: var(--color-primary);
+}
+
+.service-card__image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.service-card__content {
+  padding: var(--space-20);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
+}
+
+.service-card__description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-12);
+  flex: 1;
+}
+
+.service-card__buttons {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
 }
 
 .btn {
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: none;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
-  font-weight: 600;
+  border: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+  flex: 1;
 }
 
 .btn-primary {
-  background: #21808d;
+  background-color: var(--color-primary);
   color: white;
 }
 
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
 .btn-secondary {
-  background: #e5e7eb;
+  background-color: var(--color-gray-200);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-gray-300);
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+  color: white;
+}
+
+.btn-whatsapp:hover {
+  background-color: #128C7E;
+}
+
+.btn-sm {
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--font-size-sm);
+  flex: unset;
 }
 
 .modal {
   display: none;
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .modal.active {
@@ -114,162 +308,1595 @@ body {
 }
 
 .modal__content {
-  background: white;
-  padding: 24px;
-  max-width: 800px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  max-width: 900px;
   width: 90%;
-  border-radius: 12px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  margin: var(--space-32) auto;
 }
 
 .modal__close {
-  float: right;
-  font-size: 22px;
+  position: absolute;
+  top: var(--space-16);
+  right: var(--space-16);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+}
+
+.modal__close:hover {
+  color: var(--color-text);
+}
+
+.modal__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-24);
+  margin-top: var(--space-12);
+  clear: both;
+}
+
+.form-group {
+  margin-bottom: var(--space-16);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+}
+
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--duration-normal) var(--ease-standard);
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(33, 128, 141, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.subcategories-section {
+  margin-top: var(--space-24);
+  border-top: 2px solid var(--color-border);
+  padding-top: var(--space-16);
+}
+
+.subcategories-section__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+}
+
+.subcategory-item {
+  background: linear-gradient(135deg, var(--color-background) 0%, rgba(33, 128, 141, 0.05) 100%);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16);
+  margin-bottom: var(--space-12);
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: var(--space-16);
+  align-items: center;
+  transition: all var(--duration-normal) var(--ease-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+.subcategory-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(33, 128, 141, 0.15);
+  transform: translateY(-2px);
+}
+
+.subcategory-item__image {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-base);
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-gray-200);
+}
+
+.subcategory-item__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.subcategory-item__name {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+}
+
+.subcategory-item__price {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+}
+
+.subcategory-item__actions {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.subcategory-item__edit, .subcategory-item__remove {
+  padding: var(--space-8) var(--space-12);
+  color: white;
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+  font-weight: var(--font-weight-semibold);
+}
+
+.subcategory-item__edit {
+  background-color: var(--color-primary);
+}
+
+.subcategory-item__edit:hover {
+  background-color: var(--color-primary-hover);
+  transform: scale(1.05);
+}
+
+.subcategory-item__remove {
+  background-color: var(--color-error);
+}
+
+.subcategory-item__remove:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
+
+.add-subcategory {
+  background-color: var(--color-background);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.add-subcategory__title {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+.add-subcategory__inputs {
+  display: grid;
+  grid-template-columns: 1fr 120px 180px auto;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+@media (max-width: 768px) {
+  .add-subcategory__inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+.add-subcategory__input {
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.add-subcategory__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.add-subcategory__btn {
+  padding: var(--space-8) var(--space-16);
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.add-subcategory__btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.modal__buttons {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-24);
+}
+
+.modal__buttons button {
+  flex: 1;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  border: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+  font-size: var(--font-size-base);
+}
+
+.btn-save {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-cancel {
+  background-color: var(--color-gray-200);
+  color: var(--color-text);
+}
+
+.btn-cancel:hover {
+  background-color: var(--color-gray-300);
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-32);
+  color: var(--color-text-secondary);
+  grid-column: 1 / -1;
+}
+
+.empty-state__icon {
+  font-size: 48px;
+  margin-bottom: var(--space-12);
+}
+
+.empty-state__text {
+  font-size: var(--font-size-lg);
+}
+
+.success-message {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-left: 4px solid var(--color-success);
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-16);
+  color: var(--color-text);
+}
+
+.budget-form {
+  background: var(--color-surface);
+  padding: var(--space-24);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-card-border);
+  margin-bottom: var(--space-32);
+}
+
+.budget-form__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-20);
+  color: var(--color-text);
+}
+
+.budget-items {
+  margin-top: var(--space-24);
+}
+
+.budget-items__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+}
+
+.budget-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-8);
+}
+
+.budget-items-table th,
+.budget-items-table td {
+  padding: var(--space-12);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.budget-items-table th {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.budget-total {
+  margin-top: var(--space-20);
+  text-align: right;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.budget-actions {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-24);
+  flex-wrap: wrap;
+}
+
+.budget-list {
+  margin-top: var(--space-32);
+}
+
+.budget-list__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-20);
+}
+
+.budget-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  margin-bottom: var(--space-16);
+  box-shadow: var(--shadow-sm);
+}
+
+.budget-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+
+.budget-card__title {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+}
+
+.budget-card__date {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.budget-card__items {
+  margin: var(--space-16) 0;
+}
+
+.budget-card__item {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-8);
+}
+
+.budget-card__total {
+  margin-top: var(--space-16);
+  text-align: right;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+}
+
+.budget-card__actions {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.export-section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  margin-top: var(--space-32);
+  border: 1px solid var(--color-card-border);
+}
+
+.export-section__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+}
+
+.export-section__buttons {
+  display: flex;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.image-preview {
+  margin-top: var(--space-12);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-background);
+  border: 2px solid var(--color-border);
+  max-height: 200px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.no-image-placeholder {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.detail-modal__image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-24);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-md);
+}
+
+.detail-modal__description {
+  margin-bottom: var(--space-24);
+  line-height: 1.7;
+  font-size: var(--font-size-base);
+}
+
+.subcategories-gallery {
+  margin-top: var(--space-24);
+}
+
+.subcategories-gallery__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+  color: var(--color-primary);
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox__img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border: 3px solid white;
+  border-radius: var(--radius-lg);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 2001;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-16) var(--space-12);
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .budget-card__actions {
+    flex-direction: column;
+  }
+  
+  .budget-card__actions button {
+    width: 100%;
+  }
 }
 </style>
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
 <div class="header">
-  <select id="currencySelector" class="currency-selector">
+  <select class="currency-selector" id="currencySelector">
     <option value="PEN">S/ Soles</option>
     <option value="USD">US$ Dólares</option>
+    <option value="EUR">€ Euros</option>
+    <option value="GBP">£ Libras</option>
   </select>
-  <h1>🦷 Catálogo Dental</h1>
-  <p>Gestión de tratamientos y presupuestos</p>
+  <h1 class="header__title">💊 Catálogo Dental</h1>
+  <p class="header__subtitle">Gestión de Tratamientos, Subcategorías y Presupuestos</p>
 </div>
 
 <div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="view">📋 Ver Tratamientos</button>
+    <button class="tab-btn" data-tab="manage">⚙️ Gestionar</button>
+    <button class="tab-btn" data-tab="budgets">🧾 Presupuestos</button>
+    <button class="tab-btn" data-tab="export">📊 Exportar</button>
+  </div>
 
-<!-- ================= TABS ================= -->
-<div class="tabs">
-  <button class="tab-btn active" data-tab="view">Ver</button>
-  <button class="tab-btn" data-tab="budgets">Presupuestos</button>
-</div>
+  <div id="view" class="tab-content active">
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
 
-<!-- ================= VER ================= -->
-<div id="view" class="tab-content active">
-  <div id="servicesGrid" class="services-grid"></div>
-</div>
+  <div id="manage" class="tab-content">
+    <div id="successMessage"></div>
+    <button class="btn btn-primary" onclick="openModal()" style="margin-bottom: var(--space-24);">➕ Nuevo Tratamiento</button>
+    <div class="services-grid" id="manageGrid"></div>
+  </div>
 
-<!-- ================= PRESUPUESTOS ================= -->
-<div id="budgets" class="tab-content">
-  <h2>Presupuesto</h2>
-  <ul id="budgetItems"></ul>
-  <strong>Total: <span id="budgetTotal">S/ 0</span></strong>
-</div>
+  <div id="budgets" class="tab-content">
+    <div class="budget-form">
+      <h2 class="budget-form__title">➕ Nuevo Presupuesto</h2>
+      
+      <div class="form-group">
+        <label class="form-label">Nombre del Cliente (opcional)</label>
+        <input type="text" id="budgetClientName" class="form-input" placeholder="Ej: Juan Pérez">
+      </div>
 
-</div>
+      <div class="form-group">
+        <label class="form-label">Seleccionar Tratamiento</label>
+        <select id="treatmentSelect" class="form-select">
+          <option value="">-- Selecciona un tratamiento --</option>
+        </select>
+      </div>
 
-<!-- ================= MODAL ================= -->
-<div id="detailModal" class="modal">
-  <div class="modal__content">
-    <span class="modal__close" onclick="closeDetailModal()">✖</span>
-    <h2 id="detailTitle"></h2>
-    <p id="detailDesc"></p>
+      <div class="form-group">
+        <label class="form-label">Subcategoría (opcional)</label>
+        <select id="subcategorySelect" class="form-select" disabled>
+          <option value="">-- Sin subcategoría --</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" onclick="addTreatmentToBudget()">➕ Agregar al Presupuesto</button>
+
+      <div class="budget-items">
+        <h3 class="budget-items__title">Tratamientos Seleccionados</h3>
+        <table class="budget-items-table">
+          <thead>
+            <tr>
+              <th>Tratamiento</th>
+              <th>Subcategoría</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="budgetItemsList"></tbody>
+        </table>
+        <div class="budget-total">Total: <span id="budgetTotal">S/ 0.00</span></div>
+        <div class="budget-actions">
+          <button class="btn btn-primary" onclick="saveCurrentBudget()">💾 Guardar Presupuesto</button>
+          <button class="btn btn-secondary" onclick="clearCurrentBudget()">🗑️ Limpiar</button>
+          <button class="btn btn-secondary" onclick="printCurrentBudget()">🖨️ Imprimir</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="budget-list">
+      <h2 class="budget-list__title">📋 Presupuestos Guardados</h2>
+      <div id="savedBudgetsList"></div>
+    </div>
+  </div>
+
+  <div id="export" class="tab-content">
+    <div class="export-section">
+      <h2 class="export-section__title">Exportar y Descargar Datos</h2>
+      <p style="margin-bottom: var(--space-16); color: var(--color-text-secondary);">
+        Descarga todos tus tratamientos en formato JSON para respaldo o transferencia.
+      </p>
+      <div class="export-section__buttons">
+        <button class="btn btn-primary btn-sm" onclick="exportToJSON()">📥 Descargar JSON</button>
+        <button class="btn btn-secondary btn-sm" onclick="copyToClipboard()">📋 Copiar al Portapapeles</button>
+        <button class="btn btn-secondary btn-sm" onclick="importFromJSON()">📤 Importar JSON</button>
+      </div>
+      <input type="file" id="jsonImportInput" accept=".json" style="display: none;">
+    </div>
   </div>
 </div>
 
-<!-- ================= SCRIPT ================= -->
+<div id="treatmentModal" class="modal">
+  <div class="modal__content">
+    <button class="modal__close" onclick="closeModal()">&times;</button>
+    <h2 class="modal__title" id="modalTitle">Nuevo Tratamiento</h2>
+    
+    <div class="form-group">
+      <label class="form-label">Nombre del Tratamiento</label>
+      <input type="text" id="treatmentName" class="form-input" placeholder="Ej: Ortodoncia">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Descripción Corta</label>
+      <input type="text" id="treatmentShortDesc" class="form-input" placeholder="Descripción breve">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Descripción Ampliada</label>
+      <textarea id="treatmentLongDesc" class="form-textarea" placeholder="Descripción detallada"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Precio Base (opcional)</label>
+      <input type="number" id="treatmentPrice" class="form-input" placeholder="0.00" step="0.01" min="0">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">URL de Imagen</label>
+      <input type="text" id="treatmentImage" class="form-input" placeholder="https://ejemplo.com/imagen.jpg" onchange="updateImagePreview(this.value)">
+      <small style="color: var(--color-text-secondary); display: block; margin-top: var(--space-4);">Usa URL de imagen externa</small>
+      <div class="image-preview">
+        <img id="previewImg" style="display: none;" alt="Preview">
+        <div id="noImagePlaceholder" class="no-image-placeholder">📸 Sin imagen</div>
+      </div>
+    </div>
+
+    <div class="subcategories-section">
+      <h3 class="subcategories-section__title">Subcategorías</h3>
+      
+      <div class="add-subcategory">
+        <div class="add-subcategory__title">➕ Agregar Subcategoría</div>
+        <div class="add-subcategory__inputs">
+          <input type="text" id="subName" class="add-subcategory__input" placeholder="Nombre">
+          <input type="number" id="subPrice" class="add-subcategory__input" placeholder="Precio" step="0.01" min="0">
+          <input type="text" id="subImage" class="add-subcategory__input" placeholder="URL de imagen">
+          <button class="add-subcategory__btn" onclick="addSubcategoryToModal()">Agregar</button>
+        </div>
+      </div>
+
+      <div id="subcategoriesList"></div>
+    </div>
+
+    <div class="modal__buttons">
+      <button class="btn-save" onclick="saveTreatment()">💾 Guardar</button>
+      <button class="btn-cancel" onclick="closeModal()">❌ Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="detailModal" class="modal">
+  <div class="modal__content">
+    <button class="modal__close" onclick="closeDetailModal()">&times;</button>
+    <h2 class="modal__title" id="detailModalTitle"></h2>
+    <img id="detailModalImage" class="detail-modal__image" src="" alt="Tratamiento">
+    <p id="detailModalDescription" class="detail-modal__description"></p>
+    <div class="subcategories-gallery" id="detailSubcategoriesGallery"></div>
+  </div>
+</div>
+
+<div id="lightbox" class="lightbox">
+  <span class="lightbox__close" onclick="closeLightbox()">&times;</span>
+  <img id="lightboxImg" class="lightbox__img" src="" alt="Imagen ampliada">
+</div>
+
 <script>
-/* ===== MONEDA ===== */
-const rates = { PEN: 1, USD: 0.27 };
-const symbols = { PEN: "S/", USD: "US$" };
-let currency = localStorage.getItem("currency") || "PEN";
+const exchangeRates = { PEN: 1, USD: 0.265, EUR: 0.245, GBP: 0.210 };
+const currencySymbols = { PEN: 'S/', USD: 'US$', EUR: '€', GBP: '£' };
+let currentCurrency = localStorage.getItem('selectedCurrency') || 'PEN';
+let currentEditId = null;
+let modalSubcategories = [];
+let currentBudgetItems = [];
 
-/* ===== DATOS ===== */
-const treatments = [
-  {
-    id: 1,
-    name: "Ortodoncia",
-    desc: "Alineación dental con brackets",
-    price: 2500
-  },
-  {
-    id: 2,
-    name: "Endodoncia",
-    desc: "Tratamiento de conducto",
-    price: 700
+class TreatmentManager {
+  constructor() {
+    this.treatments = this.loadFromLocalStorage();
+    if (this.treatments.length === 0) {
+      this.loadDefaultData();
+    }
   }
-];
 
-let budget = [];
+  loadFromLocalStorage() {
+    const stored = localStorage.getItem('dental_treatments');
+    return stored ? JSON.parse(stored) : [];
+  }
 
-/* ===== INIT ===== */
-document.getElementById("currencySelector").value = currency;
-renderServices();
-updateBudget();
+  saveToLocalStorage() {
+    localStorage.setItem('dental_treatments', JSON.stringify(this.treatments));
+  }
 
-/* ===== TABS ===== */
-document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById(btn.dataset.tab).classList.add("active");
-  };
-});
+  loadDefaultData() {
+    this.treatments = [
+      {
+        id: Date.now() + 1,
+        nombre: "Ortodoncia",
+        descripcion_corta: "Alineación dental con brackets",
+        descripcion_ampliada: "Corrige la posición de los dientes mediante brackets y arcos metálicos.",
+        precio: 2500,
+        imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Brackets Metálicos", precio: 2500, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Brackets Autoligado", precio: 3500, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
+          { id: 3, nombre: "Alineadores Invisibles", precio: 4500, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 2,
+        nombre: "Limpieza Dental",
+        descripcion_corta: "Limpieza profesional profunda",
+        descripcion_ampliada: "Remoción de placa y cálculo con instrumentos ultrasónicos.",
+        precio: 120,
+        imagen: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Limpieza Básica", precio: 120, imagen: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Limpieza Profunda", precio: 200, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 3,
+        nombre: "Blanqueamiento",
+        descripcion_corta: "Aclara el color de los dientes",
+        descripcion_ampliada: "Tratamiento profesional para dientes más blancos.",
+        precio: 600,
+        imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Blanqueamiento En Consultorio", precio: 600, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Blanqueamiento Casero", precio: 400, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 4,
+        nombre: "Implante Dental",
+        descripcion_corta: "Reemplazo permanente de diente",
+        descripcion_ampliada: "Tornillo de titanio + corona para restaurar función y estética.",
+        precio: 3200,
+        imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Implante Unitario", precio: 3200, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Implante + Corona", precio: 4500, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=400&fit=crop" }
+        ]
+      },
+      {
+        id: Date.now() + 5,
+        nombre: "Restauración",
+        descripcion_corta: "Reparación de caries",
+        descripcion_ampliada: "Reparación con resinas para devolver funcionalidad y estética.",
+        precio: 250,
+        imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=600&h=400&fit=crop",
+        subcategorias: [
+          { id: 1, nombre: "Resina Anterior", precio: 250, imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=400&h=400&fit=crop" },
+          { id: 2, nombre: "Resina Posterior", precio: 350, imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=400&h=400&fit=crop" }
+        ]
+      }
+    ];
+    this.saveToLocalStorage();
+  }
 
-/* ===== RENDER ===== */
-function renderServices() {
-  const grid = document.getElementById("servicesGrid");
-  grid.innerHTML = "";
-  treatments.forEach(t => {
-    const price = (t.price * rates[currency]).toFixed(2);
-    grid.innerHTML += `
-      <div class="service-card" onclick="openDetail(${t.id})">
-        <h3>${t.name}</h3>
-        <p>${t.desc}</p>
-        <strong>${symbols[currency]} ${price}</strong><br><br>
-        <button class="btn btn-primary" onclick="event.stopPropagation(); addToBudget(${t.id})">
-          Agregar
-        </button>
-      </div>`;
-  });
+  addTreatment(treatment) {
+    treatment.id = Date.now() + Math.random();
+    treatment.subcategorias = treatment.subcategorias || [];
+    this.treatments.push(treatment);
+    this.saveToLocalStorage();
+  }
+
+  updateTreatment(id, treatment) {
+    const index = this.treatments.findIndex(t => t.id === id);
+    if (index !== -1) {
+      treatment.subcategorias = treatment.subcategorias || [];
+      this.treatments[index] = { ...treatment, id };
+      this.saveToLocalStorage();
+    }
+  }
+
+  deleteTreatment(id) {
+    this.treatments = this.treatments.filter(t => t.id !== id);
+    this.saveToLocalStorage();
+  }
+
+  getTreatment(id) {
+    return this.treatments.find(t => t.id === id);
+  }
+
+  exportJSON() {
+    return JSON.stringify(this.treatments, null, 2);
+  }
+
+  importJSON(jsonString) {
+    try {
+      const imported = JSON.parse(jsonString);
+      if (Array.isArray(imported)) {
+        this.treatments = imported.map(t => ({
+          ...t,
+          id: t.id || Date.now() + Math.random(),
+          subcategorias: (t.subcategorias || []).map(s => ({
+            ...s,
+            id: s.id || Date.now() + Math.random()
+          }))
+        }));
+        this.saveToLocalStorage();
+        return true;
+      }
+      return false;
+    } catch (e) {
+      console.error("Error al importar JSON:", e);
+      return false;
+    }
+  }
 }
 
-/* ===== DETALLE ===== */
-function openDetail(id) {
-  const t = treatments.find(x => x.id === id);
-  document.getElementById("detailTitle").textContent = t.name;
-  document.getElementById("detailDesc").textContent = t.desc;
-  document.getElementById("detailModal").classList.add("active");
+class BudgetManager {
+  constructor() {
+    this.budgets = this.loadFromLocalStorage();
+  }
+
+  loadFromLocalStorage() {
+    const stored = localStorage.getItem('dental_budgets');
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('dental_budgets', JSON.stringify(this.budgets));
+  }
+
+  addBudget(budget) {
+    budget.id = Date.now() + Math.random();
+    budget.date = new Date().toISOString();
+    this.budgets.push(budget);
+    this.saveToLocalStorage();
+  }
+
+  deleteBudget(id) {
+    this.budgets = this.budgets.filter(b => b.id !== id);
+    this.saveToLocalStorage();
+  }
+
+  getAllBudgets() {
+    return this.budgets;
+  }
+}
+
+const manager = new TreatmentManager();
+const budgetManager = new BudgetManager();
+
+function formatPrice(price) {
+  if (price == null || isNaN(price)) return `${currencySymbols[currentCurrency]} 0.00`;
+  const rate = exchangeRates[currentCurrency];
+  const symbol = currencySymbols[currentCurrency];
+  const converted = price * rate;
+  return `${symbol} ${converted.toFixed(2)}`;
+}
+
+function updateCurrencySelector() {
+  document.getElementById('currencySelector').value = currentCurrency;
+  renderAllTabs();
+  renderSavedBudgets();
+}
+
+document.getElementById('currencySelector').addEventListener('change', function() {
+  currentCurrency = this.value;
+  localStorage.setItem('selectedCurrency', currentCurrency);
+  updateCurrencySelector();
+});
+
+function openModal(treatmentId = null) {
+  const modal = document.getElementById('treatmentModal');
+  const titleEl = document.getElementById('modalTitle');
+  
+  modalSubcategories = [];
+  document.getElementById('treatmentName').value = '';
+  document.getElementById('treatmentShortDesc').value = '';
+  document.getElementById('treatmentLongDesc').value = '';
+  document.getElementById('treatmentPrice').value = '';
+  document.getElementById('treatmentImage').value = '';
+  document.getElementById('subName').value = '';
+  document.getElementById('subPrice').value = '';
+  document.getElementById('subImage').value = '';
+  document.getElementById('subcategoriesList').innerHTML = '';
+  updateImagePreview('');
+
+  if (treatmentId) {
+    const treatment = manager.getTreatment(treatmentId);
+    if (treatment) {
+      currentEditId = treatmentId;
+      titleEl.textContent = `Editar: ${treatment.nombre}`;
+      document.getElementById('treatmentName').value = treatment.nombre;
+      document.getElementById('treatmentShortDesc').value = treatment.descripcion_corta;
+      document.getElementById('treatmentLongDesc').value = treatment.descripcion_ampliada;
+      document.getElementById('treatmentPrice').value = treatment.precio || '';
+      document.getElementById('treatmentImage').value = treatment.imagen || '';
+      updateImagePreview(treatment.imagen || '');
+      modalSubcategories = (treatment.subcategorias || []).map(sub => ({
+        ...sub,
+        id: sub.id || Date.now() + Math.random()
+      }));
+      renderSubcategoriesInModal();
+    }
+  } else {
+    currentEditId = null;
+    titleEl.textContent = 'Nuevo Tratamiento';
+    modalSubcategories = [];
+  }
+
+  modal.classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('treatmentModal').classList.remove('active');
+  currentEditId = null;
+  modalSubcategories = [];
+  updateImagePreview('');
 }
 
 function closeDetailModal() {
-  document.getElementById("detailModal").classList.remove("active");
+  document.getElementById('detailModal').classList.remove('active');
 }
 
-/* ===== PRESUPUESTO ===== */
-function addToBudget(id) {
-  budget.push(treatments.find(t => t.id === id));
-  updateBudget();
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
 }
 
-function updateBudget() {
-  const ul = document.getElementById("budgetItems");
-  let total = 0;
-  ul.innerHTML = "";
-  budget.forEach(b => {
-    const price = b.price * rates[currency];
-    total += price;
-    ul.innerHTML += `<li>${b.name} - ${symbols[currency]} ${price.toFixed(2)}</li>`;
+function openLightbox(imgSrc) {
+  if (!imgSrc) return;
+  document.getElementById('lightboxImg').src = imgSrc;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function updateImagePreview(url) {
+  url = (url || '').trim();
+  const previewImg = document.getElementById('previewImg');
+  const noImagePlaceholder = document.getElementById('noImagePlaceholder');
+  
+  if (url !== '') {
+    previewImg.src = url;
+    previewImg.style.display = 'block';
+    previewImg.onerror = function() {
+      previewImg.style.display = 'none';
+      noImagePlaceholder.style.display = 'flex';
+    };
+    noImagePlaceholder.style.display = 'none';
+  } else {
+    previewImg.style.display = 'none';
+    noImagePlaceholder.style.display = 'flex';
+  }
+}
+
+function addSubcategoryToModal() {
+  const name = document.getElementById('subName').value.trim();
+  const price = parseFloat(document.getElementById('subPrice').value);
+  const image = document.getElementById('subImage').value.trim();
+
+  if (!name) {
+    alert('Por favor ingresa el nombre de la subcategoría');
+    return;
+  }
+
+  if (isNaN(price) || price < 0) {
+    alert('Por favor ingresa un precio válido');
+    return;
+  }
+
+  modalSubcategories.push({
+    id: Date.now() + Math.random(),
+    nombre: name,
+    precio: price,
+    imagen: image
   });
-  document.getElementById("budgetTotal").textContent =
-    `${symbols[currency]} ${total.toFixed(2)}`;
+
+  document.getElementById('subName').value = '';
+  document.getElementById('subPrice').value = '';
+  document.getElementById('subImage').value = '';
+  renderSubcategoriesInModal();
 }
 
-/* ===== MONEDA ===== */
-document.getElementById("currencySelector").onchange = e => {
-  currency = e.target.value;
-  localStorage.setItem("currency", currency);
-  renderServices();
-  updateBudget();
-};
+function renderSubcategoriesInModal() {
+  const container = document.getElementById('subcategoriesList');
+  container.innerHTML = '';
+
+  if (modalSubcategories.length === 0) {
+    container.innerHTML = '<p style="color: var(--color-text-secondary); text-align: center; padding: var(--space-16);">Sin subcategorías aún</p>';
+    return;
+  }
+
+  modalSubcategories.forEach(sub => {
+    const div = document.createElement('div');
+    div.className = 'subcategory-item';
+    div.innerHTML = `
+      <img src="${sub.imagen || ''}" alt="${sub.nombre}" class="subcategory-item__image" onerror="this.style.opacity='0.3';">
+      <div class="subcategory-item__info">
+        <div class="subcategory-item__name">${sub.nombre}</div>
+        <div class="subcategory-item__price">${formatPrice(sub.precio)}</div>
+      </div>
+      <div class="subcategory-item__actions">
+        <button class="subcategory-item__edit" onclick="editSubcategoryFromModal(${sub.id})">✏️ Editar</button>
+        <button class="subcategory-item__remove" onclick="removeSubcategoryFromModal(${sub.id})">🗑️</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function removeSubcategoryFromModal(subId) {
+  modalSubcategories = modalSubcategories.filter(s => s.id !== subId);
+  renderSubcategoriesInModal();
+}
+
+function editSubcategoryFromModal(subId) {
+  const sub = modalSubcategories.find(s => s.id === subId);
+  if (sub) {
+    document.getElementById('subName').value = sub.nombre;
+    document.getElementById('subPrice').value = sub.precio;
+    document.getElementById('subImage').value = sub.imagen || '';
+    modalSubcategories = modalSubcategories.filter(s => s.id !== subId);
+    renderSubcategoriesInModal();
+    document.getElementById('subName').focus();
+  }
+}
+
+function saveTreatment() {
+  const name = document.getElementById('treatmentName').value.trim();
+  const shortDesc = document.getElementById('treatmentShortDesc').value.trim();
+  const longDesc = document.getElementById('treatmentLongDesc').value.trim();
+  const price = parseFloat(document.getElementById('treatmentPrice').value) || 0;
+  const image = (document.getElementById('treatmentImage').value || '').trim();
+
+  if (!name) {
+    alert('Por favor ingresa el nombre del tratamiento');
+    return;
+  }
+
+  const treatment = {
+    nombre: name,
+    descripcion_corta: shortDesc,
+    descripcion_ampliada: longDesc,
+    precio: price,
+    imagen: image,
+    subcategorias: modalSubcategories
+  };
+
+  if (currentEditId) {
+    manager.updateTreatment(currentEditId, treatment);
+  } else {
+    manager.addTreatment(treatment);
+  }
+
+  closeModal();
+  renderAllTabs();
+  populateTreatmentSelect();
+  showSuccessMessage('✅ Tratamiento guardado correctamente');
+}
+
+function deleteTreatment(id) {
+  if (confirm('¿Estás seguro de que quieres eliminar este tratamiento?')) {
+    manager.deleteTreatment(id);
+    renderAllTabs();
+    populateTreatmentSelect();
+    showSuccessMessage('✅ Tratamiento eliminado');
+  }
+}
+
+function showSuccessMessage(message) {
+  const container = document.getElementById('successMessage');
+  container.innerHTML = `<div class="success-message">${message}</div>`;
+  setTimeout(() => {
+    container.innerHTML = '';
+  }, 4000);
+}
+
+function openDetailModal(treatmentId) {
+  const treatment = manager.getTreatment(treatmentId);
+  if (!treatment) return;
+
+  const modal = document.getElementById('detailModal');
+  document.getElementById('detailModalTitle').textContent = treatment.nombre;
+  document.getElementById('detailModalImage').src = treatment.imagen || '';
+  document.getElementById('detailModalImage').onerror = function() { this.style.display = 'none'; };
+  document.getElementById('detailModalDescription').textContent = treatment.descripcion_ampliada;
+
+  const gallery = document.getElementById('detailSubcategoriesGallery');
+  gallery.innerHTML = '';
+
+  if (treatment.subcategorias && treatment.subcategorias.length > 0) {
+    const title = document.createElement('h3');
+    title.className = 'subcategories-gallery__title';
+    title.textContent = 'Subcategorías';
+    gallery.appendChild(title);
+    
+    const div = document.createElement('div');
+    div.style.display = 'flex';
+    div.style.flexWrap = 'wrap';
+    div.style.gap = '16px';
+    
+    treatment.subcategorias.forEach(sub => {
+      const preview = document.createElement('div');
+      preview.style.cursor = 'pointer';
+      preview.style.textAlign = 'center';
+      preview.onclick = () => openLightbox(sub.imagen);
+      preview.innerHTML = `
+        <img src="${sub.imagen || ''}" alt="${sub.nombre}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid var(--color-border); margin-bottom: 8px;" onerror="this.style.opacity='0.5';">
+        <div style="font-size: 12px; color: var(--color-text-secondary);">${sub.nombre}</div>
+        <div style="font-weight: bold; color: var(--color-primary);">${formatPrice(sub.precio)}</div>
+      `;
+      div.appendChild(preview);
+    });
+    gallery.appendChild(div);
+  }
+
+  modal.classList.add('active');
+}
+
+function renderTreatmentCard(treatment, showButtons = false) {
+  const card = document.createElement('div');
+  card.className = 'service-card';
+  
+  let subcategoriesHTML = '';
+  if (treatment.subcategorias && treatment.subcategorias.length > 0) {
+    subcategoriesHTML = '<div style="margin-top: var(--space-16); border-top: 2px solid var(--color-border); padding-top: var(--space-16);"><div style="font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); margin-bottom: var(--space-12); color: var(--color-primary);">💊 Opciones:</div>';
+    treatment.subcategorias.forEach(sub => {
+      subcategoriesHTML += `
+        <div style="display: flex; justify-content: space-between; font-size: var(--font-size-sm); margin-bottom: var(--space-8); padding: var(--space-8); background-color: rgba(33, 128, 141, 0.05); border-radius: var(--radius-base); border-left: 3px solid var(--color-primary);">
+          <span>${sub.nombre}</span>
+          <span style="color: var(--color-primary); font-weight: var(--font-weight-bold);">${formatPrice(sub.precio)}</span>
+        </div>
+      `;
+    });
+    subcategoriesHTML += '</div>';
+  }
+
+  let priceDisplay = '';
+  if (!treatment.subcategorias || treatment.subcategorias.length === 0) {
+    priceDisplay = `<div style="margin-top: var(--space-8); font-weight: var(--font-weight-bold); color: var(--color-primary);">${formatPrice(treatment.precio)}</div>`;
+  }
+
+  const imageHTML = treatment.imagen ? `<img src="${treatment.imagen.trim()}" alt="${treatment.nombre}" class="service-card__image" onerror="this.style.display='none';">` : '';
+
+  if (showButtons) {
+    card.innerHTML = `
+      ${imageHTML}
+      <div class="service-card__content">
+        <h3 class="service-card__title">${treatment.nombre}</h3>
+        <p class="service-card__description">${treatment.descripcion_corta}</p>
+        ${priceDisplay}
+        ${subcategoriesHTML}
+        <div class="service-card__buttons">
+          <button class="btn btn-primary" onclick="openModal(${treatment.id})">✏️ Editar</button>
+          <button class="btn btn-secondary" onclick="deleteTreatment(${treatment.id})">🗑️ Eliminar</button>
+        </div>
+      </div>
+    `;
+  } else {
+    card.innerHTML = `
+      ${imageHTML}
+      <div class="service-card__content">
+        <h3 class="service-card__title">${treatment.nombre}</h3>
+        <p class="service-card__description">${treatment.descripcion_corta}</p>
+        ${priceDisplay}
+        ${subcategoriesHTML}
+      </div>
+    `;
+    card.addEventListener('click', () => openDetailModal(treatment.id));
+  }
+  
+  return card;
+}
+
+function renderServicesGrid(containerId, showButtons = false) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+
+  if (manager.treatments.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state__icon">📭</div><div class="empty-state__text">Sin tratamientos aún. ¡Crea uno nuevo!</div></div>';
+    return;
+  }
+
+  manager.treatments.forEach(treatment => {
+    container.appendChild(renderTreatmentCard(treatment, showButtons));
+  });
+}
+
+function renderAllTabs() {
+  renderServicesGrid('servicesGrid', false);
+  renderServicesGrid('manageGrid', true);
+}
+
+function exportToJSON() {
+  const json = manager.exportJSON();
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `tratamientos_dentales_${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showSuccessMessage('✅ JSON descargado correctamente');
+}
+
+function copyToClipboard() {
+  const json = manager.exportJSON();
+  navigator.clipboard.writeText(json).then(() => {
+    showSuccessMessage('✅ Copiado al portapapeles');
+  }).catch(() => {
+    alert('No se pudo copiar');
+  });
+}
+
+function importFromJSON() {
+  document.getElementById('jsonImportInput').click();
+}
+
+document.getElementById('jsonImportInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const success = manager.importJSON(event.target.result);
+    if (success) {
+      renderAllTabs();
+      populateTreatmentSelect();
+      showSuccessMessage('✅ Datos importados correctamente');
+    } else {
+      alert('Error: El archivo JSON no es válido');
+    }
+  };
+  reader.readAsText(file);
+});
+
+function populateTreatmentSelect() {
+  const select = document.getElementById('treatmentSelect');
+  select.innerHTML = '<option value="">-- Selecciona un tratamiento --</option>';
+  manager.treatments.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = t.nombre;
+    select.appendChild(opt);
+  });
+}
+
+function onTreatmentChange() {
+  const treatmentId = document.getElementById('treatmentSelect').value;
+  const subSelect = document.getElementById('subcategorySelect');
+  subSelect.innerHTML = '<option value="">-- Sin subcategoría --</option>';
+  subSelect.disabled = true;
+
+  if (treatmentId) {
+    const treatment = manager.getTreatment(parseFloat(treatmentId));
+    if (treatment && treatment.subcategorias && treatment.subcategorias.length > 0) {
+      subSelect.disabled = false;
+      treatment.subcategorias.forEach(sub => {
+        const opt = document.createElement('option');
+        opt.value = sub.id;
+        opt.textContent = `${sub.nombre} - ${formatPrice(sub.precio)}`;
+        opt.dataset.price = sub.precio;
+        subSelect.appendChild(opt);
+      });
+    }
+  }
+}
+
+function addTreatmentToBudget() {
+  const treatmentId = document.getElementById('treatmentSelect').value;
+  if (!treatmentId) {
+    alert('Selecciona un tratamiento');
+    return;
+  }
+
+  const treatment = manager.getTreatment(parseFloat(treatmentId));
+  if (!treatment) return;
+
+  const subId = document.getElementById('subcategorySelect').value;
+  let item = {
+    treatmentId: treatment.id,
+    treatmentName: treatment.nombre,
+    subcategoryId: null,
+    subcategoryName: null,
+    price: treatment.precio
+  };
+
+  if (subId) {
+    const sub = treatment.subcategorias.find(s => s.id == subId);
+    if (sub) {
+      item.subcategoryId = sub.id;
+      item.subcategoryName = sub.nombre;
+      item.price = sub.precio;
+    }
+  }
+
+  currentBudgetItems.push(item);
+  renderBudgetItems();
+}
+
+function renderBudgetItems() {
+  const tbody = document.getElementById('budgetItemsList');
+  tbody.innerHTML = '';
+  let total = 0;
+
+  currentBudgetItems.forEach((item, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${item.treatmentName}</td>
+      <td>${item.subcategoryName || '—'}</td>
+      <td>${formatPrice(item.price)}</td>
+      <td><button class="btn btn-secondary btn-sm" onclick="removeBudgetItem(${index})">🗑️</button></td>
+    `;
+    tbody.appendChild(row);
+    total += item.price;
+  });
+
+  document.getElementById('budgetTotal').textContent = formatPrice(total);
+}
+
+function removeBudgetItem(index) {
+  currentBudgetItems.splice(index, 1);
+  renderBudgetItems();
+}
+
+function clearCurrentBudget() {
+  currentBudgetItems = [];
+  document.getElementById('budgetClientName').value = '';
+  document.getElementById('treatmentSelect').selectedIndex = 0;
+  document.getElementById('subcategorySelect').innerHTML = '<option value="">-- Sin subcategoría --</option>';
+  document.getElementById('subcategorySelect').disabled = true;
+  renderBudgetItems();
+}
+
+function saveCurrentBudget() {
+  if (currentBudgetItems.length === 0) {
+    alert('Agrega al menos un tratamiento al presupuesto');
+    return;
+  }
+
+  const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
+  const budget = {
+    clientName,
+    items: currentBudgetItems.map(item => ({ ...item })),
+    total: currentBudgetItems.reduce((sum, item) => sum + item.price, 0)
+  };
+
+  budgetManager.addBudget(budget);
+  clearCurrentBudget();
+  renderSavedBudgets();
+  showSuccessMessage('✅ Presupuesto guardado');
+}
+
+function renderSavedBudgets() {
+  const container = document.getElementById('savedBudgetsList');
+  const budgets = budgetManager.getAllBudgets();
+
+  if (budgets.length === 0) {
+    container.innerHTML = '<p style="color: var(--color-text-secondary);">No hay presupuestos guardados aún.</p>';
+    return;
+  }
+
+  container.innerHTML = '';
+  budgets.forEach(budget => {
+    const div = document.createElement('div');
+    div.className = 'budget-card';
+    const date = new Date(budget.date).toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    let itemsHTML = '';
+    budget.items.forEach(item => {
+      itemsHTML += `<div class="budget-card__item"><span>${item.treatmentName}${item.subcategoryName ? ` - ${item.subcategoryName}` : ''}</span> <span>${formatPrice(item.price)}</span></div>`;
+    });
+
+    div.innerHTML = `
+      <div class="budget-card__header">
+        <div class="budget-card__title">${budget.clientName}</div>
+        <div class="budget-card__date">${date}</div>
+      </div>
+      <div class="budget-card__items">${itemsHTML}</div>
+      <div class="budget-card__total">Total: ${formatPrice(budget.total)}</div>
+      <div class="budget-card__actions">
+        <button class="btn btn-primary btn-sm" onclick="printBudget('${budget.id}')">🖨️ Imprimir</button>
+        <button class="btn btn-whatsapp btn-sm" onclick="sendBudgetToWhatsApp('${budget.id}')">📱 WhatsApp</button>
+        <button class="btn btn-secondary btn-sm" onclick="deleteBudget('${budget.id}')">🗑️ Eliminar</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function deleteBudget(id) {
+  if (confirm('¿Eliminar este presupuesto?')) {
+    budgetManager.deleteBudget(parseFloat(id));
+    renderSavedBudgets();
+    showSuccessMessage('✅ Presupuesto eliminado');
+  }
+}
+
+function printBudget(budgetId) {
+  const budget = budgetManager.getAllBudgets().find(b => b.id == budgetId);
+  if (!budget) return;
+
+  const win = window.open('', '_blank');
+  if (!win) {
+    alert('Permite ventanas emergentes para imprimir');
+    return;
+  }
+
+  const clientName = budget.clientName || 'Cliente sin nombre';
+  const date = new Date(budget.date).toLocaleDateString('es-ES');
+  let itemsHTML = '';
+  let total = 0;
+
+  budget.items.forEach(item => {
+    itemsHTML += `
+      <tr>
+        <td>${item.treatmentName}</td>
+        <td>${item.subcategoryName || '—'}</td>
+        <td>${formatPrice(item.price)}</td>
+      </tr>
+    `;
+    total += item.price;
+  });
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Presupuesto Dental - ${clientName}</title>
+      <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { text-align: center; color: #1f2937; margin-bottom: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #333; padding: 10px; text-align: left; }
+        th { background-color: #f3f4f6; }
+        .total { text-align: right; font-weight: bold; font-size: 1.2em; margin-top: 20px; }
+      </style>
+    </head>
+    <body>
+      <h1>💊 Catálogo Dental - Presupuesto</h1>
+      <div class="header">
+        <p><strong>Cliente:</strong> ${clientName}</p>
+        <p><strong>Fecha:</strong> ${date}</p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Tratamiento</th>
+            <th>Subcategoría</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemsHTML}
+        </tbody>
+      </table>
+      <div class="total">TOTAL: ${formatPrice(total)}</div>
+      <script>
+        window.onload = function() {
+          window.print();
+          setTimeout(() => window.close(), 1000);
+        };
+      </script>
+    </body>
+    </html>
+  `;
+
+  win.document.write(html);
+  win.document.close();
+}
+
+function printCurrentBudget() {
+  if (currentBudgetItems.length === 0) {
+    alert('No hay tratamientos en el presupuesto');
+    return;
+  }
+
+  const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
+  const budget = {
+    clientName,
+    items: [...currentBudgetItems],
+    total: currentBudgetItems.reduce((sum, item) => sum + item.price, 0),
+    date: new Date().toISOString(),
+    id: Date.now()
+  };
+
+  budgetManager.budgets.push(budget);
+  printBudget(budget.id);
+  budgetManager.budgets = budgetManager.budgets.filter(b => b.id !== budget.id);
+}
+
+function sendBudgetToWhatsApp(budgetId) {
+  const budget = budgetManager.getAllBudgets().find(b => b.id == budgetId);
+  if (!budget) return;
+
+  let message = `¡Hola! Aquí tienes tu presupuesto dental de *DentiStudio*:\n\n`;
+  message += `*Cliente:* ${budget.clientName}\n`;
+  message += `*Detalles:*\n`;
+
+  budget.items.forEach(item => {
+    const subcat = item.subcategoryName ? ` (${item.subcategoryName})` : '';
+    message += `- ${item.treatmentName}${subcat}: ${formatPrice(item.price)}\n`;
+  });
+
+  message += `\n*Total:* ${formatPrice(budget.total)}\n`;
+  message += `\n¿Te gustaría agendar una cita? 😊`;
+
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+
+  window.open(whatsappUrl, '_blank');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tabName = this.getAttribute('data-tab');
+    
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    
+    this.classList.add('active');
+    document.getElementById(tabName).classList.add('active');
+
+    if (tabName === 'budgets') {
+      populateTreatmentSelect();
+      renderSavedBudgets();
+    }
+  });
+});
+
+document.getElementById('treatmentSelect').addEventListener('change', onTreatmentChange);
+
+['treatmentModal', 'detailModal', 'lightbox'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('active');
+    }
+  });
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+  updateCurrencySelector();
+  renderAllTabs();
+});
 </script>
 
 </body>
 </html>
-
