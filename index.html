@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo Dental - Sistema de Tratamientos y Presupuestos</title>
+<title>Catálogo Dental - Sistema Profesional</title>
 <style>
 :root {
   --color-white: rgba(255, 255, 255, 1);
@@ -125,11 +125,16 @@ body {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(4px);
   border-radius: var(--radius-base);
-  padding: var(--space-4) var(--space-8);
-  border: none;
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+
+.currency-selector:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .container {
@@ -192,7 +197,6 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  cursor: pointer;
 }
 
 .service-card::before {
@@ -235,7 +239,6 @@ body {
 .service-card__buttons {
   display: flex;
   gap: var(--space-8);
-  margin-top: var(--space-12);
 }
 
 .btn {
@@ -288,18 +291,15 @@ body {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
   padding: var(--space-32);
-  max-width: 800px;
+  max-width: 600px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--shadow-lg);
-  position: relative;
 }
 
 .modal__close {
-  position: absolute;
-  top: var(--space-16);
-  right: var(--space-16);
+  float: right;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-secondary);
@@ -335,7 +335,7 @@ body {
   font-size: var(--font-size-base);
 }
 
-.form-input, .form-textarea, .form-select {
+.form-input, .form-textarea {
   width: 100%;
   padding: var(--space-8) var(--space-12);
   border: 1px solid var(--color-border);
@@ -347,7 +347,7 @@ body {
   transition: border-color var(--duration-normal) var(--ease-standard);
 }
 
-.form-input:focus, .form-textarea:focus, .form-select:focus {
+.form-input:focus, .form-textarea:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(33, 128, 141, 0.1);
@@ -570,18 +570,6 @@ body {
   color: var(--color-text);
 }
 
-.button-group {
-  display: flex;
-  gap: var(--space-12);
-  margin-top: var(--space-16);
-  flex-wrap: wrap;
-}
-
-.btn-sm {
-  padding: var(--space-8) var(--space-12);
-  font-size: var(--font-size-sm);
-}
-
 .export-section {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
@@ -602,241 +590,187 @@ body {
   flex-wrap: wrap;
 }
 
-/* === NUEVO: ESTILOS PARA PRESUPUESTOS Y MONEDA === */
-.budget-form {
-  background: var(--color-surface);
+.budget-section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
   padding: var(--space-24);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-card-border);
-  margin-bottom: var(--space-32);
+  border: 2px solid var(--color-card-border);
 }
 
-.budget-form__title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-20);
+.budget-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+  align-items: end;
+}
+
+.budget-form select {
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background-color: var(--color-surface);
   color: var(--color-text);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+}
+
+.budget-form select:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
 .budget-items {
-  margin-top: var(--space-24);
+  margin-bottom: var(--space-24);
 }
 
-.budget-items__title {
-  font-size: var(--font-size-lg);
+.budget-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-16);
+  background-color: var(--color-background);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-12);
+  border-left: 4px solid var(--color-primary);
+}
+
+.budget-item__info {
+  flex: 1;
+}
+
+.budget-item__name {
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-16);
+  color: var(--color-text);
 }
 
-.budget-items-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: var(--space-8);
-}
-
-.budget-items-table th,
-.budget-items-table td {
-  padding: var(--space-12);
-  text-align: left;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.budget-items-table th {
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-medium);
+.budget-item__sub {
   font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
 }
 
-.budget-total {
-  margin-top: var(--space-20);
-  text-align: right;
+.budget-item__price {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
+  margin-right: var(--space-16);
+}
+
+.budget-item__remove {
+  padding: var(--space-6) var(--space-12);
+  background-color: var(--color-error);
+  color: white;
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+}
+
+.budget-item__remove:hover {
+  background-color: #dc2626;
+}
+
+.budget-total {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-600) 100%);
+  color: white;
+  padding: var(--space-20);
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
 }
 
 .budget-actions {
   display: flex;
   gap: var(--space-12);
-  margin-top: var(--space-24);
-  flex-wrap: wrap;
-}
-
-.budget-list {
-  margin-top: var(--space-32);
-}
-
-.budget-list__title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-20);
-}
-
-.budget-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-card-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-20);
-  margin-bottom: var(--space-16);
-  box-shadow: var(--shadow-sm);
-}
-
-.budget-card__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-16);
-}
-
-.budget-card__title {
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-lg);
-}
-
-.budget-card__date {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
-
-.budget-card__items {
-  margin: var(--space-16) 0;
-}
-
-.budget-card__item {
-  display: flex;
-  justify-content: space-between;
-  font-size: var(--font-size-base);
-  margin-bottom: var(--space-8);
-}
-
-.budget-card__total {
-  margin-top: var(--space-16);
-  text-align: right;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  font-size: var(--font-size-lg);
-}
-
-.budget-card__actions {
-  display: flex;
-  gap: var(--space-8);
   margin-top: var(--space-16);
 }
 
-/* Modal de vista detallada */
-.detail-modal__image {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: var(--radius-lg);
-  margin-bottom: var(--space-20);
-  background-color: var(--color-background);
-}
-
-.detail-modal__description {
-  margin-bottom: var(--space-24);
-  line-height: 1.7;
-}
-
-.subcategories-gallery {
-  margin-top: var(--space-24);
-}
-
-.subcategories-gallery__title {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-16);
-}
-
-.subcategory-preview {
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-  margin-right: var(--space-12);
-  margin-bottom: var(--space-12);
-  border-radius: var(--radius-base);
-  overflow: hidden;
-  border: 2px solid var(--color-border);
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.subcategory-preview:hover {
-  transform: scale(1.05);
-}
-
-.subcategory-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.subcategory-preview__label {
-  display: block;
-  text-align: center;
+.btn-sm {
+  padding: var(--space-8) var(--space-12);
   font-size: var(--font-size-sm);
-  margin-top: var(--space-4);
-  color: var(--color-text-secondary);
 }
 
-/* Lightbox para imagen ampliada */
-.lightbox {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-}
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-20) var(--space-16);
+  }
 
-.lightbox.active {
-  display: flex;
-}
+  .header {
+    padding: var(--space-20) var(--space-16);
+  }
 
-.lightbox__img {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  border: 3px solid white;
-  border-radius: var(--radius-lg);
-}
+  .header__title {
+    font-size: var(--font-size-3xl);
+  }
 
-.lightbox__close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 30px;
-  cursor: pointer;
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal__content {
+    width: 95%;
+    padding: var(--space-20);
+  }
+
+  .add-subcategory__inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .budget-form {
+    grid-template-columns: 1fr;
+  }
+
+  .budget-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .budget-item__price {
+    margin-right: 0;
+    margin-top: var(--space-12);
+  }
+
+  .tabs {
+    gap: var(--space-8);
+  }
+
+  .tab-btn {
+    padding: var(--space-8) var(--space-12);
+    font-size: var(--font-size-base);
+  }
+
+  .currency-selector {
+    position: static;
+    margin-top: var(--space-16);
+  }
 }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <select class="currency-selector" id="currencySelector">
-    <option value="PEN">S/ Soles</option>
-    <option value="USD">US$ Dólares</option>
-    <option value="EUR">€ Euros</option>
-    <option value="GBP">£ Libras</option>
+  <h1 class="header__title">💊 Catálogo Dental Profesional</h1>
+  <p class="header__subtitle">Gestión Integral de Tratamientos</p>
+  <select id="currencySelect" class="currency-selector" onchange="changeCurrency(this.value)">
+    <option value="USD">💵 USD</option>
+    <option value="PEN">🇵🇪 PEN</option>
+    <option value="EUR">💶 EUR</option>
+    <option value="MXN">🇲🇽 MXN</option>
   </select>
-  <h1 class="header__title">💊 Catálogo Dental</h1>
-  <p class="header__subtitle">Gestión de Tratamientos, Subcategorías y Presupuestos</p>
 </div>
 
 <div class="container">
   <div class="tabs">
-    <button class="tab-btn active" data-tab="view">📋 Ver Tratamientos</button>
+    <button class="tab-btn active" data-tab="view">📋 Ver Catálogo</button>
     <button class="tab-btn" data-tab="manage">⚙️ Gestionar</button>
-    <button class="tab-btn" data-tab="budgets">🧾 Presupuestos</button>
-    <button class="tab-btn" data-tab="export">📊 Exportar</button>
+    <button class="tab-btn" data-tab="budget">📊 Presupuestos</button>
+    <button class="tab-btn" data-tab="export">📥 Exportar</button>
   </div>
 
-  <!-- TAB: VER TRATAMIENTOS -->
+  <!-- TAB: VER CATÁLOGO -->
   <div id="view" class="tab-content active">
     <div class="services-grid" id="servicesGrid"></div>
   </div>
@@ -844,63 +778,39 @@ body {
   <!-- TAB: GESTIONAR -->
   <div id="manage" class="tab-content">
     <div id="successMessage"></div>
+    <button class="btn btn-primary" style="margin-bottom: var(--space-24);" onclick="openModal()">➕ Nuevo Tratamiento</button>
     <div class="services-grid" id="manageGrid"></div>
   </div>
 
   <!-- TAB: PRESUPUESTOS -->
-  <div id="budgets" class="tab-content">
-    <div class="budget-form">
-      <h2 class="budget-form__title">➕ Nuevo Presupuesto</h2>
-      
-      <div class="form-group">
-        <label class="form-label">Nombre del Cliente (opcional)</label>
-        <input type="text" id="budgetClientName" class="form-input" placeholder="Ej: Juan Pérez">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Seleccionar Tratamiento</label>
-        <select id="treatmentSelect" class="form-select">
-          <option value="">-- Selecciona un tratamiento --</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Subcategoría (opcional)</label>
-        <select id="subcategorySelect" class="form-select" disabled>
-          <option value="">-- Sin subcategoría --</option>
-        </select>
-      </div>
-
-      <button class="btn btn-primary" onclick="addTreatmentToBudget()">➕ Agregar al Presupuesto</button>
-
-      <div class="budget-items">
-        <h3 class="budget-items__title">Tratamientos Seleccionados</h3>
-        <table class="budget-items-table">
-          <thead>
-            <tr>
-              <th>Tratamiento</th>
-              <th>Subcategoría</th>
-              <th>Precio</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="budgetItemsList">
-            <!-- Items dinámicos -->
-          </tbody>
-        </table>
-        <div class="budget-total">Total: <span id="budgetTotal">$0.00</span></div>
-        <div class="budget-actions">
-          <button class="btn btn-primary" onclick="saveCurrentBudget()">💾 Guardar Presupuesto</button>
-          <button class="btn btn-secondary" onclick="clearCurrentBudget()">🗑️ Limpiar</button>
-          <button class="btn btn-secondary" onclick="printCurrentBudget()">🖨️ Imprimir</button>
+  <div id="budget" class="tab-content">
+    <div class="budget-section">
+      <h2 style="margin-bottom: var(--space-20); color: var(--color-text);">Crear Presupuesto</h2>
+      <div class="budget-form">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" style="margin-bottom: var(--space-4);">Tratamiento</label>
+          <select id="treatmentSelect" onchange="onTreatmentChange()">
+            <option value="">-- Selecciona un tratamiento --</option>
+          </select>
         </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" style="margin-bottom: var(--space-4);">Opción</label>
+          <select id="subcategorySelect" disabled>
+            <option value="">-- Sin subcategoría --</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="addTreatmentToBudget()">Agregar</button>
       </div>
-    </div>
 
-    <div class="budget-list">
-      <h2 class="budget-list__title">📋 Presupuestos Guardados</h2>
-      <div id="savedBudgetsList">
-        <!-- Lista dinámica -->
+      <div class="budget-items" id="budgetItems"></div>
+      <div class="budget-total" id="budgetTotal" style="display: none;">
+        <span>Total del Presupuesto:</span>
+        <span id="totalAmount">$0.00</span>
+      </div>
+
+      <div class="budget-actions">
+        <button class="btn btn-primary btn-sm" onclick="printBudget()">🖨️ Imprimir Presupuesto</button>
+        <button class="btn btn-secondary btn-sm" onclick="clearBudget()">🗑️ Limpiar</button>
       </div>
     </div>
   </div>
@@ -982,45 +892,8 @@ body {
   </div>
 </div>
 
-<!-- MODAL DE VISTA DETALLADA -->
-<div id="detailModal" class="modal">
-  <div class="modal__content">
-    <button class="modal__close" onclick="closeDetailModal()">&times;</button>
-    <h2 class="modal__title" id="detailModalTitle"></h2>
-    <img id="detailModalImage" class="detail-modal__image" src="" alt="Tratamiento">
-    <p id="detailModalDescription" class="detail-modal__description"></p>
-
-    <div class="subcategories-gallery" id="detailSubcategoriesGallery">
-      <!-- Galería dinámica -->
-    </div>
-  </div>
-</div>
-
-<!-- LIGHTBOX PARA IMAGEN AMPLIADA -->
-<div id="lightbox" class="lightbox">
-  <span class="lightbox__close" onclick="closeLightbox()">&times;</span>
-  <img id="lightboxImg" class="lightbox__img" src="" alt="Imagen ampliada">
-</div>
-
 <script>
-// ============= CONFIGURACIÓN DE MONEDA =============
-const exchangeRates = {
-  PEN: 1,
-  USD: 0.265,
-  EUR: 0.245,
-  GBP: 0.210
-};
-
-const currencySymbols = {
-  PEN: 'S/',
-  USD: 'US$',
-  EUR: '€',
-  GBP: '£'
-};
-
-let currentCurrency = localStorage.getItem('selectedCurrency') || 'PEN';
-
-// ============= CLASES Y DATOS =============
+// ============= GESTIÓN DE DATOS =============
 
 class TreatmentManager {
   constructor() {
@@ -1049,9 +922,9 @@ class TreatmentManager {
         precio: 2500,
         imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&h=300&fit=crop",
         subcategorias: [
-          { id: 1, nombre: "Brackets Metálicos Convencionales", precio: 2500, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Brackets de Autoligado", precio: 3500, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Alineadores Invisibles", precio: 4500, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=200&h=200&fit=crop" }
+          { id: 1, nombre: "Brackets Metálicos Convencionales", precio: 2500, imagen: "" },
+          { id: 2, nombre: "Brackets de Autoligado", precio: 3500, imagen: "" },
+          { id: 3, nombre: "Alineadores Invisibles", precio: 4500, imagen: "" }
         ]
       },
       {
@@ -1062,8 +935,8 @@ class TreatmentManager {
         precio: 700,
         imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=500&h=300&fit=crop",
         subcategorias: [
-          { id: 1, nombre: "Endodoncia Monoradicular", precio: 600, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Endodoncia Multiradicular", precio: 1000, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" }
+          { id: 1, nombre: "Endodoncia Monoradicular", precio: 600, imagen: "" },
+          { id: 2, nombre: "Endodoncia Multiradicular", precio: 1000, imagen: "" }
         ]
       },
       {
@@ -1074,8 +947,8 @@ class TreatmentManager {
         precio: 120,
         imagen: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&h=300&fit=crop",
         subcategorias: [
-          { id: 1, nombre: "Limpieza Básica", precio: 120, imagen: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Limpieza Profunda", precio: 200, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" }
+          { id: 1, nombre: "Limpieza Básica", precio: 120, imagen: "" },
+          { id: 2, nombre: "Limpieza Profunda", precio: 200, imagen: "" }
         ]
       },
       {
@@ -1086,9 +959,9 @@ class TreatmentManager {
         precio: 3200,
         imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=500&h=300&fit=crop",
         subcategorias: [
-          { id: 1, nombre: "Implante Unitario", precio: 3200, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Implante + Corona", precio: 4500, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Implante Inmediato", precio: 3800, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop" }
+          { id: 1, nombre: "Implante Unitario", precio: 3200, imagen: "" },
+          { id: 2, nombre: "Implante + Corona", precio: 4500, imagen: "" },
+          { id: 3, nombre: "Implante Inmediato", precio: 3800, imagen: "" }
         ]
       },
       {
@@ -1099,100 +972,9 @@ class TreatmentManager {
         precio: 600,
         imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=500&h=300&fit=crop",
         subcategorias: [
-          { id: 1, nombre: "Blanqueamiento En Consultorio", precio: 600, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Blanqueamiento Casero", precio: 400, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Tratamiento Completo", precio: 900, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=200&h=200&fit=crop" }
-        ]
-      },
-      {
-        id: Date.now() + 6,
-        nombre: "Corona Dental",
-        descripcion_corta: "Protección de diente dañado",
-        descripcion_ampliada: "Funda cerámica o metálica que protege dientes fracturados o tratados endodónticamente.",
-        precio: 800,
-        imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=300&fit=crop",
-        subcategorias: [
-          { id: 1, nombre: "Corona de Porcelana", precio: 800, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Corona Zirconio", precio: 1200, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Corona Temporal", precio: 300, imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=200&h=200&fit=crop" }
-        ]
-      },
-      {
-        id: Date.now() + 7,
-        nombre: "Restauración Dental",
-        descripcion_corta: "Reparación de caries con resinas",
-        descripcion_ampliada: "Reparación de cavidades con materiales adhesivos para devolver funcionalidad y estética.",
-        precio: 250,
-        imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=500&h=300&fit=crop",
-        subcategorias: [
-          { id: 1, nombre: "Resina Anterior", precio: 250, imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Resina Posterior", precio: 350, imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Restauración Compleja", precio: 500, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" }
-        ]
-      },
-      {
-        id: Date.now() + 8,
-        nombre: "Exodoncia",
-        descripcion_corta: "Extracción segura y profesional",
-        descripcion_ampliada: "Extracción profesional con anestesia y técnicas modernas para mínimas molestias.",
-        precio: 150,
-        imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=500&h=300&fit=crop",
-        subcategorias: [
-          { id: 1, nombre: "Extracción Simple", precio: 150, imagen: "https://images.unsplash.com/photo-1606811893521-611b6d996e38?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Extracción Quirúrgica", precio: 350, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Múltiples Extracciones", precio: 800, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" }
-        ]
-      },
-      {
-        id: Date.now() + 9,
-        nombre: "Prótesis Removibles",
-        descripcion_corta: "Dentaduras parciales removibles",
-        descripcion_ampliada: "Solución removible para reemplazar varios dientes perdidos de forma económica.",
-        precio: 1200,
-        imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=300&fit=crop",
-        subcategorias: [
-          { id: 1, nombre: "Prótesis Parcial Removible", precio: 1200, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Prótesis Completa", precio: 1800, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Reparación de Prótesis", precio: 250, imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=200&h=200&fit=crop" }
-        ]
-      },
-      {
-        id: Date.now() + 10,
-        nombre: "Periodoncia",
-        descripcion_corta: "Tratamiento de encías y hueso",
-        descripcion_ampliada: "Tratamiento especializado para gingivitis, periodontitis y regeneración ósea.",
-        precio: 500,
-        imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=500&h=300&fit=crop",
-        subcategorias: [
-          { id: 1, nombre: "Raspado y Alisado", precio: 400, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Cirugía Periodontal", precio: 1500, imagen: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Injerto de Encía", precio: 1200, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop" }
-        ]
-      },
-      {
-        id: Date.now() + 11,
-        nombre: "Ortopedia Dental",
-        descripcion_corta: "Corrección de malformaciones",
-        descripcion_ampliada: "Tratamiento para corregir problemas óseos y dentales en etapas tempranas.",
-        precio: 1500,
-        imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&h=300&fit=crop",
-        subcategorias: [
-          { id: 1, nombre: "Expansor Maxilar", precio: 1500, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Disyuntores", precio: 1200, imagen: "https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Aparatología Funcional", precio: 1800, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=200&h=200&fit=crop" }
-        ]
-      },
-      {
-        id: Date.now() + 12,
-        nombre: "Odontología Cosmética",
-        descripcion_corta: "Mejora estética de la sonrisa",
-        descripcion_ampliada: "Tratamientos estéticos para mejorar la aparencia de tu sonrisa y confianza.",
-        precio: 700,
-        imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=500&h=300&fit=crop",
-        subcategorias: [
-          { id: 1, nombre: "Carillas Directas", precio: 500, imagen: "https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=200&h=200&fit=crop" },
-          { id: 2, nombre: "Carillas Indirectas", precio: 1200, imagen: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop" },
-          { id: 3, nombre: "Remodelado Dental", precio: 300, imagen: "https://images.unsplash.com/photo-1606811841693-11217335e891?w=200&h=200&fit=crop" }
+          { id: 1, nombre: "Blanqueamiento En Consultorio", precio: 600, imagen: "" },
+          { id: 2, nombre: "Blanqueamiento Casero", precio: 400, imagen: "" },
+          { id: 3, nombre: "Tratamiento Completo", precio: 900, imagen: "" }
         ]
       }
     ];
@@ -1200,7 +982,7 @@ class TreatmentManager {
   }
 
   addTreatment(treatment) {
-    treatment.id = Date.now() + Math.random();
+    treatment.id = Date.now();
     this.treatments.push(treatment);
     this.saveToLocalStorage();
   }
@@ -1230,14 +1012,7 @@ class TreatmentManager {
     try {
       const imported = JSON.parse(jsonString);
       if (Array.isArray(imported)) {
-        this.treatments = imported.map(t => ({
-          ...t,
-          id: t.id || Date.now() + Math.random(),
-          subcategorias: (t.subcategorias || []).map(s => ({
-            ...s,
-            id: s.id || Date.now() + Math.random()
-          }))
-        }));
+        this.treatments = imported;
         this.saveToLocalStorage();
         return true;
       }
@@ -1248,67 +1023,41 @@ class TreatmentManager {
   }
 }
 
-class BudgetManager {
-  constructor() {
-    this.budgets = this.loadFromLocalStorage();
-  }
-
-  loadFromLocalStorage() {
-    const stored = localStorage.getItem('dental_budgets');
-    return stored ? JSON.parse(stored) : [];
-  }
-
-  saveToLocalStorage() {
-    localStorage.setItem('dental_budgets', JSON.stringify(this.budgets));
-  }
-
-  addBudget(budget) {
-    budget.id = Date.now() + Math.random();
-    budget.date = new Date().toISOString();
-    this.budgets.push(budget);
-    this.saveToLocalStorage();
-  }
-
-  deleteBudget(id) {
-    this.budgets = this.budgets.filter(b => b.id !== id);
-    this.saveToLocalStorage();
-  }
-
-  getAllBudgets() {
-    return this.budgets;
-  }
-}
-
-// ============= INSTANCIAS GLOBALES =============
+// ============= VARIABLES GLOBALES =============
 const manager = new TreatmentManager();
-const budgetManager = new BudgetManager();
-
-// ============= FUNCIONES DE MONEDA =============
-function formatPrice(price) {
-  const rate = exchangeRates[currentCurrency];
-  const symbol = currencySymbols[currentCurrency];
-  const converted = price * rate;
-  return `${symbol} ${converted.toFixed(2)}`;
-}
-
-function updateCurrencySelector() {
-  document.getElementById('currencySelector').value = currentCurrency;
-  renderAllTabs();
-  renderSavedBudgets();
-}
-
-document.getElementById('currencySelector').addEventListener('change', function() {
-  currentCurrency = this.value;
-  localStorage.setItem('selectedCurrency', currentCurrency);
-  updateCurrencySelector();
-});
-
-// ============= VARIABLES DE MODAL Y PRESUPUESTO =============
 let currentEditId = null;
 let modalSubcategories = [];
+let currentCurrency = 'USD';
 let currentBudgetItems = [];
 
-// ============= FUNCIONES DE UI =============
+const currencyRates = {
+  'USD': 1,
+  'PEN': 3.8,
+  'EUR': 0.92,
+  'MXN': 17.5
+};
+
+const currencySymbols = {
+  'USD': '$',
+  'PEN': 'S/.',
+  'EUR': '€',
+  'MXN': '$'
+};
+
+// ============= FUNCIONES DE MONEDA =============
+
+function changeCurrency(currency) {
+  currentCurrency = currency;
+  renderAllTabs();
+  renderBudgetItems();
+}
+
+function formatPrice(price) {
+  const converted = price * currencyRates[currentCurrency];
+  return `${currencySymbols[currentCurrency]} ${converted.toFixed(2)}`;
+}
+
+// ============= FUNCIONES DE MODAL =============
 
 function openModal(treatmentId = null) {
   const modal = document.getElementById('treatmentModal');
@@ -1322,6 +1071,7 @@ function openModal(treatmentId = null) {
   document.getElementById('treatmentImage').value = '';
   document.getElementById('subName').value = '';
   document.getElementById('subPrice').value = '';
+  document.getElementById('subImage').value = '';
   document.getElementById('subcategoriesList').innerHTML = '';
   updateImagePreview('');
 
@@ -1336,10 +1086,7 @@ function openModal(treatmentId = null) {
       document.getElementById('treatmentPrice').value = treatment.precio || '';
       document.getElementById('treatmentImage').value = treatment.imagen || '';
       updateImagePreview(treatment.imagen || '');
-      modalSubcategories = (treatment.subcategorias || []).map(sub => ({
-        ...sub,
-        id: sub.id || Date.now() + Math.random()
-      }));
+      modalSubcategories = JSON.parse(JSON.stringify(treatment.subcategorias || []));
       renderSubcategoriesInModal();
     }
   } else {
@@ -1358,26 +1105,11 @@ function closeModal() {
   updateImagePreview('');
 }
 
-function closeDetailModal() {
-  document.getElementById('detailModal').classList.remove('active');
-}
-
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
-}
-
-function openLightbox(imgSrc) {
-  if (!imgSrc) return;
-  document.getElementById('lightboxImg').src = imgSrc;
-  document.getElementById('lightbox').classList.add('active');
-}
-
 function updateImagePreview(url) {
-  url = (url || '').trim();
   const previewImg = document.getElementById('previewImg');
   const noImagePlaceholder = document.getElementById('noImagePlaceholder');
   
-  if (url !== '') {
+  if (url && url.trim() !== '') {
     previewImg.src = url;
     previewImg.style.display = 'block';
     previewImg.onerror = function() {
@@ -1407,7 +1139,7 @@ function addSubcategoryToModal() {
   }
 
   modalSubcategories.push({
-    id: Date.now() + Math.random(),
+    id: Date.now(),
     nombre: name,
     precio: price,
     imagen: image
@@ -1429,20 +1161,17 @@ function renderSubcategoriesInModal() {
   }
 
   modalSubcategories.forEach(sub => {
-    const imgHTML = sub.imagen 
-      ? `<img src="${sub.imagen.trim()}" alt="${sub.nombre}" class="subcategory-item__image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
-      : '';
-    const fallbackHTML = `<div class="subcategory-item__image" style="display: ${sub.imagen ? 'none' : 'flex'}; align-items: center; justify-content: center; color: var(--color-text-secondary);">📷</div>`;
     const div = document.createElement('div');
     div.className = 'subcategory-item';
+    const imgHTML = sub.imagen ? `<img src="${sub.imagen}" alt="${sub.nombre}" class="subcategory-item__image">` : `<div class="subcategory-item__image" style="background-color: var(--color-gray-200); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary);">📷</div>`;
     div.innerHTML = `
-      ${imgHTML}${fallbackHTML}
+      ${imgHTML}
       <div class="subcategory-item__info">
         <div class="subcategory-item__name">${sub.nombre}</div>
         <div class="subcategory-item__price">${formatPrice(sub.precio)}</div>
       </div>
       <div class="subcategory-item__actions">
-        <button class="subcategory-item__edit" onclick="editSubcategoryFromModal(${sub.id})">✏️ Editar</button>
+        <button class="subcategory-item__edit" onclick="editSubcategoryFromModal(${sub.id})">✏️</button>
         <button class="subcategory-item__remove" onclick="removeSubcategoryFromModal(${sub.id})">🗑️</button>
       </div>
     `;
@@ -1472,7 +1201,7 @@ function saveTreatment() {
   const shortDesc = document.getElementById('treatmentShortDesc').value.trim();
   const longDesc = document.getElementById('treatmentLongDesc').value.trim();
   const price = parseFloat(document.getElementById('treatmentPrice').value) || 0;
-  const image = (document.getElementById('treatmentImage').value || '').trim();
+  const image = document.getElementById('treatmentImage').value.trim();
 
   if (!name) {
     alert('Por favor ingresa el nombre del tratamiento');
@@ -1496,7 +1225,7 @@ function saveTreatment() {
 
   closeModal();
   renderAllTabs();
-  populateTreatmentSelect(); // Actualiza el select de presupuestos
+  populateTreatmentSelect();
   showSuccessMessage('✅ Tratamiento guardado correctamente');
 }
 
@@ -1519,99 +1248,44 @@ function showSuccessMessage(message) {
 
 // ============= RENDERIZADO DE SERVICIOS =============
 
-function openDetailModal(treatmentId) {
-  const treatment = manager.getTreatment(treatmentId);
-  if (!treatment) return;
-
-  const modal = document.getElementById('detailModal');
-  document.getElementById('detailModalTitle').textContent = treatment.nombre;
-  document.getElementById('detailModalImage').src = treatment.imagen || '';
-  document.getElementById('detailModalDescription').textContent = treatment.descripcion_ampliada;
-
-  const gallery = document.getElementById('detailSubcategoriesGallery');
-  gallery.innerHTML = '';
-
-  if (treatment.subcategorias && treatment.subcategorias.length > 0) {
-    gallery.innerHTML = '<h3 class="subcategories-gallery__title">Subcategorías</h3>';
-    const div = document.createElement('div');
-    div.style.display = 'flex';
-    div.style.flexWrap = 'wrap';
-    treatment.subcategorias.forEach(sub => {
-      const preview = document.createElement('div');
-      preview.className = 'subcategory-preview';
-      preview.onclick = () => openLightbox(sub.imagen);
-      preview.innerHTML = `
-        <img src="${sub.imagen || ''}" alt="${sub.nombre}" onerror="this.parentElement.style.opacity='0.6'">
-        <span class="subcategory-preview__label">${sub.nombre}<br>${formatPrice(sub.precio)}</span>
-      `;
-      div.appendChild(preview);
-    });
-    gallery.appendChild(div);
-  }
-
-  modal.classList.add('active');
-}
-
 function renderTreatmentCard(treatment, showButtons = false) {
   let subcategoriesHTML = '';
   if (treatment.subcategorias && treatment.subcategorias.length > 0) {
     subcategoriesHTML = '<div style="margin-top: var(--space-16); border-top: 2px solid var(--color-border); padding-top: var(--space-16);">';
     subcategoriesHTML += '<div style="font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); margin-bottom: var(--space-12); color: var(--color-primary);">💊 Opciones disponibles:</div>';
     treatment.subcategorias.forEach(sub => {
-      const imgUrl = sub.imagen ? sub.imagen.trim() : '';
-      const subImg = imgUrl 
-        ? `<img src="${imgUrl}" alt="${sub.nombre}" style="width: 40px; height: 40px; border-radius: var(--radius-base); object-fit: cover; margin-right: var(--space-8);" onerror="this.style.opacity=0.5;">`
-        : '';
+      const subImg = sub.imagen ? `<img src="${sub.imagen}" alt="${sub.nombre}" style="width: 40px; height: 40px; border-radius: var(--radius-base); object-fit: cover; margin-right: var(--space-8);">` : '';
       subcategoriesHTML += `
         <div style="display: flex; align-items: center; justify-content: space-between; font-size: var(--font-size-sm); margin-bottom: var(--space-8); padding: var(--space-8); background-color: rgba(33, 128, 141, 0.05); border-radius: var(--radius-base); border-left: 3px solid var(--color-primary);">
           <div style="display: flex; align-items: center;">
             ${subImg}
             <span style="font-weight: var(--font-weight-medium);">${sub.nombre}</span>
           </div>
-          <span style="color: var(--color-primary); font-weight: var(--font-weight-bold); background-color: var(--color-primary); color: white; padding: var(--space-4) var(--space-8); border-radius: var(--radius-base);">${formatPrice(sub.precio)}</span>
+          <span style="color: white; font-weight: var(--font-weight-bold); background-color: var(--color-primary); padding: var(--space-4) var(--space-8); border-radius: var(--radius-base);">${formatPrice(sub.precio)}</span>
         </div>
       `;
     });
     subcategoriesHTML += '</div>';
   }
 
-  let priceDisplay = '';
-  if (!treatment.subcategorias || treatment.subcategorias.length === 0) {
-    priceDisplay = `<div style="margin-top: var(--space-8); font-weight: var(--font-weight-bold); color: var(--color-primary);">${formatPrice(treatment.precio)}</div>`;
-  }
-
-  const imageHTML = treatment.imagen 
-    ? `<img src="${treatment.imagen.trim()}" alt="${treatment.nombre}" style="width: 100%; height: 220px; object-fit: cover; display: block;" onerror="this.parentElement.querySelector('.service-card__content').previousElementSibling.style.display='none';">`
-    : '';
+  const imageHTML = treatment.imagen ? `<img src="${treatment.imagen}" alt="${treatment.nombre}" style="width: 100%; height: 220px; object-fit: cover; display: block;">` : '';
 
   const card = document.createElement('div');
   card.className = 'service-card';
-  if (showButtons) {
-    card.innerHTML = `
-      ${imageHTML}
-      <div class="service-card__content">
-        <h3 class="service-card__title">${treatment.nombre}</h3>
-        <p class="service-card__description">${treatment.descripcion_corta}</p>
-        ${priceDisplay}
-        ${subcategoriesHTML}
+  card.innerHTML = `
+    ${imageHTML}
+    <div class="service-card__content">
+      <h3 class="service-card__title">${treatment.nombre}</h3>
+      <p class="service-card__description">${treatment.descripcion_corta}</p>
+      ${subcategoriesHTML}
+      ${showButtons ? `
         <div class="service-card__buttons">
           <button class="btn btn-primary" onclick="openModal(${treatment.id})">✏️ Editar</button>
           <button class="btn btn-secondary" onclick="deleteTreatment(${treatment.id})">🗑️ Eliminar</button>
         </div>
-      </div>
-    `;
-  } else {
-    card.innerHTML = `
-      ${imageHTML}
-      <div class="service-card__content">
-        <h3 class="service-card__title">${treatment.nombre}</h3>
-        <p class="service-card__description">${treatment.descripcion_corta}</p>
-        ${priceDisplay}
-        ${subcategoriesHTML}
-      </div>
-    `;
-    card.addEventListener('click', () => openDetailModal(treatment.id));
-  }
+      ` : ''}
+    </div>
+  `;
   return card;
 }
 
@@ -1632,6 +1306,145 @@ function renderServicesGrid(containerId, showButtons = false) {
 function renderAllTabs() {
   renderServicesGrid('servicesGrid', false);
   renderServicesGrid('manageGrid', true);
+}
+
+// ============= PRESUPUESTOS =============
+
+function populateTreatmentSelect() {
+  const select = document.getElementById('treatmentSelect');
+  select.innerHTML = '<option value="">-- Selecciona un tratamiento --</option>';
+  manager.treatments.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = t.nombre;
+    select.appendChild(opt);
+  });
+}
+
+function onTreatmentChange() {
+  const treatmentId = document.getElementById('treatmentSelect').value;
+  const subSelect = document.getElementById('subcategorySelect');
+  subSelect.innerHTML = '<option value="">-- Sin subcategoría --</option>';
+  subSelect.disabled = true;
+
+  if (treatmentId) {
+    const treatment = manager.getTreatment(parseFloat(treatmentId));
+    if (treatment && treatment.subcategorias && treatment.subcategorias.length > 0) {
+      subSelect.disabled = false;
+      treatment.subcategorias.forEach(sub => {
+        const opt = document.createElement('option');
+        opt.value = sub.id;
+        opt.textContent = `${sub.nombre} - ${formatPrice(sub.precio)}`;
+        opt.dataset.price = sub.precio;
+        subSelect.appendChild(opt);
+      });
+    }
+  }
+}
+
+function addTreatmentToBudget() {
+  const treatmentId = document.getElementById('treatmentSelect').value;
+  if (!treatmentId) {
+    alert('Selecciona un tratamiento');
+    return;
+  }
+
+  const treatment = manager.getTreatment(parseFloat(treatmentId));
+  if (!treatment) return;
+
+  const subId = document.getElementById('subcategorySelect').value;
+  let item = {
+    id: Date.now(),
+    treatmentId: treatment.id,
+    treatmentName: treatment.nombre,
+    subcategoryId: null,
+    subcategoryName: null,
+    price: treatment.precio
+  };
+
+  if (subId) {
+    const sub = treatment.subcategorias.find(s => s.id == subId);
+    if (sub) {
+      item.subcategoryId = sub.id;
+      item.subcategoryName = sub.nombre;
+      item.price = sub.precio;
+    }
+  }
+
+  currentBudgetItems.push(item);
+  renderBudgetItems();
+}
+
+function removeBudgetItem(itemId) {
+  currentBudgetItems = currentBudgetItems.filter(item => item.id !== itemId);
+  renderBudgetItems();
+}
+
+function renderBudgetItems() {
+  const container = document.getElementById('budgetItems');
+  const totalDiv = document.getElementById('budgetTotal');
+  
+  container.innerHTML = '';
+
+  if (currentBudgetItems.length === 0) {
+    container.innerHTML = '<p style="color: var(--color-text-secondary); text-align: center; padding: var(--space-20);">Agrega tratamientos al presupuesto</p>';
+    totalDiv.style.display = 'none';
+    return;
+  }
+
+  let total = 0;
+
+  currentBudgetItems.forEach(item => {
+    total += item.price;
+    const displayName = item.subcategoryName ? `${item.treatmentName} - ${item.subcategoryName}` : item.treatmentName;
+    const div = document.createElement('div');
+    div.className = 'budget-item';
+    div.innerHTML = `
+      <div class="budget-item__info">
+        <div class="budget-item__name">${displayName}</div>
+      </div>
+      <div class="budget-item__price">${formatPrice(item.price)}</div>
+      <button class="budget-item__remove" onclick="removeBudgetItem(${item.id})">✕</button>
+    `;
+    container.appendChild(div);
+  });
+
+  const totalAmount = document.getElementById('totalAmount');
+  totalAmount.textContent = formatPrice(total);
+  totalDiv.style.display = 'flex';
+}
+
+function clearBudget() {
+  if (confirm('¿Limpiar presupuesto?')) {
+    currentBudgetItems = [];
+    renderBudgetItems();
+  }
+}
+
+function printBudget() {
+  if (currentBudgetItems.length === 0) {
+    alert('Agrega tratamientos al presupuesto primero');
+    return;
+  }
+
+  let html = '<h2>Presupuesto Dental</h2>';
+  html += '<table border="1" cellpadding="10" style="width: 100%; border-collapse: collapse;">';
+  html += '<tr><th>Tratamiento</th><th>Precio</th></tr>';
+  
+  let total = 0;
+  currentBudgetItems.forEach(item => {
+    total += item.price;
+    const displayName = item.subcategoryName ? `${item.treatmentName} - ${item.subcategoryName}` : item.treatmentName;
+    html += `<tr><td>${displayName}</td><td>${formatPrice(item.price)}</td></tr>`;
+  });
+
+  html += `<tr><th>TOTAL</th><th>${formatPrice(total)}</th></tr>`;
+  html += '</table>';
+
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(html);
+  printWindow.print();
+  printWindow.close();
 }
 
 // ============= EXPORT/IMPORT =============
@@ -1681,265 +1494,6 @@ document.getElementById('jsonImportInput').addEventListener('change', function(e
   reader.readAsText(file);
 });
 
-// ============= PRESUPUESTOS =============
-
-function populateTreatmentSelect() {
-  const select = document.getElementById('treatmentSelect');
-  select.innerHTML = '<option value="">-- Selecciona un tratamiento --</option>';
-  manager.treatments.forEach(t => {
-    const opt = document.createElement('option');
-    opt.value = t.id;
-    opt.textContent = t.nombre;
-    select.appendChild(opt);
-  });
-}
-
-function onTreatmentChange() {
-  const treatmentId = document.getElementById('treatmentSelect').value;
-  const subSelect = document.getElementById('subcategorySelect');
-  subSelect.innerHTML = '<option value="">-- Sin subcategoría --</option>';
-  subSelect.disabled = true;
-
-  if (treatmentId) {
-    const treatment = manager.getTreatment(parseFloat(treatmentId));
-    if (treatment && treatment.subcategorias && treatment.subcategorias.length > 0) {
-      subSelect.disabled = false;
-      treatment.subcategorias.forEach(sub => {
-        const opt = document.createElement('option');
-        opt.value = sub.id;
-        opt.textContent = `${sub.nombre} - ${formatPrice(sub.precio)}`;
-        opt.dataset.price = sub.precio;
-        subSelect.appendChild(opt);
-      });
-    }
-  }
-}
-
-function addTreatmentToBudget() {
-  const treatmentId = document.getElementById('treatmentSelect').value;
-  if (!treatmentId) {
-    alert('Selecciona un tratamiento');
-    return;
-  }
-
-  const treatment = manager.getTreatment(parseFloat(treatmentId));
-  if (!treatment) return;
-
-  const subId = document.getElementById('subcategorySelect').value;
-  let item = {
-    treatmentId: treatment.id,
-    treatmentName: treatment.nombre,
-    subcategoryId: null,
-    subcategoryName: null,
-    price: treatment.precio
-  };
-
-  if (subId) {
-    const sub = treatment.subcategorias.find(s => s.id == subId);
-    if (sub) {
-      item.subcategoryId = sub.id;
-      item.subcategoryName = sub.nombre;
-      item.price = sub.precio;
-    }
-  }
-
-  currentBudgetItems.push(item);
-  renderBudgetItems();
-}
-
-function renderBudgetItems() {
-  const tbody = document.getElementById('budgetItemsList');
-  tbody.innerHTML = '';
-  let total = 0;
-
-  currentBudgetItems.forEach((item, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${item.treatmentName}</td>
-      <td>${item.subcategoryName || '—'}</td>
-      <td>${formatPrice(item.price)}</td>
-      <td><button class="btn btn-secondary btn-sm" onclick="removeBudgetItem(${index})">🗑️</button></td>
-    `;
-    tbody.appendChild(row);
-    total += item.price;
-  });
-
-  document.getElementById('budgetTotal').textContent = formatPrice(total);
-}
-
-function removeBudgetItem(index) {
-  currentBudgetItems.splice(index, 1);
-  renderBudgetItems();
-}
-
-function clearCurrentBudget() {
-  currentBudgetItems = [];
-  document.getElementById('budgetClientName').value = '';
-  document.getElementById('treatmentSelect').selectedIndex = 0;
-  document.getElementById('subcategorySelect').innerHTML = '<option value="">-- Sin subcategoría --</option>';
-  document.getElementById('subcategorySelect').disabled = true;
-  renderBudgetItems();
-}
-
-function saveCurrentBudget() {
-  if (currentBudgetItems.length === 0) {
-    alert('Agrega al menos un tratamiento al presupuesto');
-    return;
-  }
-
-  const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
-  const budget = {
-    clientName,
-    items: currentBudgetItems,
-    total: currentBudgetItems.reduce((sum, item) => sum + item.price, 0)
-  };
-
-  budgetManager.addBudget(budget);
-  clearCurrentBudget();
-  renderSavedBudgets();
-  showSuccessMessage('✅ Presupuesto guardado');
-}
-
-function renderSavedBudgets() {
-  const container = document.getElementById('savedBudgetsList');
-  const budgets = budgetManager.getAllBudgets();
-
-  if (budgets.length === 0) {
-    container.innerHTML = '<p style="color: var(--color-text-secondary);">No hay presupuestos guardados aún.</p>';
-    return;
-  }
-
-  container.innerHTML = '';
-  budgets.forEach(budget => {
-    const div = document.createElement('div');
-    div.className = 'budget-card';
-    const date = new Date(budget.date).toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-
-    let itemsHTML = '';
-    budget.items.forEach(item => {
-      itemsHTML += `<div class="budget-card__item"><span>${item.treatmentName}${item.subcategoryName ? ` - ${item.subcategoryName}` : ''}</span> <span>${formatPrice(item.price)}</span></div>`;
-    });
-
-    div.innerHTML = `
-      <div class="budget-card__header">
-        <div class="budget-card__title">${budget.clientName}</div>
-        <div class="budget-card__date">${date}</div>
-      </div>
-      <div class="budget-card__items">${itemsHTML}</div>
-      <div class="budget-card__total">Total: ${formatPrice(budget.total)}</div>
-      <div class="budget-card__actions">
-        <button class="btn btn-primary btn-sm" onclick="printBudget(budget)">🖨️ Imprimir</button>
-        <button class="btn btn-secondary btn-sm" onclick="deleteBudget(${budget.id})">🗑️ Eliminar</button>
-      </div>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function deleteBudget(id) {
-  if (confirm('¿Eliminar este presupuesto?')) {
-    budgetManager.deleteBudget(id);
-    renderSavedBudgets();
-    showSuccessMessage('✅ Presupuesto eliminado');
-  }
-}
-
-// ============= IMPRESIÓN FIABLE =============
-function printBudget(budget) {
-  const win = window.open('', '_blank');
-  if (!win) {
-    alert('Permite ventanas emergentes para imprimir');
-    return;
-  }
-
-  const clientName = budget.clientName || 'Cliente sin nombre';
-  const date = new Date(budget.date).toLocaleDateString('es-ES');
-  let itemsHTML = '';
-  let total = 0;
-
-  budget.items.forEach(item => {
-    itemsHTML += `
-      <tr>
-        <td>${item.treatmentName}</td>
-        <td>${item.subcategoryName || '—'}</td>
-        <td>${formatPrice(item.price)}</td>
-      </tr>
-    `;
-    total += item.price;
-  });
-
-  const html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="UTF-8">
-      <title>Presupuesto Dental - ${clientName}</title>
-      <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        h1 { text-align: center; color: #1f2937; }
-        .header { text-align: center; margin-bottom: 30px; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #333; padding: 10px; text-align: left; }
-        th { background-color: #f3f4f6; }
-        .total { text-align: right; font-weight: bold; font-size: 1.2em; margin-top: 20px; }
-      </style>
-    </head>
-    <body>
-      <h1>DentiStudio - Presupuesto Dental</h1>
-      <div class="header">
-        <p><strong>Cliente:</strong> ${clientName}</p>
-        <p><strong>Fecha:</strong> ${date}</p>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Tratamiento</th>
-            <th>Subcategoría</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${itemsHTML}
-        </tbody>
-      </table>
-      <div class="total">TOTAL: ${formatPrice(total)}</div>
-      <script>
-        window.onload = function() {
-          window.print();
-          window.onafterprint = function() { window.close(); };
-        };
-      </script>
-    </body>
-    </html>
-  `;
-
-  win.document.write(html);
-  win.document.close();
-}
-
-function printCurrentBudget() {
-  if (currentBudgetItems.length === 0) {
-    alert('No hay tratamientos en el presupuesto');
-    return;
-  }
-
-  const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
-  const budget = {
-    clientName,
-    items: [...currentBudgetItems],
-    total: currentBudgetItems.reduce((sum, item) => sum + item.price, 0),
-    date: new Date().toISOString()
-  };
-
-  printBudget(budget);
-}
-
 // ============= TABS =============
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1951,38 +1505,21 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     
     this.classList.add('active');
     document.getElementById(tabName).classList.add('active');
-
-    if (tabName === 'budgets') {
-      populateTreatmentSelect();
-      renderSavedBudgets();
-    }
   });
 });
 
 // ============= INICIALIZACIÓN =============
 
 window.addEventListener('DOMContentLoaded', function() {
-  updateCurrencySelector();
   renderAllTabs();
-  document.getElementById('treatmentSelect').addEventListener('change', onTreatmentChange);
+  populateTreatmentSelect();
+  renderBudgetItems();
 });
 
-// Cerrar modales al hacer clic fuera
+// Cerrar modal al hacer clic fuera
 document.getElementById('treatmentModal').addEventListener('click', function(e) {
   if (e.target === this) {
     closeModal();
-  }
-});
-
-document.getElementById('detailModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeDetailModal();
-  }
-});
-
-document.getElementById('lightbox').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeLightbox();
   }
 });
 </script>
