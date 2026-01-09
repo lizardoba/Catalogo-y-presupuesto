@@ -735,7 +735,7 @@ body {
 /* Modal de vista detallada - IMÁGENES MÁS GRANDES */
 .detail-modal__image {
   width: 100%;
-  height: 350px; /* Aumentado */
+  height: 350px;
   object-fit: cover;
   border-radius: var(--radius-lg);
   margin-bottom: var(--space-24);
@@ -762,8 +762,8 @@ body {
 
 .subcategory-preview {
   display: inline-block;
-  width: 140px; /* Más grande */
-  height: 140px; /* Más grande */
+  width: 140px;
+  height: 140px;
   margin-right: var(--space-16);
   margin-bottom: var(--space-16);
   border-radius: var(--radius-base);
@@ -1872,12 +1872,6 @@ function printBudget(budgetId) {
   const budget = budgetManager.getAllBudgets().find(b => b.id === budgetId);
   if (!budget) return;
 
-  const win = window.open('', '_blank');
-  if (!win) {
-    alert('Permite ventanas emergentes para imprimir');
-    return;
-  }
-
   const clientName = budget.clientName || 'Cliente sin nombre';
   const date = new Date(budget.date).toLocaleDateString('es-ES');
   let itemsHTML = '';
@@ -1894,53 +1888,59 @@ function printBudget(budgetId) {
     total += item.price;
   });
 
-  const html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="UTF-8">
-      <title>Presupuesto Dental - ${clientName}</title>
-      <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        h1 { text-align: center; color: #1f2937; margin-bottom: 20px; }
-        .header { text-align: center; margin-bottom: 30px; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #333; padding: 10px; text-align: left; }
-        th { background-color: #f3f4f6; }
-        .total { text-align: right; font-weight: bold; font-size: 1.2em; margin-top: 20px; }
-      </style>
-    </head>
-    <body>
-      <h1>DentiStudio - Presupuesto Dental</h1>
-      <div class="header">
-        <p><strong>Cliente:</strong> ${clientName}</p>
-        <p><strong>Fecha:</strong> ${date}</p>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Tratamiento</th>
-            <th>Subcategoría</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${itemsHTML}
-        </tbody>
-      </table>
-      <div class="total">TOTAL: ${formatPrice(total)}</div>
-      <script>
-        window.onload = function() {
-          window.print();
-          setTimeout(() => window.close(), 1000);
-        };
-      </script>
-    </body>
-    </html>
-  `;
+  // ⚠️ CORRECCIÓN CRÍTICA: Escapar </script>
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Presupuesto Dental - ${clientName}</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { text-align: center; color: #1f2937; margin-bottom: 20px; }
+    .header { text-align: center; margin-bottom: 30px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { border: 1px solid #333; padding: 10px; text-align: left; }
+    th { background-color: #f3f4f6; }
+    .total { text-align: right; font-weight: bold; font-size: 1.2em; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>DentiStudio - Presupuesto Dental</h1>
+  <div class="header">
+    <p><strong>Cliente:</strong> ${clientName}</p>
+    <p><strong>Fecha:</strong> ${date}</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Tratamiento</th>
+        <th>Subcategoría</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${itemsHTML}
+    </tbody>
+  </table>
+  <div class="total">TOTAL: ${formatPrice(total)}</div>
+  <script>
+    window.onload = function() {
+      window.print();
+      setTimeout(function() { window.close(); }, 1000);
+    };
+  <\\/script>
+</body>
+</html>
+`;
 
-  win.document.write(html);
-  win.document.close();
+  const win = window.open('', '_blank');
+  if (win) {
+    win.document.write(htmlContent);
+    win.document.close();
+  } else {
+    alert('Permite ventanas emergentes para imprimir');
+  }
 }
 
 function printCurrentBudget() {
@@ -1958,11 +1958,9 @@ function printCurrentBudget() {
     id: Date.now()
   };
 
-  // Guardar temporalmente para imprimir
   const tempId = budget.id;
   budgetManager.budgets.push(budget);
   printBudget(tempId);
-  // No lo guardamos permanentemente
   budgetManager.budgets = budgetManager.budgets.filter(b => b.id !== tempId);
   localStorage.setItem('dental_budgets', JSON.stringify(budgetManager.budgets));
 }
@@ -1972,23 +1970,20 @@ function sendBudgetToWhatsApp(budgetId) {
   const budget = budgetManager.getAllBudgets().find(b => b.id === budgetId);
   if (!budget) return;
 
-  let message = `¡Hola! Aquí tienes tu presupuesto dental de *DentiStudio*:\n\n`;
-  message += `*Cliente:* ${budget.clientName}\n`;
-  message += `*Detalles:*\n`;
+  let message = `¡Hola! Aquí tienes tu presupuesto dental de *DentiStudio*:\\n\\n`;
+  message += `*Cliente:* ${budget.clientName}\\n`;
+  message += `*Detalles:*\\n`;
 
   budget.items.forEach(item => {
     const subcat = item.subcategoryName ? ` (${item.subcategoryName})` : '';
-    message += `- ${item.treatmentName}${subcat}: ${formatPrice(item.price)}\n`;
+    message += `- ${item.treatmentName}${subcat}: ${formatPrice(item.price)}\\n`;
   });
 
-  message += `\n*Total:* ${formatPrice(budget.total)}\n`;
-  message += `\n¿Te gustaría agendar una cita? 😊`;
+  message += `\\n*Total:* ${formatPrice(budget.total)}\\n`;
+  message += `\\n¿Te gustaría agendar una cita? 😊`;
 
-  // Codificar para URL
   const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-
-  window.open(whatsappUrl, '_blank');
+  window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
 }
 
 // ============= TABS =============
