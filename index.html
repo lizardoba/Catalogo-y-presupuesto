@@ -779,59 +779,39 @@ body {
   color: var(--color-text-secondary);
 }
 
-/* Vista de impresión */
-@media print {
-  .tabs, .header, .container > .tab-content:not(#budgets), .budget-actions, .btn, .modal, body {
-    display: none !important;
-  }
-  #printArea {
-    display: block !important;
-  }
-  #printArea * {
-    color: black !important;
-    background: white !important;
-  }
-  #printArea {
-    position: static !important;
-    width: 100% !important;
-    max-width: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-}
-
-#printArea {
+/* Lightbox para imagen ampliada */
+.lightbox {
   display: none;
-  padding: 20px;
-}
-
-#printArea h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #1f2937;
-}
-
-#printArea .budget-print-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-#printArea table {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
 }
 
-#printArea th, #printArea td {
-  border: 1px solid #333;
-  padding: 10px;
-  text-align: left;
+.lightbox.active {
+  display: flex;
 }
 
-#printArea .total-row {
-  font-weight: bold;
-  font-size: 1.2em;
-  text-align: right;
+.lightbox__img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border: 3px solid white;
+  border-radius: var(--radius-lg);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -942,31 +922,6 @@ body {
   </div>
 </div>
 
-<!-- Área de impresión oculta -->
-<div id="printArea">
-  <h1>DentiStudio - Presupuesto Dental</h1>
-  <div class="budget-print-header">
-    <p id="printClientName">Cliente: -</p>
-    <p id="printDate">Fecha: <span id="printDateValue"></span></p>
-  </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Tratamiento</th>
-        <th>Subcategoría</th>
-        <th>Precio</th>
-      </tr>
-    </thead>
-    <tbody id="printItemsList"></tbody>
-    <tfoot>
-      <tr class="total-row">
-        <td colspan="2">TOTAL:</td>
-        <td id="printTotal"></td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-
 <!-- MODAL PARA EDITAR/CREAR TRATAMIENTO -->
 <div id="treatmentModal" class="modal">
   <div class="modal__content">
@@ -1039,6 +994,12 @@ body {
       <!-- Galería dinámica -->
     </div>
   </div>
+</div>
+
+<!-- LIGHTBOX PARA IMAGEN AMPLIADA -->
+<div id="lightbox" class="lightbox">
+  <span class="lightbox__close" onclick="closeLightbox()">&times;</span>
+  <img id="lightboxImg" class="lightbox__img" src="" alt="Imagen ampliada">
 </div>
 
 <script>
@@ -1401,6 +1362,16 @@ function closeDetailModal() {
   document.getElementById('detailModal').classList.remove('active');
 }
 
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+function openLightbox(imgSrc) {
+  if (!imgSrc) return;
+  document.getElementById('lightboxImg').src = imgSrc;
+  document.getElementById('lightbox').classList.add('active');
+}
+
 function updateImagePreview(url) {
   url = (url || '').trim();
   const previewImg = document.getElementById('previewImg');
@@ -1568,6 +1539,7 @@ function openDetailModal(treatmentId) {
     treatment.subcategorias.forEach(sub => {
       const preview = document.createElement('div');
       preview.className = 'subcategory-preview';
+      preview.onclick = () => openLightbox(sub.imagen);
       preview.innerHTML = `
         <img src="${sub.imagen || ''}" alt="${sub.nombre}" onerror="this.parentElement.style.opacity='0.6'">
         <span class="subcategory-preview__label">${sub.nombre}<br>${formatPrice(sub.precio)}</span>
@@ -1614,7 +1586,6 @@ function renderTreatmentCard(treatment, showButtons = false) {
 
   const card = document.createElement('div');
   card.className = 'service-card';
-  // Solo en "Ver Tratamientos" abrimos el detalle; en "Gestionar" mostramos botones
   if (showButtons) {
     card.innerHTML = `
       ${imageHTML}
@@ -1863,7 +1834,7 @@ function renderSavedBudgets() {
       <div class="budget-card__items">${itemsHTML}</div>
       <div class="budget-card__total">Total: ${formatPrice(budget.total)}</div>
       <div class="budget-card__actions">
-        <button class="btn btn-primary btn-sm" onclick="loadBudgetForPrint(${budget.id})">🖨️ Imprimir</button>
+        <button class="btn btn-primary btn-sm" onclick="printBudget(budget)">🖨️ Imprimir</button>
         <button class="btn btn-secondary btn-sm" onclick="deleteBudget(${budget.id})">🗑️ Eliminar</button>
       </div>
     `;
@@ -1879,6 +1850,79 @@ function deleteBudget(id) {
   }
 }
 
+// ============= IMPRESIÓN FIABLE =============
+function printBudget(budget) {
+  const win = window.open('', '_blank');
+  if (!win) {
+    alert('Permite ventanas emergentes para imprimir');
+    return;
+  }
+
+  const clientName = budget.clientName || 'Cliente sin nombre';
+  const date = new Date(budget.date).toLocaleDateString('es-ES');
+  let itemsHTML = '';
+  let total = 0;
+
+  budget.items.forEach(item => {
+    itemsHTML += `
+      <tr>
+        <td>${item.treatmentName}</td>
+        <td>${item.subcategoryName || '—'}</td>
+        <td>${formatPrice(item.price)}</td>
+      </tr>
+    `;
+    total += item.price;
+  });
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Presupuesto Dental - ${clientName}</title>
+      <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { text-align: center; color: #1f2937; }
+        .header { text-align: center; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #333; padding: 10px; text-align: left; }
+        th { background-color: #f3f4f6; }
+        .total { text-align: right; font-weight: bold; font-size: 1.2em; margin-top: 20px; }
+      </style>
+    </head>
+    <body>
+      <h1>DentiStudio - Presupuesto Dental</h1>
+      <div class="header">
+        <p><strong>Cliente:</strong> ${clientName}</p>
+        <p><strong>Fecha:</strong> ${date}</p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Tratamiento</th>
+            <th>Subcategoría</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemsHTML}
+        </tbody>
+      </table>
+      <div class="total">TOTAL: ${formatPrice(total)}</div>
+      <script>
+        window.onload = function() {
+          window.print();
+          window.onafterprint = function() { window.close(); };
+        };
+      </script>
+    </body>
+    </html>
+  `;
+
+  win.document.write(html);
+  win.document.close();
+}
+
 function printCurrentBudget() {
   if (currentBudgetItems.length === 0) {
     alert('No hay tratamientos en el presupuesto');
@@ -1886,38 +1930,14 @@ function printCurrentBudget() {
   }
 
   const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
-  preparePrintView(clientName, currentBudgetItems);
-  window.print();
-}
+  const budget = {
+    clientName,
+    items: [...currentBudgetItems],
+    total: currentBudgetItems.reduce((sum, item) => sum + item.price, 0),
+    date: new Date().toISOString()
+  };
 
-function loadBudgetForPrint(id) {
-  const budget = budgetManager.getAllBudgets().find(b => b.id === id);
-  if (budget) {
-    preparePrintView(budget.clientName, budget.items);
-    window.print();
-  }
-}
-
-function preparePrintView(clientName, items) {
-  document.getElementById('printClientName').textContent = `Cliente: ${clientName}`;
-  document.getElementById('printDateValue').textContent = new Date().toLocaleDateString('es-ES');
-
-  const tbody = document.getElementById('printItemsList');
-  tbody.innerHTML = '';
-  let total = 0;
-
-  items.forEach(item => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${item.treatmentName}</td>
-      <td>${item.subcategoryName || '—'}</td>
-      <td>${formatPrice(item.price)}</td>
-    `;
-    tbody.appendChild(row);
-    total += item.price;
-  });
-
-  document.getElementById('printTotal').textContent = formatPrice(total);
+  printBudget(budget);
 }
 
 // ============= TABS =============
@@ -1942,7 +1962,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 // ============= INICIALIZACIÓN =============
 
 window.addEventListener('DOMContentLoaded', function() {
-  updateCurrencySelector(); // Carga la moneda guardada
+  updateCurrencySelector();
   renderAllTabs();
   document.getElementById('treatmentSelect').addEventListener('change', onTreatmentChange);
 });
@@ -1957,6 +1977,12 @@ document.getElementById('treatmentModal').addEventListener('click', function(e) 
 document.getElementById('detailModal').addEventListener('click', function(e) {
   if (e.target === this) {
     closeDetailModal();
+  }
+});
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeLightbox();
   }
 });
 </script>
