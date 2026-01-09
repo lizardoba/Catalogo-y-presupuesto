@@ -3,1681 +3,1044 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo Dental</title>
+<title>Catálogo Dental - Sistema de Tratamientos</title>
 <style>
 :root {
---color-white: rgba(255, 255, 255, 1);
---color-black: rgba(0, 0, 0, 1);
---color-cream-50: rgba(252, 252, 249, 1);
---color-cream-100: rgba(255, 255, 253, 1);
---color-gray-200: rgba(245, 245, 245, 1);
---color-gray-300: rgba(167, 169, 169, 1);
---color-gray-400: rgba(119, 124, 124, 1);
---color-slate-500: rgba(98, 108, 113, 1);
---color-brown-600: rgba(94, 82, 64, 1);
---color-charcoal-700: rgba(31, 33, 33, 1);
---color-charcoal-800: rgba(38, 40, 40, 1);
---color-slate-900: rgba(19, 52, 59, 1);
---color-teal-300: rgba(50, 184, 198, 1);
---color-teal-400: rgba(45, 166, 178, 1);
---color-teal-500: rgba(33, 128, 141, 1);
---color-teal-600: rgba(29, 116, 128, 1);
---color-teal-700: rgba(26, 104, 115, 1);
---color-brown-600-rgb: 94, 82, 64;
---color-teal-500-rgb: 33, 128, 141;
---color-slate-900-rgb: 19, 52, 59;
---color-background: var(--color-cream-50);
---color-surface: var(--color-cream-100);
---color-text: var(--color-slate-900);
---color-text-secondary: var(--color-slate-500);
---color-primary: var(--color-teal-500);
---color-primary-hover: var(--color-teal-600);
---color-border: rgba(var(--color-brown-600-rgb), 0.2);
---color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
---color-success: #22c55e;
---color-error: #ef4444;
---font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
---font-size-base: 14px;
---font-size-sm: 12px;
---font-size-lg: 16px;
---font-size-xl: 18px;
---font-size-2xl: 20px;
---font-size-3xl: 24px;
---font-size-4xl: 30px;
---font-weight-normal: 400;
---font-weight-medium: 500;
---font-weight-semibold: 550;
---font-weight-bold: 600;
---space-4: 4px;
---space-8: 8px;
---space-12: 12px;
---space-16: 16px;
---space-20: 20px;
---space-24: 24px;
---space-32: 32px;
---radius-base: 8px;
---radius-lg: 12px;
---radius-xl: 16px;
---shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
---shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
---shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
---duration-normal: 250ms;
---ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
---color-gold: #D4AF37;
---color-gold-light: #F4E4B8;
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --radius-base: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 @media (prefers-color-scheme: dark) {
-:root {
---color-gray-400-rgb: 119, 124, 124;
---color-teal-300-rgb: 50, 184, 198;
---color-gray-300-rgb: 167, 169, 169;
---color-gray-200-rgb: 245, 245, 245;
---color-background: var(--color-charcoal-700);
---color-surface: var(--color-charcoal-800);
---color-text: var(--color-gray-200);
---color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
---color-primary: var(--color-teal-300);
---color-primary-hover: var(--color-teal-400);
---color-border: rgba(var(--color-gray-400-rgb), 0.3);
---color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+  :root {
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(167, 169, 169, 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+  }
 }
-}
+
 @font-face {
-font-family: 'FKGroteskNeue';
-src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
 }
+
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 body {
-font-family: var(--font-family-base);
-background-color: var(--color-background);
-color: var(--color-text);
-line-height: 1.6;
--webkit-font-smoothing: antialiased;
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
+
 .header {
-background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-700) 100%);
-color: white;
-padding: var(--space-32) var(--space-24);
-text-align: center;
-box-shadow: var(--shadow-lg);
-position: relative;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-700) 100%);
+  color: white;
+  padding: var(--space-32) var(--space-24);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
 }
-.header__nav {
-display: flex;
-justify-content: center;
-gap: var(--space-20);
-margin-bottom: var(--space-24);
-}
-.header__nav-btn {
-background-color: rgba(255, 255, 255, 0.2);
-color: white;
-border: 2px solid white;
-padding: var(--space-12) var(--space-20);
-border-radius: var(--radius-base);
-font-size: var(--font-size-base);
-font-weight: var(--font-weight-semibold);
-cursor: pointer;
-transition: all var(--duration-normal) var(--ease-standard);
-display: flex;
-align-items: center;
-gap: var(--space-8);
-}
-.header__nav-btn:hover {
-background-color: rgba(255, 255, 255, 0.3);
-transform: translateY(-2px);
-}
-.header__nav-btn.active {
-background-color: white;
-color: var(--color-primary);
-}
-.header__logo {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: var(--space-12);
-margin-bottom: var(--space-16);
-}
-.header__icon {
-width: 50px;
-height: 50px;
-background-color: white;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 28px;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+
 .header__title {
-font-size: var(--font-size-4xl);
-font-weight: var(--font-weight-bold);
-margin: 0;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-8) 0;
 }
+
 .header__subtitle {
-font-size: var(--font-size-lg);
-opacity: 0.95;
-margin-top: var(--space-8);
-font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-lg);
+  opacity: 0.95;
+  font-weight: var(--font-weight-normal);
 }
+
 .container {
-max-width: 1280px;
-margin: 0 auto;
-padding: var(--space-32) var(--space-24);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-32) var(--space-24);
 }
+
+.tabs {
+  display: flex;
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+  border-bottom: 2px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: var(--space-12) var(--space-20);
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-normal) var(--ease-standard);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+}
+
+.tab-btn:hover {
+  color: var(--color-text);
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
 .services-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-gap: var(--space-24);
-margin-top: var(--space-32);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-24);
 }
+
 .service-card {
-background-color: var(--color-surface);
-border-radius: var(--radius-lg);
-overflow: hidden;
-border: 1px solid var(--color-card-border);
-box-shadow: var(--shadow-sm);
-transition: all var(--duration-normal) var(--ease-standard);
-cursor: pointer;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+  display: flex;
+  flex-direction: column;
 }
+
 .service-card:hover {
-transform: translateY(-4px);
-box-shadow: var(--shadow-lg);
-border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
 }
-.service-card__image {
-width: 100%;
-height: 220px;
-object-fit: cover;
-display: block;
-}
+
 .service-card__content {
-padding: var(--space-20);
+  padding: var(--space-20);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-.service-card__header {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-margin-bottom: var(--space-12);
-}
+
 .service-card__title {
-font-size: var(--font-size-xl);
-font-weight: var(--font-weight-bold);
-color: var(--color-text);
-flex: 1;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
 }
-.service-card__price {
-background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-color: var(--color-slate-900);
-padding: var(--space-8) var(--space-16);
-border-radius: var(--radius-base);
-font-weight: var(--font-weight-bold);
-font-size: var(--font-size-lg);
-white-space: nowrap;
-margin-left: var(--space-12);
-box-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
-}
+
 .service-card__description {
-font-size: var(--font-size-base);
-color: var(--color-text-secondary);
-line-height: 1.6;
-margin-bottom: var(--space-16);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-12);
+  flex: 1;
 }
-.service-card__cta {
-color: var(--color-primary);
-font-size: var(--font-size-base);
-font-weight: var(--font-weight-semibold);
-display: flex;
-align-items: center;
-gap: var(--space-8);
+
+.service-card__buttons {
+  display: flex;
+  gap: var(--space-8);
 }
-.service-card__cta::after {
-content: '→';
-transition: transform var(--duration-normal) var(--ease-standard);
-}
-.service-card:hover .service-card__cta::after {
-transform: translateX(4px);
-}
-.modal {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.7);
-z-index: 1000;
-align-items: center;
-justify-content: center;
-padding: var(--space-24);
-overflow-y: auto;
-}
-.modal.active {
-display: flex;
-}
-.modal__content {
-background-color: var(--color-surface);
-border-radius: var(--radius-xl);
-max-width: 900px;
-width: 100%;
-max-height: 90vh;
-overflow-y: auto;
-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-position: relative;
-}
-.modal__close {
-position: absolute;
-top: var(--space-16);
-right: var(--space-16);
-background-color: rgba(0, 0, 0, 0.5);
-color: white;
-border: none;
-width: 36px;
-height: 36px;
-border-radius: 50%;
-font-size: 24px;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 1;
-transition: background-color var(--duration-normal) var(--ease-standard);
-}
-.modal__close:hover {
-background-color: rgba(0, 0, 0, 0.7);
-}
-.carousel {
-position: relative;
-width: 100%;
-height: 300px;
-overflow: hidden;
-background-color: var(--color-gray-200);
-border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-touch-action: pan-y;
-}
-.carousel__image {
-width: 100%;
-height: 100%;
-object-fit: cover;
-transition: opacity 0.3s ease;
-}
-.carousel__image.hidden {
-display: none;
-}
-.carousel__nav {
-position: absolute;
-bottom: var(--space-12);
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-gap: var(--space-8);
-z-index: 10;
-}
-.carousel__dot {
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background-color: rgba(255, 255, 255, 0.6);
-cursor: pointer;
-transition: all var(--duration-normal) var(--ease-standard);
-border: none;
-}
-.carousel__dot.active {
-background-color: white;
-transform: scale(1.3);
-}
-.carousel__arrow {
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-background-color: rgba(0, 0, 0, 0.4);
-color: white;
-border: none;
-width: 40px;
-height: 40px;
-border-radius: 50%;
-font-size: 20px;
-cursor: pointer;
-transition: all var(--duration-normal) var(--ease-standard);
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 10;
-}
-.carousel__arrow:hover {
-background-color: rgba(0, 0, 0, 0.7);
-}
-.carousel__arrow--left {
-left: var(--space-12);
-}
-.carousel__arrow--right {
-right: var(--space-12);
-}
-.modal__body {
-padding: var(--space-32);
-}
-.modal__header {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-margin-bottom: var(--space-20);
-gap: var(--space-16);
-}
-.modal__title {
-font-size: var(--font-size-3xl);
-font-weight: var(--font-weight-bold);
-color: var(--color-text);
-flex: 1;
-}
-.modal__price {
-background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-color: var(--color-slate-900);
-padding: var(--space-12) var(--space-24);
-border-radius: var(--radius-base);
-font-weight: var(--font-weight-bold);
-font-size: var(--font-size-2xl);
-white-space: nowrap;
-box-shadow: 0 3px 6px rgba(212, 175, 55, 0.25);
-}
-.modal__description {
-font-size: var(--font-size-lg);
-color: var(--color-text);
-line-height: 1.7;
-margin-bottom: var(--space-24);
-}
-.modal__divider {
-height: 1px;
-background-color: var(--color-border);
-margin: var(--space-24) 0;
-}
-.modal__info {
-display: flex;
-align-items: center;
-gap: var(--space-12);
-padding: var(--space-16);
-background-color: rgba(var(--color-teal-500-rgb), 0.08);
-border-radius: var(--radius-base);
-border-left: 4px solid var(--color-primary);
-}
-.modal__info-icon {
-font-size: 24px;
-}
-.modal__info-text {
-font-size: var(--font-size-base);
-color: var(--color-text-secondary);
-}
-.modal__actions {
-display: flex;
-gap: var(--space-12);
-flex-wrap: wrap;
-margin-top: var(--space-20);
-}
-.budget-section {
-display: none;
-padding: var(--space-32) var(--space-24);
-}
-.budget-section.active {
-display: block;
-}
-.budget-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: var(--space-32);
-}
-.budget-title {
-font-size: var(--font-size-3xl);
-font-weight: var(--font-weight-bold);
-color: var(--color-text);
-}
-.budget-content {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: var(--space-32);
-}
-.budget-form {
-background-color: var(--color-surface);
-border-radius: var(--radius-lg);
-padding: var(--space-24);
-border: 1px solid var(--color-card-border);
-}
-.form-group {
-display: flex;
-flex-direction: column;
-gap: var(--space-8);
-margin-bottom: var(--space-16);
-}
-.form-label {
-font-size: var(--font-size-base);
-font-weight: var(--font-weight-semibold);
-color: var(--color-text);
-}
-.form-input {
-padding: var(--space-12) var(--space-16);
-border: 1px solid var(--color-border);
-border-radius: var(--radius-base);
-font-size: var(--font-size-base);
-color: var(--color-text);
-background-color: var(--color-background);
-font-family: var(--font-family-base);
-}
-.form-input:focus {
-outline: none;
-border-color: var(--color-primary);
-box-shadow: 0 0 0 3px rgba(var(--color-teal-500-rgb), 0.1);
-}
-.budget-items {
-background-color: var(--color-surface);
-border-radius: var(--radius-lg);
-padding: var(--space-24);
-border: 1px solid var(--color-card-border);
-}
-.budget-items-title {
-font-size: var(--font-size-2xl);
-font-weight: var(--font-weight-bold);
-color: var(--color-text);
-margin-bottom: var(--space-20);
-}
-.service-selector {
-display: flex;
-gap: var(--space-12);
-margin-bottom: var(--space-20);
-}
-.service-selector select {
-flex: 1;
-padding: var(--space-12) var(--space-16);
-border: 1px solid var(--color-border);
-border-radius: var(--radius-base);
-font-size: var(--font-size-base);
-color: var(--color-text);
-background-color: var(--color-background);
-font-family: var(--font-family-base);
-}
-.service-selector select:focus {
-outline: none;
-border-color: var(--color-primary);
-box-shadow: 0 0 0 3px rgba(var(--color-teal-500-rgb), 0.1);
-}
-.service-selector button {
-flex-shrink: 0;
-}
+
 .btn {
-padding: var(--space-12) var(--space-24);
-border-radius: var(--radius-base);
-font-size: var(--font-size-base);
-font-weight: var(--font-weight-semibold);
-cursor: pointer;
-transition: all var(--duration-normal) var(--ease-standard);
-border: none;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: var(--space-8);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  border: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+  flex: 1;
 }
-.btn--primary {
-background-color: var(--color-primary);
-color: white;
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
 }
-.btn--primary:hover {
-background-color: var(--color-primary-hover);
-transform: translateY(-2px);
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
 }
-.btn--secondary {
-background-color: var(--color-surface);
-color: var(--color-text);
-border: 1px solid var(--color-border);
+
+.btn-secondary {
+  background-color: var(--color-gray-200);
+  color: var(--color-text);
 }
-.btn--secondary:hover {
-background-color: var(--color-gray-200);
+
+.btn-secondary:hover {
+  background-color: var(--color-gray-300);
 }
-.btn--success {
-background-color: var(--color-success);
-color: white;
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
 }
-.btn--success:hover {
-background-color: #16a34a;
+
+.modal.active {
+  display: flex;
 }
-.btn--danger {
-background-color: var(--color-error);
-color: white;
-padding: var(--space-8) var(--space-12);
-font-size: var(--font-size-sm);
-}
-.btn--danger:hover {
-background-color: #dc2626;
-}
-.btn--sm {
-padding: var(--space-8) var(--space-12);
-font-size: var(--font-size-sm);
-}
-.budget-item-row {
-background-color: var(--color-background);
-border: 1px solid var(--color-border);
-border-radius: var(--radius-base);
-padding: var(--space-16);
-margin-bottom: var(--space-12);
-display: flex;
-justify-content: space-between;
-align-items: center;
-gap: var(--space-16);
-}
-.budget-item-info {
-flex: 1;
-}
-.budget-item-name {
-font-weight: var(--font-weight-semibold);
-color: var(--color-text);
-margin-bottom: var(--space-4);
-}
-.budget-item-price {
-font-size: var(--font-size-sm);
-color: var(--color-text-secondary);
-}
-.budget-item-qty {
-display: flex;
-align-items: center;
-gap: var(--space-8);
-min-width: 100px;
-}
-.budget-item-qty input {
-width: 60px;
-padding: var(--space-8) var(--space-12);
-border: 1px solid var(--color-border);
-border-radius: var(--radius-base);
-font-size: var(--font-size-base);
-text-align: center;
-}
-.budget-item-qty input:focus {
-outline: none;
-border-color: var(--color-primary);
-}
-.budget-item-total {
-min-width: 120px;
-text-align: right;
-font-weight: var(--font-weight-bold);
-color: var(--color-primary);
-}
-.budget-summary {
-background-color: var(--color-background);
-border-radius: var(--radius-base);
-padding: var(--space-20);
-margin-top: var(--space-20);
-border: 2px solid var(--color-primary);
-}
-.summary-row {
-display: flex;
-justify-content: space-between;
-padding: var(--space-12) 0;
-border-bottom: 1px solid var(--color-border);
-font-size: var(--font-size-base);
-}
-.summary-row:last-child {
-border-bottom: none;
-}
-.summary-total {
-display: flex;
-justify-content: space-between;
-padding: var(--space-16) 0;
-border-top: 2px solid var(--color-primary);
-font-weight: var(--font-weight-bold);
-font-size: var(--font-size-lg);
-color: var(--color-primary);
-margin-top: var(--space-12);
-}
-.budget-actions {
-display: flex;
-gap: var(--space-12);
-margin-top: var(--space-20);
-}
-.empty-budget {
-text-align: center;
-padding: var(--space-32);
-color: var(--color-text-secondary);
-}
-.hidden {
-display: none !important;
-}
-@media (max-width: 768px) {
-.header__title {
-font-size: var(--font-size-3xl);
-}
-.header__nav {
-flex-direction: column;
-gap: var(--space-12);
-}
-.header__nav-btn {
-width: 100%;
-justify-content: center;
-}
-.services-grid {
-grid-template-columns: 1fr;
-}
-.service-card__header {
-flex-direction: column;
-gap: var(--space-12);
-}
-.service-card__price {
-margin-left: 0;
-align-self: flex-start;
-}
+
 .modal__content {
-margin: var(--space-16);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
 }
-.modal__header {
-flex-direction: column;
+
+.modal__close {
+  float: right;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
 }
-.modal__price {
-align-self: flex-start;
+
+.modal__close:hover {
+  color: var(--color-text);
 }
-.modal__body {
-padding: var(--space-24);
+
+.modal__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-24);
+  margin-top: var(--space-12);
+  clear: both;
 }
-.budget-content {
-grid-template-columns: 1fr;
-gap: var(--space-20);
+
+.form-group {
+  margin-bottom: var(--space-16);
 }
-.modal__actions {
-flex-direction: column;
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
 }
-.modal__actions .btn {
-width: 100%;
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--duration-normal) var(--ease-standard);
 }
-.budget-item-row {
-flex-direction: column;
-align-items: flex-start;
+
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(33, 128, 141, 0.1);
 }
-.budget-item-qty {
-width: 100%;
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
 }
-.budget-item-total {
-width: 100%;
-text-align: right;
+
+.subcategories-section {
+  margin-top: var(--space-24);
+  border-top: 2px solid var(--color-border);
+  padding-top: var(--space-16);
 }
-.budget-actions {
-flex-direction: column;
+
+.subcategories-section__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
 }
-.budget-actions .btn {
-width: 100%;
+
+.subcategory-item {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  margin-bottom: var(--space-12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-12);
 }
+
+.subcategory-item__info {
+  flex: 1;
 }
-@keyframes fadeIn {
-from {
-opacity: 0;
-transform: scale(0.95);
+
+.subcategory-item__name {
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-4);
 }
-to {
-opacity: 1;
-transform: scale(1);
+
+.subcategory-item__price {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
 }
+
+.subcategory-item__remove {
+  padding: var(--space-8) var(--space-12);
+  background-color: var(--color-error);
+  color: white;
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
 }
-.modal.active .modal__content {
-animation: fadeIn 0.3s var(--ease-standard);
+
+.subcategory-item__remove:hover {
+  background-color: #dc2626;
 }
-@media print {
-body {
-background-color: white;
+
+.add-subcategory {
+  background-color: var(--color-background);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  text-align: center;
+  margin-bottom: var(--space-16);
 }
-.header, .modal, .services-grid, .budget-header {
-display: none !important;
+
+.add-subcategory__title {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
 }
-.budget-section {
-padding: 0;
+
+.add-subcategory__inputs {
+  display: grid;
+  grid-template-columns: 1fr 120px auto;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
 }
-.budget-content {
-grid-template-columns: 1fr;
+
+.add-subcategory__input {
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
 }
-.budget-form {
-border: none;
-padding: 0;
+
+.add-subcategory__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
+
+.add-subcategory__btn {
+  padding: var(--space-8) var(--space-16);
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.add-subcategory__btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.modal__buttons {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-24);
+}
+
+.modal__buttons button {
+  flex: 1;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  border: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+  font-size: var(--font-size-base);
+}
+
+.btn-save {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-cancel {
+  background-color: var(--color-gray-200);
+  color: var(--color-text);
+}
+
+.btn-cancel:hover {
+  background-color: var(--color-gray-300);
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-32);
+  color: var(--color-text-secondary);
+}
+
+.empty-state__icon {
+  font-size: 48px;
+  margin-bottom: var(--space-12);
+}
+
+.empty-state__text {
+  font-size: var(--font-size-lg);
+}
+
+.success-message {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-left: 4px solid var(--color-success);
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-16);
+  color: var(--color-text);
+}
+
+.button-group {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--font-size-sm);
+}
+
+.export-section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  margin-top: var(--space-32);
+  border: 1px solid var(--color-card-border);
+}
+
+.export-section__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+}
+
+.export-section__buttons {
+  display: flex;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-20) var(--space-16);
+  }
+
+  .header {
+    padding: var(--space-20) var(--space-16);
+  }
+
+  .header__title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal__content {
+    width: 95%;
+    padding: var(--space-20);
+  }
+
+  .add-subcategory__inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    gap: var(--space-8);
+  }
+
+  .tab-btn {
+    padding: var(--space-8) var(--space-12);
+    font-size: var(--font-size-base);
+  }
 }
 </style>
 </head>
 <body>
-<header class="header">
-<div class="header__nav">
-<button class="header__nav-btn active" id="catalogBtn" onclick="mostrarCatalogo()">
-<span>🛍️</span>
-<span>Catálogo</span>
-</button>
-<button class="header__nav-btn" id="presupuestoBtn" onclick="mostrarPresupuesto()">
-<span>📋</span>
-<span>Presupuesto</span>
-</button>
-<button class="header__nav-btn" id="adminBtn" onclick="mostrarAdmin()" style="background-color: #4a5568; color: white;">
-<span>🛠️</span>
-<span>Administrar</span>
-</button>
-</div>
-<div class="header__logo">
-<div class="header__icon">🦷</div>
-<div>
-<h1 class="header__title">Catálogo Dental</h1>
-<p class="header__subtitle">Centro Integral Infantil y Familiar</p>
-</div>
-</div>
-</header>
-<main class="container" id="catalogView">
-<div class="services-grid" id="servicesGrid"></div>
-</main>
-<section class="budget-section" id="budgetSection">
-<div class="budget-header">
-<h2 class="budget-title">Generador de Presupuestos</h2>
-</div>
-<div class="budget-content">
-<div class="budget-form">
-<h3 style="font-size: var(--font-size-xl); margin-bottom: var(--space-16); color: var(--color-text);">Datos del Paciente</h3>
-<div class="form-group">
-<label class="form-label">Nombre del Paciente</label>
-<input type="text" class="form-input" id="patientName" placeholder="Ingrese el nombre del paciente">
-</div>
-<div class="form-group">
-<label class="form-label">Teléfono WhatsApp</label>
-<input type="tel" class="form-input" id="patientPhone" placeholder="51999000000" oninput="sanitizarWhatsApp(this)">
-</div>
-<div class="form-group">
-<label class="form-label">Notas Adicionales</label>
-<textarea class="form-input" id="budgetNotes" placeholder="Agregar observaciones..." style="resize: vertical; min-height: 100px;"></textarea>
-</div>
-<div class="form-group">
-<label class="form-label">Descuento Total (S/)</label>
-<input type="number" class="form-input" id="budgetDiscount" value="0" min="0" step="0.01" onchange="actualizarResumen()" oninput="actualizarResumen()">
-</div>
-</div>
-<div class="budget-items">
-<h3 class="budget-items-title">Servicios</h3>
-<div class="service-selector">
-<select id="serviceSelect" onchange="habilitarBotonAgregar();">
-<option value="">Seleccionar servicio...</option>
-</select>
-<button class="btn btn--primary btn--sm" id="btnAgregar" onclick="agregarServicio()" disabled>
-<span>➕</span>
-<span>Agregar</span>
-</button>
-</div>
-<div id="budgetItemsList"></div>
-<div id="emptyMessage" class="empty-budget">
-<p>No hay servicios agregados. Selecciona un servicio de la lista.</p>
-</div>
-<div id="budgetSummary" class="hidden">
-<div class="budget-summary">
-<div class="summary-row">
-<span>Subtotal:</span>
-<span id="subtotalValue">S/ 0.00</span>
-</div>
-<div class="summary-row">
-<span>Descuento:</span>
-<span id="discountValue">S/ 0.00</span>
-</div>
-<div class="summary-total">
-<span>TOTAL:</span>
-<span id="totalValue">S/ 0.00</span>
-</div>
-</div>
-<div class="budget-actions">
-<button class="btn btn--secondary" onclick="limpiarPresupuesto()">
-<span>🗑️</span>
-<span>Limpiar</span>
-</button>
-<button class="btn btn--primary" onclick="descargarPresupuesto()" style="flex: 1;">
-<span>🖨️</span>
-<span>Descargar PDF</span>
-</button>
-<button class="btn btn--success" onclick="enviarWhatsApp()" style="flex: 1;">
-<span>💬</span>
-<span>Enviar WhatsApp</span>
-</button>
-</div>
-</div>
-</div>
-</section>
-<!-- Modal de Detalle -->
-<div class="modal" id="modal">
-<div class="modal__content">
-<button class="modal__close" id="modalClose">&times;</button>
-<div class="carousel" id="carousel">
-<img class="carousel__image" id="modalImage" src="" alt="" onerror="this.src='https://placehold.co/600x400?text=Sin+imagen'">
-<div class="carousel__nav" id="carouselNav"></div>
-<button class="carousel__arrow carousel__arrow--left" onclick="prevImage()">&lt;</button>
-<button class="carousel__arrow carousel__arrow--right" onclick="nextImage()">&gt;</button>
-</div>
-<div class="modal__body">
-<div class="modal__header">
-<h2 class="modal__title" id="modalTitle"></h2>
-<div class="modal__price" id="modalPrice"></div>
-</div>
-<p class="modal__description" id="modalDescription"></p>
-<div class="modal__divider"></div>
-<div class="modal__info">
-<span class="modal__info-icon">ℹ️</span>
-<span class="modal__info-text">Consulta con nuestros especialistas para más información sobre este tratamiento.</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Modal de Administración -->
-<div class="modal" id="adminModal">
-<div class="modal__content" style="max-width: 900px; max-height: 90vh;">
-<button class="modal__close" onclick="cerrarAdminModal()">&times;</button>
-<div class="modal__body">
-<h2 class="modal__title">🛠️ Administrar Catálogo</h2>
-<p style="margin-bottom: var(--space-20); color: var(--color-text-secondary);">
-Edita precios e imágenes. Los cambios se guardan automáticamente.
-</p>
-<div id="adminServicesList" style="max-height: 60vh; overflow-y: auto; padding-right: var(--space-8);"></div>
-<div class="budget-actions" style="margin-top: var(--space-24);">
-<button class="btn btn--secondary" onclick="cerrarAdminModal()">
-<span>↩️</span>
-<span>Volver</span>
-</button>
-<button class="btn btn--primary" onclick="guardarCambiosAdmin()" style="flex: 1;">
-<span>💾</span>
-<span>Guardar Cambios</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<script>
-// 🔐 CONFIGURACIÓN DE GITHUB — ¡MODIFICA ESTO!
-const GITHUB_TOKEN = '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';
-const GITHUB_USER = 'lizardoba';
-const GITHUB_REPO = 'dental-catalog-data';
-const GITHUB_FILE_PATH = 'data.json';
-const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
 
-// Datos iniciales
-const serviciosDefault = [
-{
-nombre: "Ortodoncia con Brackets",
-precio: 2500,
-descripcion_corta: "Alineación dental con brackets metálicos",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/5aad2512ad2d6f8cc8dfde52974e5b783ed6a158.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png",
-"https://pplx-res.cloudinary.com/image/upload/v1755720044/pplx_project_search_images/356c6c047636154ad7ab6e09c848474be57bb216.png"
-],
-descripcion_ampliada: "La ortodoncia con brackets metálicos es el tratamiento clásico para corregir la posición dental. Los brackets se cementan en los dientes y se conectan con arcos y elásticos para moverlos gradualmente a la posición correcta."
-},
-{
-nombre: "Profilaxis Dental (Limpieza)",
-precio: 120,
-descripcion_corta: "Limpieza profesional profunda",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/93bed4b5faedcb7300857bb265415b6bc2a30daa.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/8d6cfdf288aabe3032d233fefe07f7f4adce6335.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/6371e18b270fa2bb2866a1fffb67e33c753bcae4.png"
-],
-descripcion_ampliada: "La profilaxis dental incluye remoción de placa y cálculo mediante instrumentos ultrasónicos y pulido con pasta especial para una sonrisa saludable y fresca."
-},
-{
-nombre: "Blanqueamiento Dental",
-precio: 600,
-descripcion_corta: "Aclara el color de los dientes",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/5aad2512ad2d6f8cc8dfde52974e5b783ed6a158.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/8d6cfdf288aabe3032d233fefe07f7f4adce6335.png"
-],
-descripcion_ampliada: "El blanqueamiento profesional utiliza peróxido de hidrógeno o carbamida y luz LED para eliminar pigmentos y manchas profundas, logrando dientes más blancos y brillantes en pocas sesiones."
-},
-{
-nombre: "Implante Dental",
-precio: 3200,
-descripcion_corta: "Reemplazo permanente de diente",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1755720044/pplx_project_search_images/356c6c047636154ad7ab6e09c848474be57bb216.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/93bed4b5faedcb7300857bb265415b6bc2a30daa.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png"
-],
-descripcion_ampliada: "El implante dental es una solución durable que sustituye la raíz dental perdida por un tornillo de titanio y una corona personalizada, restaurando tanto la estética como la función masticatoria."
-},
-{
-nombre: "Corona Dental",
-precio: 800,
-descripcion_corta: "Protección de diente dañado",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/8d6cfdf288aabe3032d233fefe07f7f4adce6335.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/93bed4b5faedcb7300857bb265415b6bc2a30daa.png"
-],
-descripcion_ampliada: "La corona dental es una funda cerámica o metálica que se ajusta sobre el diente rehabilitando su forma, función y estética. Ideal para dientes fracturados o tratados con endodoncia."
-},
-{
-nombre: "Endodoncia (Tratamiento de Conducto)",
-precio: 700,
-descripcion_corta: "Salva dientes con pulpa dañada",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/6371e18b270fa2bb2866a1fffb67e33c753bcae4.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/8d6cfdf288aabe3032d233fefe07f7f4adce6335.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png"
-],
-descripcion_ampliada: "La endodoncia extirpa la pulpa dental dañada por caries profunda o trauma, desinfecta el conducto y rellena con materiales especiales, preservando el diente en boca por muchos años."
-},
-{
-nombre: "Restauración Dental",
-precio: 250,
-descripcion_corta: "Reparación de caries con resinas",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/93bed4b5faedcb7300857bb265415b6bc2a30daa.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/6371e18b270fa2bb2866a1fffb67e33c753bcae4.png"
-],
-descripcion_ampliada: "La restauración dental permite reparar cavidades y daños en dientes mediante materiales adhesivos como resinas compuestas, devolviendo funcionalidad y estética a piezas afectadas por caries."
-},
-{
-nombre: "Exodoncia (Extracción Dental)",
-precio: 150,
-descripcion_corta: "Extracción segura y profesional",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/9895e3a314fa105823f4a25dcd9bfe8000892d08.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/8d6cfdf288aabe3032d233fefe07f7f4adce6335.png"
-],
-descripcion_ampliada: "La exodoncia es la extracción profesional de dientes que no pueden ser salvados. Se realiza con técnicas modernas y anestesia, minimizando molestias e inflamación posterior."
-},
-{
-nombre: "Prótesis Removibles",
-precio: 1200,
-descripcion_corta: "Dentaduras parciales removibles",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1755720044/pplx_project_search_images/356c6c047636154ad7ab6e09c848474be57bb216.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/93bed4b5faedcb7300857bb265415b6bc2a30daa.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png"
-],
-descripcion_ampliada: "Las prótesis removibles son dentaduras parciales que reemplazan varios dientes naturales perdidos. Son económicas, reversibles y pueden removerse para limpieza diaria."
-},
-{
-nombre: "Prótesis Totales",
-precio: 1800,
-descripcion_corta: "Dentaduras completas totales",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1755720044/pplx_project_search_images/356c6c047636154ad7ab6e09c848474be57bb216.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/8d6cfdf288aabe3032d233fefe07f7f4adce6335.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/5aad2512ad2d6f8cc8dfde52974e5b783ed6a158.png"
-],
-descripcion_ampliada: "Las prótesis totales reemplazan la totalidad de dientes naturales perdidos. Se diseñan personalizadas para adaptarse perfectamente a la boca del paciente, restaurando masticación y sonrisa."
-},
-{
-nombre: "Limpieza Profunda (Curetaje)",
-precio: 400,
-descripcion_corta: "Tratamiento de enfermedad gingival",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/93bed4b5faedcb7300857bb265415b6bc2a30daa.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/6371e18b270fa2bb2866a1fffb67e33c753bcae4.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png"
-],
-descripcion_ampliada: "El curetaje dental es una limpieza profunda que elimina sarro y bacterias debajo de la encía, tratando la gingivitis y periodontitis para restaurar la salud gingival."
-},
-{
-nombre: "Sellante de Fisuras",
-precio: 180,
-descripcion_corta: "Protección preventiva de molares",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/5aad2512ad2d6f8cc8dfde52974e5b783ed6a158.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/93bed4b5faedcb7300857bb265415b6bc2a30daa.png"
-],
-descripcion_ampliada: "El sellante de fisuras es un recubrimiento de resina que protege las superficies masticatorias de molares y premolares, previniendo la formación de caries en estas áreas difíciles de limpiar."
-},
-{
-nombre: "Corrección de Encías (Gingivectomía)",
-precio: 900,
-descripcion_corta: "Remodelación de encías",
-imagenes: [
-"https://pplx-res.cloudinary.com/image/upload/v1762785507/pplx_project_search_images/8d6cfdf288aabe3032d233fefe07f7f4adce6335.png",
-"https://pplx-res.cloudinary.com/image/upload/v1762785486/pplx_project_search_images/93bed4b5faedcb7300857bb265415b6bc2a30daa.png",
-"https://pplx-res.cloudinary.com/image/upload/v1759348417/pplx_project_search_images/284cf34132fc92e8714e511f93e1275630ba438e.png"
-],
-descripcion_ampliada: "La gingivectomía corrige el exceso de encía que cubre los dientes, mejorando la estética de la sonrisa y previniendo problemas de acumulación de placa y enfermedad periodontal."
-}
-];
-
-let servicios = [...serviciosDefault];
-let budgetItems = [];
-let currentCarouselIndex = 0;
-let currentServiceIndex = null;
-let startX = 0;
-
-// DOM Elements
-const servicesGrid = document.getElementById('servicesGrid');
-const modal = document.getElementById('modal');
-const modalClose = document.getElementById('modalClose');
-const carousel = document.getElementById('carousel');
-const carouselNav = document.getElementById('carouselNav');
-const modalImage = document.getElementById('modalImage');
-const modalTitle = document.getElementById('modalTitle');
-const modalPrice = document.getElementById('modalPrice');
-const modalDescription = document.getElementById('modalDescription');
-const serviceSelect = document.getElementById('serviceSelect');
-const btnAgregar = document.getElementById('btnAgregar');
-
-// === FUNCIONES PRINCIPALES ===
-
-function formatearPrecio(precio) {
-  const num = parseFloat(precio);
-  if (isNaN(num)) return 'S/ 0.00';
-  return `S/ ${num.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-}
-
-function renderizarServicios() {
-  servicesGrid.innerHTML = '';
-  servicios.forEach((servicio, index) => {
-    const card = document.createElement('div');
-    card.className = 'service-card';
-    const imgSrc = servicio.imagenes[0] || 'https://placehold.co/600x400?text=Sin+imagen';
-    card.innerHTML = `
-      <img class="service-card__image" src="${imgSrc}" alt="${servicio.nombre}" onerror="this.src='https://placehold.co/600x400?text=Sin+imagen'">
-      <div class="service-card__content">
-        <div class="service-card__header">
-          <h3 class="service-card__title">${servicio.nombre}</h3>
-          <div class="service-card__price">${formatearPrecio(servicio.precio)}</div>
-        </div>
-        <p class="service-card__description">${servicio.descripcion_corta}</p>
-        <div class="service-card__cta">Ver más detalles</div>
-      </div>
-    `;
-    card.addEventListener('click', () => abrirModal(servicio, index));
-    servicesGrid.appendChild(card);
-  });
-}
-
-function renderizarCarousel(imagenes) {
-  if (!imagenes || imagenes.length === 0) {
-    imagenes = ['https://placehold.co/600x400?text=Sin+imagen'];
-  }
-  modalImage.src = imagenes[0];
-  modalImage.onerror = () => { modalImage.src = 'https://placehold.co/600x400?text=Sin+imagen'; };
-
-  carouselNav.innerHTML = '';
-  imagenes.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = `carousel__dot ${i === 0 ? 'active' : ''}`;
-    dot.onclick = (e) => { e.preventDefault(); mostrarImagen(i); };
-    carouselNav.appendChild(dot);
-  });
-}
-
-function mostrarImagen(index) {
-  const servicio = servicios[currentServiceIndex];
-  const imagenes = servicio.imagenes || ['https://placehold.co/600x400?text=Sin+imagen'];
-  currentCarouselIndex = Math.max(0, Math.min(index, imagenes.length - 1));
-  modalImage.src = imagenes[currentCarouselIndex];
-  modalImage.onerror = () => { modalImage.src = 'https://placehold.co/600x400?text=Sin+imagen'; };
-
-  document.querySelectorAll('.carousel__dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === currentCarouselIndex);
-  });
-}
-
-function prevImage() { nextImage(-1); }
-function nextImage(step = 1) {
-  const servicio = servicios[currentServiceIndex];
-  const imagenes = servicio.imagenes || ['https://placehold.co/600x400?text=Sin+imagen'];
-  currentCarouselIndex = (currentCarouselIndex + step + imagenes.length) % imagenes.length;
-  mostrarImagen(currentCarouselIndex);
-}
-
-function abrirModal(servicio, index) {
-  currentServiceIndex = index;
-  currentCarouselIndex = 0;
-  renderizarCarousel(servicio.imagenes || []);
-  modalTitle.textContent = servicio.nombre;
-  modalPrice.textContent = formatearPrecio(servicio.precio);
-  modalDescription.textContent = servicio.descripcion_ampliada;
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function cerrarModal() {
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function mostrarCatalogo() {
-  document.getElementById('catalogView').classList.remove('hidden');
-  document.getElementById('budgetSection').classList.remove('active');
-  document.getElementById('catalogBtn').classList.add('active');
-  document.getElementById('presupuestoBtn').classList.remove('active');
-  document.getElementById('adminBtn').classList.remove('active');
-}
-
-function mostrarPresupuesto() {
-  document.getElementById('catalogView').classList.add('hidden');
-  document.getElementById('budgetSection').classList.add('active');
-  document.getElementById('catalogBtn').classList.remove('active');
-  document.getElementById('presupuestoBtn').classList.add('active');
-  document.getElementById('adminBtn').classList.remove('active');
-  inicializarSelectServicios();
-}
-
-function inicializarSelectServicios() {
-  if (serviceSelect.children.length <= 1) {
-    servicios.forEach((servicio, index) => {
-      const option = document.createElement('option');
-      option.value = index;
-      option.textContent = `${servicio.nombre} - ${formatearPrecio(servicio.precio)}`;
-      serviceSelect.appendChild(option);
-    });
-  }
-}
-
-function habilitarBotonAgregar() {
-  btnAgregar.disabled = serviceSelect.value === '';
-}
-
-function agregarServicio() {
-  const index = parseInt(serviceSelect.value);
-  if (isNaN(index) || index < 0 || index >= servicios.length) return;
-  const existente = budgetItems.find(item => item.serviceIndex === index);
-  if (existente) {
-    existente.cantidad++;
-  } else {
-    budgetItems.push({ serviceIndex: index, cantidad: 1 });
-  }
-  serviceSelect.value = '';
-  habilitarBotonAgregar();
-  renderizarPresupuesto();
-  autoGuardar();
-}
-
-function renderizarPresupuesto() {
-  const itemsList = document.getElementById('budgetItemsList');
-  const emptyMessage = document.getElementById('emptyMessage');
-  const summary = document.getElementById('budgetSummary');
-
-  if (budgetItems.length === 0) {
-    itemsList.innerHTML = '';
-    emptyMessage.classList.remove('hidden');
-    summary.classList.add('hidden');
-    actualizarResumen();
-    return;
-  }
-
-  emptyMessage.classList.add('hidden');
-  summary.classList.remove('hidden');
-
-  itemsList.innerHTML = budgetItems.map((item, idx) => {
-    const servicio = servicios[item.serviceIndex];
-    const subtotal = (servicio.precio || 0) * item.cantidad;
-    return `
-      <div class="budget-item-row">
-        <div class="budget-item-info">
-          <div class="budget-item-name">${servicio.nombre}</div>
-          <div class="budget-item-price">${formatearPrecio(servicio.precio)} c/u</div>
-        </div>
-        <div class="budget-item-qty">
-          <input type="number" min="1" value="${item.cantidad}" onchange="cambiarCantidad(${idx}, this.value)"
-                 oninput="this.value = Math.max(1, parseInt(this.value) || 1)">
-        </div>
-        <div class="budget-item-total">
-          ${formatearPrecio(subtotal)}
-        </div>
-        <button class="btn btn--danger btn--sm" onclick="eliminarServicio(${idx})">✕</button>
-      </div>
-    `;
-  }).join('');
-
-  actualizarResumen();
-}
-
-function cambiarCantidad(index, cantidad) {
-  const val = Math.max(1, parseInt(cantidad) || 1);
-  budgetItems[index].cantidad = val;
-  renderizarPresupuesto();
-  autoGuardar();
-}
-
-function eliminarServicio(index) {
-  budgetItems.splice(index, 1);
-  renderizarPresupuesto();
-  autoGuardar();
-}
-
-function actualizarResumen() {
-  let subtotal = 0;
-  budgetItems.forEach(item => {
-    if (item.serviceIndex < servicios.length) {
-      subtotal += (servicios[item.serviceIndex].precio || 0) * item.cantidad;
-    }
-  });
-  const descuento = Math.max(0, parseFloat(document.getElementById('budgetDiscount').value) || 0);
-  const total = Math.max(0, subtotal - descuento);
-  document.getElementById('subtotalValue').textContent = formatearPrecio(subtotal);
-  document.getElementById('discountValue').textContent = formatearPrecio(descuento);
-  document.getElementById('totalValue').textContent = formatearPrecio(total);
-}
-
-function limpiarPresupuesto() {
-  budgetItems = [];
-  document.getElementById('patientName').value = '';
-  document.getElementById('patientPhone').value = '';
-  document.getElementById('budgetNotes').value = '';
-  document.getElementById('budgetDiscount').value = '0';
-  serviceSelect.value = '';
-  habilitarBotonAgregar();
-  renderizarPresupuesto();
-  autoGuardar();
-}
-
-function sanitizarWhatsApp(input) {
-  let val = input.value.replace(/\D/g, '');
-  if (val.length >= 9 && !val.startsWith('51')) {
-    val = '51' + val;
-  }
-  if (val.length > 11) val = val.slice(0, 11);
-  input.value = val;
-}
-
-// === 💾 SINCRONIZACIÓN CON GITHUB ===
-
-function guardarEnLocalStorage() {
-  const data = {
-    servicios,
-    budgetItems,
-    patientData: {
-      name: document.getElementById('patientName')?.value || '',
-      phone: document.getElementById('patientPhone')?.value || '',
-      notes: document.getElementById('budgetNotes')?.value || '',
-      discount: parseFloat(document.getElementById('budgetDiscount')?.value) || 0
-    },
-    lastModified: new Date().toISOString()
-  };
-  localStorage.setItem('dentalCatalogData', JSON.stringify(data));
-}
-
-function cargarDesdeLocalStorage() {
-  const saved = localStorage.getItem('dentalCatalogData');
-  if (saved) {
-    try {
-      const data = JSON.parse(saved);
-      if (Array.isArray(data.servicios)) servicios = data.servicios;
-      if (Array.isArray(data.budgetItems)) budgetItems = data.budgetItems;
-      const p = data.patientData || {};
-      if (document.getElementById('patientName')) document.getElementById('patientName').value = p.name || '';
-      if (document.getElementById('patientPhone')) document.getElementById('patientPhone').value = p.phone || '';
-      if (document.getElementById('budgetNotes')) document.getElementById('budgetNotes').value = p.notes || '';
-      if (document.getElementById('budgetDiscount')) document.getElementById('budgetDiscount').value = p.discount || 0;
-      return true;
-    } catch (e) {
-      console.warn('Error al cargar desde localStorage', e);
-    }
-  }
-  return false;
-}
-
-async function obtenerSHA() {
-  if (!GITHUB_TOKEN) return null;
-  try {
-    const res = await fetch(GITHUB_API_URL, {
-      headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
-    });
-    if (res.ok) {
-      const json = await res.json();
-      return json.sha;
-    }
-  } catch (e) {
-    console.warn('No se pudo obtener SHA de GitHub:', e);
-  }
-  return null;
-}
-
-async function guardarEnGitHub() {
-  if (!GITHUB_TOKEN) {
-    guardarEnLocalStorage();
-    return;
-  }
-
-  const data = {
-    servicios,
-    budgetItems,
-    patientData: {
-      name: document.getElementById('patientName')?.value || '',
-      phone: document.getElementById('patientPhone')?.value || '',
-      notes: document.getElementById('budgetNotes')?.value || '',
-      discount: parseFloat(document.getElementById('budgetDiscount')?.value) || 0
-    },
-    lastModified: new Date().toISOString()
-  };
-
-  const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-
-  try {
-    const sha = await obtenerSHA();
-    const payload = {
-      message: `🔄 Actualización: ${new Date().toLocaleString('es-PE')}`,
-      content: contentBase64,
-      branch: 'main',
-      ...(sha ? { sha } : {})
-    };
-
-    const res = await fetch(GITHUB_API_URL, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (res.ok) {
-      console.log('✅ Datos guardados en GitHub');
-      guardarEnLocalStorage();
-    } else {
-      const err = await res.json();
-      console.error('❌ Error GitHub:', err);
-    }
-  } catch (e) {
-    console.error('⚠️ Error de red:', e);
-    guardarEnLocalStorage();
-  }
-}
-
-let _saveTimeout;
-function autoGuardar() {
-  guardarEnLocalStorage();
-  clearTimeout(_saveTimeout);
-  _saveTimeout = setTimeout(guardarEnGitHub, 2000);
-}
-
-async function cargarDesdeGitHub() {
-  if (!GITHUB_TOKEN) {
-    return cargarDesdeLocalStorage();
-  }
-
-  try {
-    const res = await fetch(GITHUB_API_URL, {
-      headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
-    });
-    if (res.ok) {
-      const json = await res.json();
-      const decoded = decodeURIComponent(escape(atob(json.content)));
-      const data = JSON.parse(decoded);
-
-      servicios = data.servicios || serviciosDefault;
-      budgetItems = data.budgetItems || [];
-      const p = data.patientData || {};
-      document.getElementById('patientName').value = p.name || '';
-      document.getElementById('patientPhone').value = p.phone || '';
-      document.getElementById('budgetNotes').value = p.notes || '';
-      document.getElementById('budgetDiscount').value = p.discount || 0;
-      return true;
-    } else {
-      return cargarDesdeLocalStorage();
-    }
-  } catch (e) {
-    return cargarDesdeLocalStorage();
-  }
-}
-
-// === 🛠️ ADMINISTRACIÓN ===
-
-function mostrarAdmin() {
-  // Opcional: contraseña → descomenta si quieres
-  // const pass = prompt("🔒 Contraseña de administrador:");
-  // if (pass !== "odontoadmin") { alert("❌ Acceso denegado."); return; }
-
-  renderizarAdmin();
-  document.getElementById('adminModal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function cerrarAdminModal() {
-  document.getElementById('adminModal').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function renderizarAdmin() {
-  const list = document.getElementById('adminServicesList');
-  list.innerHTML = servicios.map((servicio, idx) => `
-    <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-20); margin-bottom: var(--space-16); border: 1px solid var(--color-border);">
-      <h3 style="font-size: var(--font-size-xl); font-weight: bold; margin-bottom: var(--space-12); color: var(--color-text);">
-        ${idx + 1}. ${servicio.nombre}
-      </h3>
-      <div class="form-group">
-        <label class="form-label">Precio (S/)</label>
-        <input type="number" step="0.01" min="0" value="${servicio.precio}" class="form-input" id="admin-precio-${idx}" oninput="actualizarPreview(${idx})">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Imágenes (una URL por línea)</label>
-        <textarea class="form-input" id="admin-imgs-${idx}" rows="3" oninput="actualizarPreview(${idx})">${servicio.imagenes.join('\n')}</textarea>
-      </div>
-      <div style="margin-top: var(--space-12);">
-        <label class="form-label">Vista previa:</label>
-        <div id="preview-${idx}" style="display: flex; gap: var(--space-8); flex-wrap: wrap; margin-top: var(--space-8);"></div>
-      </div>
-    </div>
-  `).join('');
-
-  servicios.forEach((_, idx) => actualizarPreview(idx));
-}
-
-function actualizarPreview(idx) {
-  const imgTextarea = document.getElementById(`admin-imgs-${idx}`);
-  const urls = imgTextarea.value.split('\n').map(u => u.trim()).filter(u => u);
-  const preview = document.getElementById(`preview-${idx}`);
-  preview.innerHTML = urls.length
-    ? urls.map(url => `<div style="width:80px;height:60px;border:1px solid var(--color-border);border-radius:var(--radius-base);overflow:hidden;"><img src="${url}" onerror="this.style.background='#f0f0f0';this.alt='⚠️'" style="width:100%;height:100%;object-fit:cover;"></div>`).join('')
-    : '<span style="color:var(--color-text-secondary);font-style:italic;">Sin imágenes</span>';
-}
-
-function guardarCambiosAdmin() {
-  try {
-    servicios = servicios.map((servicio, idx) => {
-      const precio = parseFloat(document.getElementById(`admin-precio-${idx}`).value);
-      const imgs = document.getElementById(`admin-imgs-${idx}`).value
-        .split('\n')
-        .map(u => u.trim())
-        .filter(u => u);
-      return {
-        ...servicio,
-        precio: isNaN(precio) ? servicio.precio : precio,
-        imagenes: imgs.length ? imgs : servicio.imagenes
-      };
-    });
-
-    autoGuardar();
-    renderizarServicios();
-    cerrarAdminModal();
-    alert('✅ Cambios guardados.');
-  } catch (e) {
-    alert('❌ Error al guardar: ' + e.message);
-  }
-}
-
-// === EVENTOS ===
-
-document.getElementById('budgetDiscount')?.addEventListener('input', autoGuardar);
-document.getElementById('patientName')?.addEventListener('input', autoGuardar);
-document.getElementById('patientPhone')?.addEventListener('input', autoGuardar);
-document.getElementById('budgetNotes')?.addEventListener('input', autoGuardar);
-
-modalClose.addEventListener('click', cerrarModal);
-modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModal(); });
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    if (modal.classList.contains('active')) cerrarModal();
-    if (document.getElementById('adminModal').classList.contains('active')) cerrarAdminModal();
-  }
-});
-
-carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-carousel.addEventListener('touchend', e => {
-  if (!startX) return;
-  const endX = e.changedTouches[0].clientX;
-  const diff = startX - endX;
-  if (Math.abs(diff) > 50) diff > 0 ? nextImage() : prevImage();
-  startX = 0;
-});
-
-// === INICIALIZAR ===
-document.addEventListener('DOMContentLoaded', async () => {
-  await cargarDesdeGitHub();
-  renderizarServicios();
-  renderizarPresupuesto();
-});
-
-// === FUNCIONES EXTERNAS ===
-
-function descargarPresupuesto() {
-  const patientName = (document.getElementById('patientName').value || 'Paciente').trim();
-  const patientPhone = document.getElementById('patientPhone').value || '';
-  const notas = document.getElementById('budgetNotes').value;
-  const descuento = parseFloat(document.getElementById('budgetDiscount').value) || 0;
-
-  let subtotal = 0;
-  let rows = '';
-  budgetItems.forEach(item => {
-    const servicio = servicios[item.serviceIndex];
-    const precio = servicio.precio || 0;
-    const subtotalItem = precio * item.cantidad;
-    subtotal += subtotalItem;
-    rows += `
-      <tr>
-        <td>${servicio.nombre}</td>
-        <td style="text-align: center;">${item.cantidad}</td>
-        <td style="text-align: right;">${formatearPrecio(precio)}</td>
-        <td style="text-align: right;">${formatearPrecio(subtotalItem)}</td>
-      </tr>
-    `;
-  });
-
-  const total = Math.max(0, subtotal - descuento);
-  const fecha = new Date().toLocaleDateString('es-PE');
-
-  const html = `
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Presupuesto - ${patientName}</title>
-<style>
-body { font-family: Arial, sans-serif; padding: 20px; background: white; }
-.header { text-align: center; border-bottom: 3px solid #218D8D; padding-bottom: 20px; margin-bottom: 30px; }
-.header h1 { color: #218D8D; margin: 0; font-size: 28px; }
-.header p { color: #666; margin: 5px 0; }
-.info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
-.info-box { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
-.info-box label { font-weight: bold; color: #218D8D; display: block; margin-bottom: 5px; }
-.info-box p { color: #333; margin: 0; }
-table { width: 100%; border-collapse: collapse; margin: 30px 0; }
-table th { background-color: #f0f0f0; padding: 12px; text-align: left; border-bottom: 2px solid #218D8D; font-weight: bold; }
-table td { padding: 12px; border-bottom: 1px solid #ddd; }
-table tr:hover { background-color: #f9f9f9; }
-.total-row { background-color: #f0f0f0; font-weight: bold; }
-.total-row td { border-top: 2px solid #218D8D; border-bottom: 2px solid #218D8D; }
-.notes { margin-top: 30px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #218D8D; border-radius: 3px; }
-.notes p { margin: 0; color: #333; }
-.footer { text-align: center; margin-top: 30px; color: #999; font-size: 12px; }
-</style>
-</head>
-<body>
 <div class="header">
-<h1>🦷 Catálogo Dental</h1>
-<p>Centro Integral Infantil y Familiar</p>
-<p>Presupuesto de Tratamiento Dental</p>
+  <h1 class="header__title">💊 Catálogo Dental</h1>
+  <p class="header__subtitle">Gestión de Tratamientos y Subcategorías</p>
 </div>
-<div class="info">
-<div class="info-box">
-<label>Paciente:</label>
-<p>${patientName}</p>
-</div>
-<div class="info-box">
-<label>Fecha:</label>
-<p>${fecha}</p>
-</div>
-${patientPhone ? `<div class="info-box"><label>Teléfono:</label><p>${patientPhone}</p></div>` : ''}
-</div>
-<table>
-<thead>
-<tr>
-<th>Tratamiento</th>
-<th style="text-align: center;">Cantidad</th>
-<th style="text-align: right;">Precio Unitario</th>
-<th style="text-align: right;">Subtotal</th>
-</tr>
-</thead>
-<tbody>
-${rows}
-<tr class="total-row">
-<td colspan="3" style="text-align: right;">Subtotal:</td>
-<td style="text-align: right;">${formatearPrecio(subtotal)}</td>
-</tr>
-${descuento > 0 ? `<tr class="total-row"><td colspan="3" style="text-align: right;">Descuento:</td><td style="text-align: right;">-${formatearPrecio(descuento)}</td></tr>` : ''}
-<tr class="total-row">
-<td colspan="3" style="text-align: right; font-size: 18px;">TOTAL:</td>
-<td style="text-align: right; font-size: 18px;">${formatearPrecio(total)}</td>
-</tr>
-</tbody>
-</table>
-${notas ? `<div class="notes"><p><strong>Notas:</strong><br>${notas}</p></div>` : ''}
-<div class="footer">
-<p>Este presupuesto es válido por 30 días.<br>Válido solo para el paciente indicado. Para más información, contáctenos.</p>
-</div>
-</body>
-</html>
-`;
 
-  const blob = new Blob([html], { type: 'text/html' });
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="view">📋 Ver Tratamientos</button>
+    <button class="tab-btn" data-tab="manage">⚙️ Gestionar</button>
+    <button class="tab-btn" data-tab="export">📊 Exportar</button>
+  </div>
+
+  <!-- TAB: VER TRATAMIENTOS -->
+  <div id="view" class="tab-content active">
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+
+  <!-- TAB: GESTIONAR -->
+  <div id="manage" class="tab-content">
+    <div id="successMessage"></div>
+    <div class="services-grid" id="manageGrid"></div>
+  </div>
+
+  <!-- TAB: EXPORTAR -->
+  <div id="export" class="tab-content">
+    <div class="export-section">
+      <h2 class="export-section__title">Exportar y Descargar Datos</h2>
+      <p style="margin-bottom: var(--space-16); color: var(--color-text-secondary);">
+        Descarga todos tus tratamientos y subcategorías en formato JSON para respaldo o transferencia.
+      </p>
+      <div class="export-section__buttons">
+        <button class="btn btn-primary btn-sm" onclick="exportToJSON()">📥 Descargar JSON</button>
+        <button class="btn btn-secondary btn-sm" onclick="copyToClipboard()">📋 Copiar al Portapapeles</button>
+        <button class="btn btn-secondary btn-sm" onclick="importFromJSON()">📤 Importar JSON</button>
+      </div>
+      <input type="file" id="jsonImportInput" accept=".json" style="display: none;">
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PARA EDITAR/CREAR TRATAMIENTO -->
+<div id="treatmentModal" class="modal">
+  <div class="modal__content">
+    <button class="modal__close" onclick="closeModal()">&times;</button>
+    <h2 class="modal__title" id="modalTitle">Nuevo Tratamiento</h2>
+    
+    <div class="form-group">
+      <label class="form-label">Nombre del Tratamiento</label>
+      <input type="text" id="treatmentName" class="form-input" placeholder="Ej: Ortodoncia">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Descripción Corta</label>
+      <input type="text" id="treatmentShortDesc" class="form-input" placeholder="Descripción breve">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Descripción Ampliada</label>
+      <textarea id="treatmentLongDesc" class="form-textarea" placeholder="Descripción detallada del tratamiento"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Precio Base (opcional)</label>
+      <input type="number" id="treatmentPrice" class="form-input" placeholder="0.00" step="0.01" min="0">
+    </div>
+
+    <!-- SUBCATEGORÍAS -->
+    <div class="subcategories-section">
+      <h3 class="subcategories-section__title">Subcategorías</h3>
+      
+      <div class="add-subcategory">
+        <div class="add-subcategory__title">➕ Agregar Subcategoría</div>
+        <div class="add-subcategory__inputs">
+          <input type="text" id="subName" class="add-subcategory__input" placeholder="Nombre (Ej: Brackets Metálicos)">
+          <input type="number" id="subPrice" class="add-subcategory__input" placeholder="Precio" step="0.01" min="0">
+          <button class="add-subcategory__btn" onclick="addSubcategoryToModal()">Agregar</button>
+        </div>
+      </div>
+
+      <div id="subcategoriesList"></div>
+    </div>
+
+    <div class="modal__buttons">
+      <button class="btn-save" onclick="saveTreatment()">💾 Guardar</button>
+      <button class="btn-cancel" onclick="closeModal()">❌ Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============= GESTIÓN DE DATOS =============
+
+class TreatmentManager {
+  constructor() {
+    this.treatments = this.loadFromLocalStorage();
+    if (this.treatments.length === 0) {
+      this.loadDefaultData();
+    }
+  }
+
+  loadFromLocalStorage() {
+    const stored = localStorage.getItem('dental_treatments');
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('dental_treatments', JSON.stringify(this.treatments));
+  }
+
+  loadDefaultData() {
+    this.treatments = [
+      {
+        id: Date.now() + 1,
+        nombre: "Ortodoncia",
+        descripcion_corta: "Alineación dental con brackets",
+        descripcion_ampliada: "Corrige la posición de los dientes mediante brackets y arcos metálicos.",
+        precio: 2500,
+        subcategorias: [
+          { id: 1, nombre: "Brackets Metálicos Convencionales", precio: 2500 },
+          { id: 2, nombre: "Brackets de Autoligado", precio: 3500 },
+          { id: 3, nombre: "Alineadores Invisibles", precio: 4500 }
+        ]
+      },
+      {
+        id: Date.now() + 2,
+        nombre: "Endodoncia",
+        descripcion_corta: "Tratamiento de conducto radicular",
+        descripcion_ampliada: "Extrae la pulpa dental dañada y rellena el conducto.",
+        precio: 700,
+        subcategorias: [
+          { id: 1, nombre: "Endodoncia Monoradicular", precio: 600 },
+          { id: 2, nombre: "Endodoncia Multiradicular", precio: 1000 }
+        ]
+      },
+      {
+        id: Date.now() + 3,
+        nombre: "Profilaxis Dental",
+        descripcion_corta: "Limpieza profesional profunda",
+        descripcion_ampliada: "Remoción de placa y cálculo con instrumentos ultrasónicos.",
+        precio: 120,
+        subcategorias: [
+          { id: 1, nombre: "Limpieza Básica", precio: 120 },
+          { id: 2, nombre: "Limpieza Profunda", precio: 200 }
+        ]
+      },
+      {
+        id: Date.now() + 4,
+        nombre: "Implante Dental",
+        descripcion_corta: "Reemplazo permanente de diente",
+        descripcion_ampliada: "Tornillo de titanio + corona personalizada.",
+        precio: 3200,
+        subcategorias: [
+          { id: 1, nombre: "Implante Unitario", precio: 3200 },
+          { id: 2, nombre: "Implante + Corona", precio: 4500 },
+          { id: 3, nombre: "Implante Inmediato", precio: 3800 }
+        ]
+      }
+    ];
+    this.saveToLocalStorage();
+  }
+
+  addTreatment(treatment) {
+    treatment.id = Date.now();
+    this.treatments.push(treatment);
+    this.saveToLocalStorage();
+  }
+
+  updateTreatment(id, treatment) {
+    const index = this.treatments.findIndex(t => t.id === id);
+    if (index !== -1) {
+      this.treatments[index] = { ...treatment, id };
+      this.saveToLocalStorage();
+    }
+  }
+
+  deleteTreatment(id) {
+    this.treatments = this.treatments.filter(t => t.id !== id);
+    this.saveToLocalStorage();
+  }
+
+  getTreatment(id) {
+    return this.treatments.find(t => t.id === id);
+  }
+
+  exportJSON() {
+    return JSON.stringify(this.treatments, null, 2);
+  }
+
+  importJSON(jsonString) {
+    try {
+      const imported = JSON.parse(jsonString);
+      if (Array.isArray(imported)) {
+        this.treatments = imported;
+        this.saveToLocalStorage();
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+}
+
+// ============= INSTANCIA GLOBAL =============
+const manager = new TreatmentManager();
+
+// ============= VARIABLES DE MODAL =============
+let currentEditId = null;
+let modalSubcategories = [];
+
+// ============= FUNCIONES DE UI =============
+
+function openModal(treatmentId = null) {
+  const modal = document.getElementById('treatmentModal');
+  const titleEl = document.getElementById('modalTitle');
+  
+  modalSubcategories = [];
+  document.getElementById('treatmentName').value = '';
+  document.getElementById('treatmentShortDesc').value = '';
+  document.getElementById('treatmentLongDesc').value = '';
+  document.getElementById('treatmentPrice').value = '';
+  document.getElementById('subName').value = '';
+  document.getElementById('subPrice').value = '';
+  document.getElementById('subcategoriesList').innerHTML = '';
+
+  if (treatmentId) {
+    const treatment = manager.getTreatment(treatmentId);
+    if (treatment) {
+      currentEditId = treatmentId;
+      titleEl.textContent = `Editar: ${treatment.nombre}`;
+      document.getElementById('treatmentName').value = treatment.nombre;
+      document.getElementById('treatmentShortDesc').value = treatment.descripcion_corta;
+      document.getElementById('treatmentLongDesc').value = treatment.descripcion_ampliada;
+      document.getElementById('treatmentPrice').value = treatment.precio || '';
+      modalSubcategories = JSON.parse(JSON.stringify(treatment.subcategorias || []));
+      renderSubcategoriesInModal();
+    }
+  } else {
+    currentEditId = null;
+    titleEl.textContent = 'Nuevo Tratamiento';
+    modalSubcategories = [];
+  }
+
+  modal.classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('treatmentModal').classList.remove('active');
+  currentEditId = null;
+  modalSubcategories = [];
+}
+
+function addSubcategoryToModal() {
+  const name = document.getElementById('subName').value.trim();
+  const price = parseFloat(document.getElementById('subPrice').value);
+
+  if (!name) {
+    alert('Por favor ingresa el nombre de la subcategoría');
+    return;
+  }
+
+  if (isNaN(price) || price < 0) {
+    alert('Por favor ingresa un precio válido');
+    return;
+  }
+
+  modalSubcategories.push({
+    id: Date.now(),
+    nombre: name,
+    precio: price
+  });
+
+  document.getElementById('subName').value = '';
+  document.getElementById('subPrice').value = '';
+  renderSubcategoriesInModal();
+}
+
+function renderSubcategoriesInModal() {
+  const container = document.getElementById('subcategoriesList');
+  container.innerHTML = '';
+
+  if (modalSubcategories.length === 0) {
+    container.innerHTML = '<p style="color: var(--color-text-secondary); text-align: center; padding: var(--space-16);">Sin subcategorías aún</p>';
+    return;
+  }
+
+  modalSubcategories.forEach(sub => {
+    const div = document.createElement('div');
+    div.className = 'subcategory-item';
+    div.innerHTML = `
+      <div class="subcategory-item__info">
+        <div class="subcategory-item__name">${sub.nombre}</div>
+        <div class="subcategory-item__price">$${sub.precio.toFixed(2)}</div>
+      </div>
+      <button class="subcategory-item__remove" onclick="removeSubcategoryFromModal(${sub.id})">Eliminar</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function removeSubcategoryFromModal(subId) {
+  modalSubcategories = modalSubcategories.filter(s => s.id !== subId);
+  renderSubcategoriesInModal();
+}
+
+function saveTreatment() {
+  const name = document.getElementById('treatmentName').value.trim();
+  const shortDesc = document.getElementById('treatmentShortDesc').value.trim();
+  const longDesc = document.getElementById('treatmentLongDesc').value.trim();
+  const price = parseFloat(document.getElementById('treatmentPrice').value) || 0;
+
+  if (!name) {
+    alert('Por favor ingresa el nombre del tratamiento');
+    return;
+  }
+
+  const treatment = {
+    nombre: name,
+    descripcion_corta: shortDesc,
+    descripcion_ampliada: longDesc,
+    precio: price,
+    subcategorias: modalSubcategories
+  };
+
+  if (currentEditId) {
+    manager.updateTreatment(currentEditId, treatment);
+  } else {
+    manager.addTreatment(treatment);
+  }
+
+  closeModal();
+  renderAllTabs();
+  showSuccessMessage('✅ Tratamiento guardado correctamente');
+}
+
+function deleteTreatment(id) {
+  if (confirm('¿Estás seguro de que quieres eliminar este tratamiento?')) {
+    manager.deleteTreatment(id);
+    renderAllTabs();
+    showSuccessMessage('✅ Tratamiento eliminado');
+  }
+}
+
+function showSuccessMessage(message) {
+  const container = document.getElementById('successMessage');
+  container.innerHTML = `<div class="success-message">${message}</div>`;
+  setTimeout(() => {
+    container.innerHTML = '';
+  }, 4000);
+}
+
+// ============= RENDERIZADO DE SERVICIOS =============
+
+function renderTreatmentCard(treatment, showButtons = false) {
+  let subcategoriesHTML = '';
+  if (treatment.subcategorias && treatment.subcategorias.length > 0) {
+    subcategoriesHTML = '<div style="margin-top: var(--space-12); border-top: 1px solid var(--color-border); padding-top: var(--space-12);">';
+    subcategoriesHTML += '<div style="font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); margin-bottom: var(--space-8);">Opciones:</div>';
+    treatment.subcategorias.forEach(sub => {
+      subcategoriesHTML += `
+        <div style="display: flex; justify-content: space-between; font-size: var(--font-size-sm); margin-bottom: var(--space-4);">
+          <span>• ${sub.nombre}</span>
+          <span style="color: var(--color-primary); font-weight: var(--font-weight-bold);">$${sub.precio.toFixed(2)}</span>
+        </div>
+      `;
+    });
+    subcategoriesHTML += '</div>';
+  }
+
+  const card = document.createElement('div');
+  card.className = 'service-card';
+  card.innerHTML = `
+    <div class="service-card__content">
+      <h3 class="service-card__title">${treatment.nombre}</h3>
+      <p class="service-card__description">${treatment.descripcion_corta}</p>
+      ${subcategoriesHTML}
+      ${showButtons ? `
+        <div class="service-card__buttons">
+          <button class="btn btn-primary" onclick="openModal(${treatment.id})">✏️ Editar</button>
+          <button class="btn btn-secondary" onclick="deleteTreatment(${treatment.id})">🗑️ Eliminar</button>
+        </div>
+      ` : ''}
+    </div>
+  `;
+  return card;
+}
+
+function renderServicesGrid(containerId, showButtons = false) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+
+  if (manager.treatments.length === 0) {
+    container.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><div class="empty-state__icon">📭</div><div class="empty-state__text">Sin tratamientos aún. ¡Crea uno nuevo!</div></div>';
+    return;
+  }
+
+  manager.treatments.forEach(treatment => {
+    container.appendChild(renderTreatmentCard(treatment, showButtons));
+  });
+}
+
+function renderAllTabs() {
+  renderServicesGrid('servicesGrid', false);
+  renderServicesGrid('manageGrid', true);
+}
+
+// ============= EXPORT/IMPORT =============
+
+function exportToJSON() {
+  const json = manager.exportJSON();
+  const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `Presupuesto_${patientName.replace(/\s+/g, '_')}_${fecha.replace(/\//g, '-')}.html`;
+  a.download = `tratamientos_dentales_${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(a);
   a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 100);
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showSuccessMessage('✅ JSON descargado correctamente');
 }
 
-function enviarWhatsApp() {
-  const patientName = document.getElementById('patientName').value.trim() || 'Paciente';
-  let phone = document.getElementById('patientPhone').value.trim();
-  const notas = document.getElementById('budgetNotes').value.trim();
-
-  if (!phone) {
-    alert('Por favor, ingresa el número de teléfono.');
-    return;
-  }
-
-  phone = phone.replace(/\D/g, '');
-  if (phone.length < 9) {
-    alert('El número debe tener al menos 9 dígitos.');
-    return;
-  }
-  if (!phone.startsWith('51')) phone = '51' + phone;
-
-  let subtotal = 0;
-  let detalles = '*PRESUPUESTO - CATÁLOGO DENTAL*\n';
-  detalles += `👤 Paciente: ${patientName}\n`;
-  detalles += `📅 Fecha: ${new Date().toLocaleDateString('es-PE')}\n`;
-  detalles += `*Servicios solicitados:*\n`;
-
-  budgetItems.forEach(item => {
-    const servicio = servicios[item.serviceIndex];
-    const precio = servicio.precio || 0;
-    const subtotalItem = precio * item.cantidad;
-    subtotal += subtotalItem;
-    detalles += `✓ ${servicio.nombre}\n`;
-    detalles += `  Cantidad: ${item.cantidad} × ${formatearPrecio(precio)} = ${formatearPrecio(subtotalItem)}\n`;
+function copyToClipboard() {
+  const json = manager.exportJSON();
+  navigator.clipboard.writeText(json).then(() => {
+    showSuccessMessage('✅ Copiado al portapapeles');
+  }).catch(() => {
+    alert('No se pudo copiar');
   });
-
-  const descuento = parseFloat(document.getElementById('budgetDiscount').value) || 0;
-  const total = Math.max(0, subtotal - descuento);
-
-  detalles += `\n💰 *Resumen:*\n`;
-  detalles += `Subtotal: ${formatearPrecio(subtotal)}\n`;
-  if (descuento > 0) detalles += `Descuento: -${formatearPrecio(descuento)}\n`;
-  detalles += `*TOTAL: ${formatearPrecio(total)}*\n`;
-
-  if (notas) detalles += `\n📝 *Notas:* ${notas}\n`;
-
-  detalles += `\n¡Contáctanos para más información! 🦷`;
-
-  const encodedMessage = encodeURIComponent(detalles);
-  const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
-  window.open(whatsappUrl, '_blank');
 }
+
+function importFromJSON() {
+  document.getElementById('jsonImportInput').click();
+}
+
+document.getElementById('jsonImportInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const success = manager.importJSON(event.target.result);
+    if (success) {
+      renderAllTabs();
+      showSuccessMessage('✅ Datos importados correctamente');
+    } else {
+      alert('Error: El archivo JSON no es válido');
+    }
+  };
+  reader.readAsText(file);
+});
+
+// ============= TABS =============
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tabName = this.getAttribute('data-tab');
+    
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    
+    this.classList.add('active');
+    document.getElementById(tabName).classList.add('active');
+  });
+});
+
+// ============= INICIALIZACIÓN =============
+
+window.addEventListener('DOMContentLoaded', function() {
+  renderAllTabs();
+});
+
+// Cerrar modal al hacer clic fuera
+document.getElementById('treatmentModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeModal();
+  }
+});
 </script>
+
 </body>
 </html>
