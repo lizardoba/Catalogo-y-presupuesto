@@ -1,435 +1,449 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema Dental Pro | Catálogo y Presupuestos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --secondary: #64748b;
-      --success: #10b981;
-      --danger: #ef4444;
-      --bg-body: #f8fafc;
-      --bg-card: #ffffff;
-      --text-main: #1e293b;
-      --border: #e2e8f0;
-      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo Dental Pro - Gestión y Presupuestos</title>
+<style>
+:root {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-cream-50: #fcfcf9;
+  --color-cream-100: #fffdfd;
+  --color-gray-200: #f5f5f5;
+  --color-gray-300: #a7a9a9;
+  --color-slate-500: #626c71;
+  --color-teal-500: #21808d;
+  --color-teal-600: #1d7480;
+  --color-slate-900: #13343b;
+  
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-border: rgba(94, 82, 64, 0.2);
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  
+  --font-family-base: "Inter", -apple-system, sans-serif;
+  --radius-lg: 12px;
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --space-24: 24px;
+}
 
-    * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg-body); color: var(--text-main); margin: 0; line-height: 1.5; }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #1f2121;
+    --color-surface: #262828;
+    --color-text: #f5f5f5;
+    --color-text-secondary: rgba(167, 169, 169, 0.7);
+    --color-border: rgba(255, 255, 255, 0.1);
+  }
+}
 
-    header {
-      background: var(--primary);
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-family-base); background-color: var(--color-background); color: var(--color-text); line-height: 1.6; }
 
-    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+.header { background: linear-gradient(135deg, var(--color-primary) 0%, #1a6873 100%); color: white; padding: 40px 20px; text-align: center; position: relative; }
+.currency-selector { position: absolute; top: 20px; right: 20px; padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.2); color: white; border: none; cursor: pointer; }
 
-    /* --- NAVEGACIÓN TABS --- */
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-      background: #e2e8f0;
-      padding: 0.4rem;
-      border-radius: 12px;
-    }
-    .tab-btn {
-      flex: 1;
-      padding: 0.8rem;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--secondary);
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-    .tab-btn.active {
-      background: var(--bg-card);
-      color: var(--primary);
-      shadow: var(--shadow);
-    }
+.container { max-width: 1200px; margin: 0 auto; padding: 32px 20px; }
 
-    .tab-content { display: none; animation: fadeIn 0.3s ease; }
-    .tab-content.active { display: block; }
+.tabs { display: flex; gap: 20px; margin-bottom: 32px; border-bottom: 2px solid var(--color-border); overflow-x: auto; }
+.tab-btn { padding: 12px 20px; background: none; border: none; cursor: pointer; color: var(--color-text-secondary); font-weight: 600; border-bottom: 3px solid transparent; white-space: nowrap; }
+.tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
-    /* --- COMPONENTES --- */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-    
-    .card {
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      transition: transform 0.2s;
-    }
-    .card:hover { transform: translateY(-5px); }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.service-card { background: var(--color-surface); border-radius: var(--radius-lg); border: 1px solid var(--color-border); overflow: hidden; transition: transform 0.2s; cursor: pointer; box-shadow: var(--shadow-md); }
+.service-card:hover { transform: translateY(-5px); }
+.service-card img { width: 100%; height: 180px; object-fit: cover; }
+.service-card__content { padding: 20px; }
+.service-card__title { font-size: 1.25rem; margin-bottom: 8px; color: var(--color-primary); }
+.service-card__price { font-weight: bold; color: var(--color-text); margin-bottom: 15px; }
 
-    .price-tag { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 1rem 0; }
+.btn { padding: 10px 18px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 14px; }
+.btn-primary { background: var(--color-primary); color: white; }
+.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-secondary { background: var(--color-gray-200); color: var(--color-text); }
+.btn-danger { background: var(--color-error); color: white; }
+.btn-whatsapp { background: #25D366; color: white; width: 100%; margin-top: 10px; }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      gap: 0.5rem;
-      transition: 0.2s;
-    }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: var(--primary-dark); }
-    .btn-danger { background: #fee2e2; color: var(--danger); }
-    .btn-danger:hover { background: var(--danger); color: white; }
-    .btn-success { background: var(--success); color: white; width: 100%; }
+/* Modales */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+.modal.active { display: flex; }
+.modal__content { background: var(--color-surface); padding: 30px; border-radius: 16px; width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto; position: relative; }
+.modal__close { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; border: none; background: none; color: var(--color-text-secondary); }
 
-    /* --- FORMULARIOS Y MODALES --- */
-    .form-group { margin-bottom: 1rem; }
-    label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
-    input, select, textarea {
-      width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;
-    }
+.form-group { margin-bottom: 15px; }
+.form-label { display: block; margin-bottom: 5px; font-weight: 500; }
+.form-input, .form-select, .form-textarea { width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); color: var(--color-text); }
 
-    .modal {
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.7); align-items: center; justify-content: center; z-index: 100;
-    }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: white; padding: 2rem; border-radius: 16px; width: 95%; max-width: 500px;
-      max-height: 90vh; overflow-y: auto;
-    }
+/* Tabla de Presupuesto */
+.budget-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.budget-table th, .budget-table td { padding: 12px; border-bottom: 1px solid var(--color-border); text-align: left; }
+.total-display { text-align: right; font-size: 1.5rem; font-weight: bold; color: var(--color-primary); margin: 20px 0; }
 
-    /* --- TABLA PRESUPUESTO --- */
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: white; border-radius: 8px; overflow: hidden; }
-    th { background: #f1f5f9; text-align: left; padding: 1rem; }
-    td { padding: 1rem; border-top: 1px solid var(--border); }
+.subcategory-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: var(--color-gray-200); border-radius: 8px; margin-bottom: 8px; }
+.subcategory-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
 
-    .currency-selector { position: absolute; top: 1.5rem; right: 1.5rem; padding: 0.5rem; border-radius: 8px; }
-
-    @media (max-width: 600px) {
-      .currency-selector { position: static; margin: 1rem auto; display: block; width: fit-content; }
-      header { padding-bottom: 3rem; }
-    }
-  </style>
+@media (max-width: 600px) {
+  .header__title { font-size: 1.5rem; }
+  .tabs { gap: 10px; }
+}
+</style>
 </head>
 <body>
 
-<header>
-  <h1>🦷 Clínica Dental Pro</h1>
-  <select id="currencySelector" class="currency-selector" onchange="changeCurrency()">
-    <option value="PEN">Soles (PEN)</option>
-    <option value="USD">Dólares (USD)</option>
+<div class="header">
+  <select class="currency-selector" id="currencySelector" onchange="changeCurrency(this.value)">
+    <option value="PEN">S/ Soles</option>
+    <option value="USD">US$ Dólares</option>
+    <option value="EUR">€ Euros</option>
   </select>
-</header>
+  <h1 class="header__title">🦷 Catálogo Dental Pro</h1>
+  <p>Gestión de Tratamientos y Presupuestos</p>
+</div>
 
 <div class="container">
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('catalog')">Catálogo</button>
-    <button class="tab-btn" onclick="showTab('admin')">Gestión</button>
-    <button class="tab-btn" onclick="showTab('budgets')">Presupuestos</button>
+    <button class="tab-btn active" onclick="showTab('view')">📋 Ver Catálogo</button>
+    <button class="tab-btn" onclick="showTab('manage')">⚙️ Gestionar</button>
+    <button class="tab-btn" onclick="showTab('budgets')">🧾 Presupuestos</button>
   </div>
 
-  <div id="catalog" class="tab-content active">
-    <div id="servicesGrid" class="grid"></div>
+  <div id="view" class="tab-content active">
+    <div class="services-grid" id="servicesGrid"></div>
   </div>
 
-  <div id="admin" class="tab-content">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
-      <h2>Tratamientos Disponibles</h2>
-      <button class="btn btn-primary" onclick="openModal()">+ Nuevo Tratamiento</button>
-    </div>
-    <div id="manageGrid" class="grid"></div>
+  <div id="manage" class="tab-content">
+    <button class="btn btn-primary" style="margin-bottom: 20px;" onclick="openTreatmentModal()">➕ Nuevo Tratamiento</button>
+    <div class="services-grid" id="manageGrid"></div>
   </div>
 
   <div id="budgets" class="tab-content">
-    <div class="grid">
-      <div class="card">
-        <h3>Nuevo Presupuesto</h3>
+    <div style="background: var(--color-surface); padding: 25px; border-radius: 12px; box-shadow: var(--shadow-md);">
+      <h3>Crear Presupuesto</h3>
+      <div class="form-group" style="margin-top:15px;">
+        <label class="form-label">Cliente</label>
+        <input type="text" id="budgetClient" class="form-input" placeholder="Nombre del paciente">
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end;">
         <div class="form-group">
-          <label>Nombre del Paciente</label>
-          <input type="text" id="clientName" placeholder="Ej. Juan Pérez">
+          <label class="form-label">Tratamiento</label>
+          <select id="budgetTreatmentSelect" class="form-select" onchange="updateSubcategorySelect()"></select>
         </div>
         <div class="form-group">
-          <label>Tratamiento</label>
-          <select id="treatmentSelect" onchange="updateSubSelect()"></select>
+          <label class="form-label">Subcategoría</label>
+          <select id="budgetSubSelect" class="form-select"></select>
         </div>
-        <div id="subSelectGroup" class="form-group" style="display:none;">
-          <label>Variación/Subcategoría</label>
-          <select id="subcategorySelect"></select>
-        </div>
-        <button class="btn btn-primary" style="width:100%" onclick="addToBudget()">Añadir a la lista</button>
+        <button class="btn btn-primary" onclick="addToBudget()" style="margin-bottom: 15px;">Agregar</button>
       </div>
 
-      <div class="card">
-        <h3>Resumen</h3>
-        <table id="budgetTable">
-          <thead><tr><th>Descripción</th><th>Precio</th><th></th></tr></thead>
-          <tbody id="budgetItems"></tbody>
-        </table>
-        <div style="margin-top:1.5rem; border-top: 2px solid var(--border); padding-top:1rem;">
-          <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700;">
-            <span>Total:</span>
-            <span id="budgetTotal">0.00</span>
-          </div>
-          <button class="btn btn-success" style="margin-top:1rem;" onclick="generateWhatsApp()">
-            📲 Enviar por WhatsApp
-          </button>
-        </div>
+      <table class="budget-table">
+        <thead>
+          <tr><th>Ítem</th><th>Precio</th><th>Acción</th></tr>
+        </thead>
+        <tbody id="budgetItems"></tbody>
+      </table>
+      <div class="total-display">Total: <span id="budgetTotalDisplay">0.00</span></div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-primary" onclick="shareWhatsApp()">📱 Enviar por WhatsApp</button>
+        <button class="btn btn-secondary" onclick="clearBudget()">🗑️ Limpiar</button>
       </div>
     </div>
   </div>
 </div>
 
 <div id="treatmentModal" class="modal">
-  <div class="modal-content">
-    <h2 id="modalTitle">Configurar Tratamiento</h2>
+  <div class="modal__content">
+    <button class="modal__close" onclick="closeModal()">&times;</button>
+    <h2 id="modalTitle">Nuevo Tratamiento</h2>
+    <input type="hidden" id="editId">
+    
     <div class="form-group">
-      <label>Nombre del Tratamiento</label>
-      <input type="text" id="tName">
+      <label class="form-label">Nombre</label>
+      <input type="text" id="tName" class="form-input">
     </div>
     <div class="form-group">
-      <label>Precio Base</label>
-      <input type="number" id="tPrice" step="0.01">
+      <label class="form-label">Descripción</label>
+      <textarea id="tDesc" class="form-textarea"></textarea>
     </div>
     <div class="form-group">
-      <label>Descripción</label>
-      <textarea id="tDesc" rows="3"></textarea>
+      <label class="form-label">Precio Base</label>
+      <input type="number" id="tPrice" class="form-input">
+    </div>
+    <div class="form-group">
+      <label class="form-label">URL Imagen</label>
+      <input type="text" id="tImage" class="form-input" placeholder="https://...">
     </div>
 
-    <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-      <label>Añadir Subcategoría (Opcional)</label>
-      <div style="display:flex; gap:0.5rem;">
-        <input type="text" id="sName" placeholder="Ej. Con Resina">
-        <input type="number" id="sPrice" placeholder="Precio" style="width:100px;">
-        <button class="btn btn-primary" onclick="addSubToTemp()">+</button>
+    <div style="border-top: 1px solid var(--color-border); padding-top: 15px; margin-top: 15px;">
+      <h4>Subcategorías</h4>
+      <div style="display: grid; grid-template-columns: 1fr 100px auto; gap: 10px; margin: 10px 0;">
+        <input type="text" id="subName" class="form-input" placeholder="Nombre">
+        <input type="number" id="subPrice" class="form-input" placeholder="Precio">
+        <button class="btn btn-secondary" onclick="addSubToTemp()">Añadir</button>
       </div>
-      <div id="tempSubList" style="margin-top:0.5rem;"></div>
+      <div id="tempSubList"></div>
     </div>
 
-    <div style="display:flex; gap:1rem; justify-content:flex-end;">
-      <button class="btn" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-primary" onclick="saveTreatment()">Guardar</button>
+    <div style="margin-top: 20px; display: flex; gap: 10px;">
+      <button class="btn btn-primary" onclick="saveTreatment()">Guardar Tratamiento</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
     </div>
   </div>
 </div>
 
 <script>
-// ============= LÓGICA DE DATOS =============
-const rates = { PEN: 1, USD: 0.26 };
-const symbols = { PEN: 'S/', USD: '$' };
-let currency = localStorage.getItem('pref_curr') || 'PEN';
+// --- CONFIGURACIÓN Y ESTADO ---
+const exchangeRates = { PEN: 1, USD: 0.26, EUR: 0.24 };
+const currencySymbols = { PEN: 'S/', USD: 'US$', EUR: '€' };
+let currentCurrency = localStorage.getItem('currency') || 'PEN';
+let treatments = JSON.parse(localStorage.getItem('treatments')) || [];
+let tempSubcategories = [];
+let currentBudget = [];
 
-class DentalApp {
-  constructor() {
-    this.treatments = JSON.parse(localStorage.getItem('dental_data')) || [
-      { id: 1, name: "Limpieza Básica", price: 100, desc: "Eliminación de sarro superficial", subs: [] }
-    ];
-    this.currentBudget = [];
-    this.tempSubs = [];
-    this.editingId = null;
-  }
+// --- INICIALIZACIÓN ---
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('currencySelector').value = currentCurrency;
+  renderAll();
+  updateBudgetSelects();
+});
 
-  save() { localStorage.setItem('dental_data', JSON.stringify(this.treatments)); }
-
-  format(amount) {
-    const val = currency === 'PEN' ? amount : amount * rates.USD;
-    return `${symbols[currency]} ${val.toFixed(2)}`;
-  }
+// --- FUNCIONES DE NAVEGACIÓN ---
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+  if(tabId === 'budgets') updateBudgetSelects();
 }
 
-const app = new DentalApp();
-
-// ============= UI RENDER =============
-function showTab(id) {
-  document.querySelectorAll('.tab-content, .tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.currentTarget.classList.add('active');
-  renderData();
+// --- GESTIÓN DE MONEDA ---
+function changeCurrency(val) {
+  currentCurrency = val;
+  localStorage.setItem('currency', val);
+  renderAll();
+  updateBudgetTotal();
 }
 
-function renderData() {
-  const grid = document.getElementById('servicesGrid');
-  const manage = document.getElementById('manageGrid');
-  const select = document.getElementById('treatmentSelect');
+function formatPrice(amount) {
+  const converted = amount * exchangeRates[currentCurrency];
+  return `${currencySymbols[currentCurrency]} ${converted.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+}
 
-  // Render Catálogo
-  grid.innerHTML = app.treatments.map(t => `
-    <div class="card">
-      <h3>${t.name}</h3>
-      <p style="color:var(--secondary); font-size:0.9rem;">${t.desc}</p>
-      <div class="price-tag">${app.format(t.price)}</div>
-    </div>
-  `).join('');
+// --- GESTIÓN DE TRATAMIENTOS ---
+function renderAll() {
+  const viewGrid = document.getElementById('servicesGrid');
+  const manageGrid = document.getElementById('manageGrid');
+  viewGrid.innerHTML = '';
+  manageGrid.innerHTML = '';
 
-  // Render Admin
-  manage.innerHTML = app.treatments.map(t => `
-    <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
-      <div><strong>${t.name}</strong><br><small>${app.format(t.price)}</small></div>
-      <div style="display:flex; gap:0.5rem;">
-        <button class="btn btn-primary" onclick="openModal(${t.id})">✎</button>
-        <button class="btn btn-danger" onclick="deleteT(${t.id})">🗑</button>
+  treatments.forEach(t => {
+    // Render para Catálogo
+    viewGrid.innerHTML += `
+      <div class="service-card">
+        <img src="${t.imagen || 'https://via.placeholder.com/300?text=Dental'}" alt="${t.nombre}">
+        <div class="service-card__content">
+          <div class="service-card__title">${t.nombre}</div>
+          <div class="service-card__description">${t.descripcion}</div>
+          <div class="service-card__price">Desde ${formatPrice(t.precio)}</div>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
 
-  // Update Select en Presupuesto
-  select.innerHTML = '<option value="">Seleccione tratamiento...</option>' + 
-    app.treatments.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+    // Render para Gestión
+    manageGrid.innerHTML += `
+      <div class="service-card" style="cursor: default">
+        <div class="service-card__content">
+          <div class="service-card__title">${t.nombre}</div>
+          <div style="display: flex; gap: 5px;">
+            <button class="btn btn-secondary" onclick="openTreatmentModal(${t.id})">Editar</button>
+            <button class="btn btn-danger" onclick="deleteTreatment(${t.id})">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
 }
 
-// ============= GESTIÓN DE TRATAMIENTOS =============
-function openModal(id = null) {
-  app.editingId = id;
-  app.tempSubs = [];
-  document.getElementById('treatmentModal').classList.add('active');
+function openTreatmentModal(id = null) {
+  const modal = document.getElementById('treatmentModal');
+  const editId = document.getElementById('editId');
+  modal.classList.add('active');
   
   if(id) {
-    const t = app.treatments.find(x => x.id == id);
-    document.getElementById('tName').value = t.name;
-    document.getElementById('tPrice').value = t.price;
-    document.getElementById('tDesc').value = t.desc;
-    app.tempSubs = [...(t.subs || [])];
+    const t = treatments.find(item => item.id === id);
+    document.getElementById('modalTitle').innerText = 'Editar Tratamiento';
+    editId.value = t.id;
+    document.getElementById('tName').value = t.nombre;
+    document.getElementById('tDesc').value = t.descripcion;
+    document.getElementById('tPrice').value = t.precio;
+    document.getElementById('tImage').value = t.imagen;
+    tempSubcategories = [...t.subcategorias];
   } else {
+    document.getElementById('modalTitle').innerText = 'Nuevo Tratamiento';
+    editId.value = '';
     document.getElementById('tName').value = '';
-    document.getElementById('tPrice').value = '';
     document.getElementById('tDesc').value = '';
+    document.getElementById('tPrice').value = '';
+    document.getElementById('tImage').value = '';
+    tempSubcategories = [];
   }
   renderTempSubs();
 }
 
 function addSubToTemp() {
-  const name = document.getElementById('sName').value;
-  const price = parseFloat(document.getElementById('sPrice').value);
-  if(!name || isNaN(price)) return;
-  app.tempSubs.push({ name, price });
-  document.getElementById('sName').value = '';
-  document.getElementById('sPrice').value = '';
+  const name = document.getElementById('subName').value;
+  const price = document.getElementById('subPrice').value;
+  if(!name || !price) return alert("Completa nombre y precio de la subcategoría");
+  
+  tempSubcategories.push({ id: Date.now(), nombre: name, precio: parseFloat(price) });
+  document.getElementById('subName').value = '';
+  document.getElementById('subPrice').value = '';
   renderTempSubs();
 }
 
 function renderTempSubs() {
   const container = document.getElementById('tempSubList');
-  container.innerHTML = app.tempSubs.map((s, i) => `
-    <div style="display:flex; justify-content:space-between; font-size:0.8rem; background:white; padding:0.3rem; margin-top:0.2rem; border-radius:4px;">
-      <span>${s.name} - ${app.format(s.price)}</span>
-      <span style="color:red; cursor:pointer;" onclick="app.tempSubs.splice(${i},1); renderTempSubs()">✕</span>
+  container.innerHTML = tempSubcategories.map(s => `
+    <div class="subcategory-item">
+      <span>${s.nombre} - ${formatPrice(s.precio)}</span>
+      <button class="btn btn-danger" style="padding: 2px 8px; margin-left: auto;" onclick="removeTempSub(${s.id})">x</button>
     </div>
   `).join('');
 }
 
+function removeTempSub(id) {
+  tempSubcategories = tempSubcategories.filter(s => s.id !== id);
+  renderTempSubs();
+}
+
 function saveTreatment() {
-  const name = document.getElementById('tName').value;
-  const price = parseFloat(document.getElementById('tPrice').value);
-  const desc = document.getElementById('tDesc').value;
+  const id = document.getElementById('editId').value;
+  const newT = {
+    id: id ? parseInt(id) : Date.now(),
+    nombre: document.getElementById('tName').value,
+    descripcion: document.getElementById('tDesc').value,
+    precio: parseFloat(document.getElementById('tPrice').value) || 0,
+    imagen: document.getElementById('tImage').value,
+    subcategorias: tempSubcategories
+  };
 
-  if(!name || isNaN(price)) return alert("Nombre y precio obligatorios");
-
-  const data = { id: app.editingId || Date.now(), name, price, desc, subs: app.tempSubs };
-
-  if(app.editingId) {
-    const idx = app.treatments.findIndex(x => x.id == app.editingId);
-    app.treatments[idx] = data;
+  if(id) {
+    treatments = treatments.map(t => t.id === parseInt(id) ? newT : t);
   } else {
-    app.treatments.push(data);
+    treatments.push(newT);
   }
-  
-  app.save();
+
+  localStorage.setItem('treatments', JSON.stringify(treatments));
   closeModal();
-  renderData();
+  renderAll();
 }
 
-function deleteT(id) {
-  if(confirm("¿Eliminar tratamiento?")) {
-    app.treatments = app.treatments.filter(x => x.id != id);
-    app.save();
-    renderData();
+function deleteTreatment(id) {
+  if(confirm('¿Seguro que deseas eliminar este tratamiento?')) {
+    treatments = treatments.filter(t => t.id !== id);
+    localStorage.setItem('treatments', JSON.stringify(treatments));
+    renderAll();
   }
 }
 
-function closeModal() { document.getElementById('treatmentModal').classList.remove('active'); }
+function closeModal() {
+  document.getElementById('treatmentModal').classList.remove('active');
+}
 
-// ============= LÓGICA DE PRESUPUESTOS =============
-function updateSubSelect() {
-  const tId = document.getElementById('treatmentSelect').value;
-  const subGroup = document.getElementById('subSelectGroup');
-  const subSelect = document.getElementById('subcategorySelect');
-  
-  const t = app.treatments.find(x => x.id == tId);
-  if(t && t.subs.length > 0) {
-    subGroup.style.display = 'block';
-    subSelect.innerHTML = `<option value="base">Básico - ${app.format(t.price)}</option>` + 
-      t.subs.map((s, i) => `<option value="${i}">${s.name} - ${app.format(s.price)}</option>`).join('');
-  } else {
-    subGroup.style.display = 'none';
+// --- LÓGICA DE PRESUPUESTOS ---
+function updateBudgetSelects() {
+  const tSelect = document.getElementById('budgetTreatmentSelect');
+  tSelect.innerHTML = '<option value="">Seleccione...</option>' + 
+    treatments.map(t => `<option value="${t.id}">${t.nombre}</option>`).join('');
+  updateSubcategorySelect();
+}
+
+function updateSubcategorySelect() {
+  const tId = document.getElementById('budgetTreatmentSelect').value;
+  const subSelect = document.getElementById('budgetSubSelect');
+  if(!tId) {
+    subSelect.innerHTML = '<option value="">--</option>';
+    return;
   }
+  const t = treatments.find(item => item.id == tId);
+  subSelect.innerHTML = '<option value="base">Precio Base</option>' + 
+    t.subcategorias.map(s => `<option value="${s.id}">${s.nombre}</option>`).join('');
 }
 
 function addToBudget() {
-  const tId = document.getElementById('treatmentSelect').value;
-  const sIdx = document.getElementById('subcategorySelect').value;
-  if(!tId) return;
+  const tId = document.getElementById('budgetTreatmentSelect').value;
+  const sId = document.getElementById('budgetSubSelect').value;
+  if(!tId || !sId) return;
 
-  const t = app.treatments.find(x => x.id == tId);
-  let name = t.name;
-  let price = t.price;
+  const t = treatments.find(item => item.id == tId);
+  let itemName = t.nombre;
+  let itemPrice = t.precio;
 
-  if(sIdx !== 'base' && t.subs[sIdx]) {
-    name += ` (${t.subs[sIdx].name})`;
-    price = t.subs[sIdx].price;
+  if(sId !== 'base') {
+    const sub = t.subcategorias.find(s => s.id == sId);
+    itemName += ` (${sub.nombre})`;
+    itemPrice = sub.precio;
   }
 
-  app.currentBudget.push({ name, price });
-  renderBudget();
+  currentBudget.push({ id: Date.now(), nombre: itemName, precio: itemPrice });
+  renderBudgetTable();
 }
 
-function renderBudget() {
-  const list = document.getElementById('budgetItems');
-  let total = 0;
-  list.innerHTML = app.currentBudget.map((item, i) => {
-    total += item.price;
-    return `<tr><td>${item.name}</td><td>${app.format(item.price)}</td>
-    <td style="text-align:right"><button class="btn btn-danger" style="padding:0.2rem 0.5rem" onclick="app.currentBudget.splice(${i},1); renderBudget()">✕</button></td></tr>`;
-  }).join('');
-  document.getElementById('budgetTotal').innerText = app.format(total);
+function renderBudgetTable() {
+  const container = document.getElementById('budgetItems');
+  container.innerHTML = currentBudget.map(item => `
+    <tr>
+      <td>${item.nombre}</td>
+      <td>${formatPrice(item.precio)}</td>
+      <td><button class="btn btn-danger" style="padding: 2px 8px;" onclick="removeFromBudget(${item.id})">x</button></td>
+    </tr>
+  `).join('');
+  updateBudgetTotal();
 }
 
-function generateWhatsApp() {
-  const client = document.getElementById('clientName').value || "Paciente";
-  if(app.currentBudget.length === 0) return alert("Añade tratamientos al presupuesto");
+function removeFromBudget(id) {
+  currentBudget = currentBudget.filter(i => i.id !== id);
+  renderBudgetTable();
+}
 
-  let msg = `*PRESUPUESTO DENTAL*\n*Paciente:* ${client}\n--------------------------\n`;
-  let total = 0;
-  app.currentBudget.forEach(item => {
-    msg += `• ${item.name}: ${app.format(item.price)}\n`;
-    total += item.price;
-  });
-  msg += `--------------------------\n*TOTAL: ${app.format(total)}*`;
+function updateBudgetTotal() {
+  const total = currentBudget.reduce((sum, item) => sum + item.precio, 0);
+  document.getElementById('budgetTotalDisplay').innerText = formatPrice(total);
+}
+
+function clearBudget() {
+  currentBudget = [];
+  document.getElementById('budgetClient').value = '';
+  renderBudgetTable();
+}
+
+function shareWhatsApp() {
+  if(currentBudget.length === 0) return alert("Presupuesto vacío");
   
-  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-}
+  const client = document.getElementById('budgetClient').value || "Cliente";
+  let message = `🦷 *PRESUPUESTO DENTAL*\n\n`;
+  message += `Paciente: ${client}\n`;
+  message += `--------------------------\n`;
+  
+  currentBudget.forEach(item => {
+    message += `• ${item.nombre}: ${formatPrice(item.price || item.precio)}\n`;
+  });
+  
+  const total = currentBudget.reduce((sum, i) => sum + (i.price || i.precio), 0);
+  message += `\n*TOTAL: ${formatPrice(total)}*\n\n`;
+  message += `¿Desea agendar una cita? 😊`;
 
-function changeCurrency() {
-  currency = document.getElementById('currencySelector').value;
-  localStorage.setItem('pref_curr', currency);
-  renderData();
-  renderBudget();
+  const encoded = encodeURIComponent(message);
+  window.open(`https://wa.me/?text=${encoded}`, '_blank');
 }
-
-window.onload = renderData;
 </script>
 
 </body>
