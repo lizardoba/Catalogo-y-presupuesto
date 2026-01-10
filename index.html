@@ -1,380 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catálogo Dental - Sistema de Tratamientos y Presupuestos</title>
-  <style>
-    :root {
-      --color-primary: #218C8D;
-      --color-primary-hover: #1a6f70;
-      --color-bg: #fcfcf9;
-      --color-surface: #ffffff;
-      --color-text: #1f2937;
-      --color-text-secondary: #6b7280;
-      --color-border: rgba(94, 82, 64, 0.2);
-      --color-success: #22c55e;
-      --color-error: #ef4444;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.6;
-    }
-    
-    .header {
-      background: linear-gradient(135deg, var(--color-primary) 0%, #1a6f70 100%);
-      color: white;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      position: relative;
-    }
-    
-    .header h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .header p {
-      font-size: 1rem;
-      opacity: 0.95;
-    }
-    
-    .currency-selector {
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.2);
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
-    
-    .tabs {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      border-bottom: 2px solid var(--color-border);
-      flex-wrap: wrap;
-    }
-    
-    .tab-btn {
-      padding: 0.75rem 1.25rem;
-      background: none;
-      border: none;
-      font-size: 1rem;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      font-weight: 500;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -2px;
-      transition: all 0.3s;
-    }
-    
-    .tab-btn:hover {
-      color: var(--color-text);
-    }
-    
-    .tab-btn.active {
-      color: var(--color-primary);
-      border-bottom-color: var(--color-primary);
-    }
-    
-    .tab-content {
-      display: none;
-    }
-    
-    .tab-content.active {
-      display: block;
-    }
-    
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .service-card {
-      background: var(--color-surface);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid var(--color-border);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      transition: all 0.3s;
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--color-primary);
-    }
-    
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 16px rgba(33, 140, 141, 0.2);
-    }
-    
-    .service-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    
-    .service-card__content {
-      padding: 1.25rem;
-    }
-    
-    .service-card__title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    
-    .service-card__description {
-      font-size: 0.875rem;
-      color: var(--color-text-secondary);
-      margin-bottom: 1rem;
-    }
-    
-    .service-card__price {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      margin: 0.5rem 0;
-    }
-    
-    .service-card__buttons {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    
-    .btn {
-      padding: 0.625rem 1.25rem;
-      border-radius: 8px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all 0.3s;
-      flex: 1;
-    }
-    
-    .btn-primary {
-      background-color: var(--color-primary);
-      color: white;
-    }
-    
-    .btn-primary:hover {
-      background-color: var(--color-primary-hover);
-    }
-    
-    .btn-secondary {
-      background-color: #e5e7eb;
-      color: var(--color-text);
-    }
-    
-    .btn-secondary:hover {
-      background-color: #d1d5db;
-    }
-    
-    .btn-success {
-      background-color: var(--color-success);
-      color: white;
-    }
-    
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .modal.active {
-      display: flex;
-    }
-    
-    .modal__content {
-      background-color: var(--color-surface);
-      border-radius: 16px;
-      padding: 2rem;
-      max-width: 900px;
-      width: 90%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 25px rgba(0,0,0,0.3);
-      position: relative;
-    }
-    
-    .modal__close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-    
-    .modal__title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-    }
-    
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    
-    .form-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      padding: 0.625rem 1rem;
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-    
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      outline: none;
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(33, 140, 141, 0.1);
-    }
-    
-    .budget-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-    }
-    
-    .budget-table th, .budget-table td {
-      padding: 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid var(--color-border);
-    }
-    
-    .budget-table th {
-      background-color: #f9fafb;
-      font-weight: 600;
-      color: var(--color-text-secondary);
-    }
-    
-    .budget-total {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      text-align: right;
-      margin: 1rem 0;
-    }
-    
-    .budget-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .budget-card__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-    
-    .budget-card__title {
-      font-weight: 700;
-      font-size: 1.125rem;
-    }
-    
-    .budget-card__date {
-      color: var(--color-text-secondary);
-      font-size: 0.875rem;
-    }
-    
-    .budget-card__items {
-      margin: 1rem 0;
-    }
-    
-    .budget-card__item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-    }
-    
-    .budget-card__actions {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    
-    .empty-state {
-      text-align: center;
-      padding: 3rem;
-      color: var(--color-text-secondary);
-    }
-    
-    .success-message {
-      background-color: rgba(34, 197, 94, 0.1);
-      border-left: 4px solid var(--color-success);
-      padding: 1rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-  </style>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="header">
+  <header class="header">
     <select class="currency-selector" id="currencySelector">
       <option value="PEN">S/ Soles</option>
       <option value="USD">US$ Dólares</option>
       <option value="EUR">€ Euros</option>
     </select>
+
     <h1>💊 Catálogo Dental</h1>
     <p>Gestión de Tratamientos y Presupuestos</p>
-  </div>
+  </header>
 
-  <div class="container">
+  <main class="container">
     <div id="successMessage"></div>
-    
+
+    <!-- Tabs -->
     <div class="tabs">
       <button class="tab-btn active" data-tab="view">📋 Ver Tratamientos</button>
       <button class="tab-btn" data-tab="manage">⚙️ Gestionar</button>
@@ -382,820 +31,133 @@
       <button class="tab-btn" data-tab="export">📊 Exportar</button>
     </div>
 
-    <div id="view" class="tab-content active">
-      <div class="services-grid" id="servicesGrid"></div>
-    </div>
+    <!-- Botón nuevo tratamiento -->
+    <button class="btn btn-primary" onclick="openModal()" style="margin-bottom: 2rem;">
+      ➕ Nuevo Tratamiento
+    </button>
 
-    <div id="manage" class="tab-content">
-      <button class="btn btn-primary" onclick="openModal()" style="margin-bottom: 2rem;">➕ Nuevo Tratamiento</button>
-      <div class="services-grid" id="manageGrid"></div>
-    </div>
+    <!-- TAB: Ver tratamientos -->
+    <section id="view" class="tab-content active">
+      <div id="servicesGrid" class="services-grid"></div>
+    </section>
 
-    <div id="budgets" class="tab-content">
-      <div style="background: var(--color-surface); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid var(--color-border);">
-        <h2 style="margin-bottom: 1rem;">➕ Nuevo Presupuesto</h2>
-        
-        <div class="form-group">
-          <label class="form-label">Nombre del Cliente</label>
-          <input type="text" id="budgetClientName" class="form-input" placeholder="Ej: Juan Pérez">
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Seleccionar Tratamiento</label>
-          <select id="treatmentSelect" class="form-select">
-            <option value="">-- Selecciona un tratamiento --</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Subcategoría (opcional)</label>
-          <select id="subcategorySelect" class="form-select" disabled>
-            <option value="">-- Sin subcategoría --</option>
-          </select>
-        </div>
-        
-        <button class="btn btn-primary" onclick="addToBudget()">➕ Agregar</button>
-        
-        <h3 style="margin: 1.5rem 0 1rem;">Items del Presupuesto</h3>
-        <table class="budget-table">
-          <thead>
-            <tr>
-              <th>Tratamiento</th>
-              <th>Subcategoría</th>
-              <th>Precio</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody id="budgetItems"></tbody>
-        </table>
-        
-        <div class="budget-total">Total: <span id="budgetTotal">S/ 0.00</span></div>
-        
-        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-          <button class="btn btn-success" onclick="saveBudget()">💾 Guardar</button>
-          <button class="btn btn-secondary" onclick="clearBudget()">🗑️ Limpiar</button>
-          <button class="btn btn-primary" onclick="printCurrentBudget()">🖨️ Imprimir</button>
-        </div>
+    <!-- TAB: Gestionar tratamientos -->
+    <section id="manage" class="tab-content">
+      <div id="manageGrid" class="services-grid"></div>
+    </section>
+
+    <!-- TAB: Presupuestos -->
+    <section id="budgets" class="tab-content">
+      <h2>➕ Nuevo Presupuesto</h2>
+
+      <div class="form-group">
+        <label class="form-label" for="budgetClientName">Nombre del Cliente</label>
+        <input id="budgetClientName" class="form-input" type="text" placeholder="Nombre del cliente" />
       </div>
 
-      <h2 style="margin: 2rem 0 1rem;">📋 Presupuestos Guardados</h2>
+      <div class="form-group">
+        <label class="form-label" for="treatmentSelect">Seleccionar Tratamiento</label>
+        <select id="treatmentSelect" class="form-select">
+          <option value="">-- Selecciona un tratamiento --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="subcategorySelect">Subcategoría (opcional)</label>
+        <select id="subcategorySelect" class="form-select" disabled>
+          <option value="">-- Sin subcategoría --</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" onclick="addToBudget()">➕ Agregar</button>
+
+      <h3 style="margin-top: 1.5rem;">Items del Presupuesto</h3>
+
+      <table class="budget-table">
+        <thead>
+          <tr>
+            <th>Tratamiento</th>
+            <th>Subcategoría</th>
+            <th>Precio</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="budgetItems"></tbody>
+      </table>
+
+      <div id="budgetTotal" class="budget-total">Total: S/ 0.00</div>
+
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn btn-success" onclick="saveBudget()">💾 Guardar</button>
+        <button class="btn btn-secondary" onclick="clearBudget()">🗑️ Limpiar</button>
+        <button class="btn btn-primary" onclick="printCurrentBudget()">🖨️ Imprimir</button>
+      </div>
+
+      <h3 style="margin-top: 2rem;">📋 Presupuestos Guardados</h3>
       <div id="savedBudgets"></div>
-    </div>
+    </section>
 
-    <div id="export" class="tab-content">
-      <div style="background: var(--color-surface); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--color-border);">
-        <h2 style="margin-bottom: 1rem;">📊 Exportar Datos</h2>
-        <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
-          Descarga tus tratamientos en formato JSON para respaldo.
-        </p>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <button class="btn btn-primary" onclick="exportJSON()">📥 Descargar JSON</button>
-          <button class="btn btn-secondary" onclick="copyJSON()">📋 Copiar</button>
-          <button class="btn btn-success" onclick="importJSON()">📤 Importar JSON</button>
-        </div>
-        <input type="file" id="importFile" accept=".json" style="display: none;">
+    <!-- TAB: Exportar -->
+    <section id="export" class="tab-content">
+      <h2>📊 Exportar Datos</h2>
+      <p>Descarga tus tratamientos en formato JSON para respaldo.</p>
+
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+        <button class="btn btn-primary" onclick="exportJSON()">📥 Descargar JSON</button>
+        <button class="btn btn-secondary" onclick="copyJSON()">📋 Copiar</button>
+        <button class="btn btn-success" onclick="importJSON()">📤 Importar JSON</button>
       </div>
-    </div>
-  </div>
 
-  <!-- Modal para crear/editar tratamiento -->
-  <div id="treatmentModal" class="modal">
+      <input type="file" id="importFile" accept="application/json" style="display: none;" />
+    </section>
+  </main>
+
+  <!-- Modal Tratamiento -->
+  <div class="modal" id="treatmentModal">
     <div class="modal__content">
       <button class="modal__close" onclick="closeModal()">×</button>
       <h2 class="modal__title" id="modalTitle">Nuevo Tratamiento</h2>
-      
+
       <div class="form-group">
-        <label class="form-label">Nombre del Tratamiento</label>
-        <input type="text" id="treatmentName" class="form-input" placeholder="Ej: Ortodoncia">
+        <label class="form-label" for="treatmentName">Nombre del Tratamiento</label>
+        <input id="treatmentName" class="form-input" type="text" />
       </div>
-      
+
       <div class="form-group">
-        <label class="form-label">Descripción Corta</label>
-        <input type="text" id="treatmentDesc" class="form-input" placeholder="Descripción breve">
+        <label class="form-label" for="treatmentDesc">Descripción Corta</label>
+        <textarea id="treatmentDesc" class="form-textarea" rows="3"></textarea>
       </div>
-      
+
       <div class="form-group">
-        <label class="form-label">Precio Base (opcional)</label>
-        <input type="number" id="treatmentPrice" class="form-input" placeholder="0.00" step="0.01">
+        <label class="form-label" for="treatmentPrice">Precio Base (opcional)</label>
+        <input id="treatmentPrice" class="form-input" type="number" step="0.01" />
       </div>
-      
+
       <div class="form-group">
-        <label class="form-label">URL de Imagen</label>
-        <input type="text" id="treatmentImage" class="form-input" placeholder="https://ejemplo.com/imagen.jpg">
+        <label class="form-label" for="treatmentImage">URL de Imagen</label>
+        <input id="treatmentImage" class="form-input" type="url" />
       </div>
-      
-      <h3 style="margin: 1.5rem 0 1rem;">Subcategorías</h3>
-      <div id="subcategoriesList"></div>
-      
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem; margin-top: 1rem;">
-        <input type="text" id="subName" class="form-input" placeholder="Nombre subcategoría">
-        <input type="number" id="subPrice" class="form-input" placeholder="Precio" step="0.01" style="width: 120px;">
+
+      <hr style="margin: 1.5rem 0;" />
+
+      <h3>Subcategorías</h3>
+
+      <div class="form-group" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <input id="subName" class="form-input" type="text" placeholder="Nombre subcategoría" />
+        <input id="subPrice" class="form-input" type="number" step="0.01" placeholder="Precio" />
         <button class="btn btn-primary" onclick="addSubcategory()">➕</button>
       </div>
-      
-      <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+
+      <div id="subcategoriesList"></div>
+
+      <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
         <button class="btn btn-success" onclick="saveTreatment()">💾 Guardar</button>
         <button class="btn btn-secondary" onclick="closeModal()">❌ Cancelar</button>
       </div>
     </div>
   </div>
 
-  <script>
-    // ========== CONFIGURACIÓN ==========
-    const EXCHANGE_RATES = {
-      PEN: 1,
-      USD: 0.27,
-      EUR: 0.25
-    };
-    
-    const CURRENCY_SYMBOLS = {
-      PEN: 'S/',
-      USD: 'US$',
-      EUR: '€'
-    };
-    
-    let currentCurrency = localStorage.getItem('currency') || 'PEN';
-    let currentEditId = null;
-    let tempSubcategories = [];
-    let currentBudgetItems = [];
-
-    // ========== CLASES ==========
-    class TreatmentManager {
-      constructor() {
-        this.treatments = this.loadFromStorage();
-        if (this.treatments.length === 0) {
-          this.loadDefaultData();
-        }
-      }
-
-      loadFromStorage() {
-        const data = localStorage.getItem('dental_treatments');
-        return data ? JSON.parse(data) : [];
-      }
-
-      saveToStorage() {
-        localStorage.setItem('dental_treatments', JSON.stringify(this.treatments));
-      }
-
-      loadDefaultData() {
-        this.treatments = [
-          {
-            id: Date.now() + 1,
-            nombre: 'Ortodoncia',
-            descripcion: 'Alineación dental con brackets',
-            precio: 2500,
-            imagen: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=300&fit=crop',
-            subcategorias: [
-              { id: 1, nombre: 'Brackets Metálicos', precio: 2500 },
-              { id: 2, nombre: 'Brackets Autoligado', precio: 3500 },
-              { id: 3, nombre: 'Alineadores Invisibles', precio: 4500 }
-            ]
-          },
-          {
-            id: Date.now() + 2,
-            nombre: 'Endodoncia',
-            descripcion: 'Tratamiento de conducto',
-            precio: 700,
-            imagen: 'https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=300&fit=crop',
-            subcategorias: [
-              { id: 1, nombre: 'Monoradicular', precio: 600 },
-              { id: 2, nombre: 'Multiradicular', precio: 1000 }
-            ]
-          },
-          {
-            id: Date.now() + 3,
-            nombre: 'Limpieza Dental',
-            descripcion: 'Profilaxis profesional',
-            precio: 120,
-            imagen: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop',
-            subcategorias: []
-          },
-          {
-            id: Date.now() + 4,
-            nombre: 'Implante Dental',
-            descripcion: 'Reemplazo permanente',
-            precio: 3200,
-            imagen: 'https://images.unsplash.com/photo-1606811841689-23db3c34146f?w=400&h=300&fit=crop',
-            subcategorias: [
-              { id: 1, nombre: 'Implante Unitario', precio: 3200 },
-              { id: 2, nombre: 'Implante + Corona', precio: 4500 }
-            ]
-          },
-          {
-            id: Date.now() + 5,
-            nombre: 'Blanqueamiento',
-            descripcion: 'Aclara el color dental',
-            precio: 600,
-            imagen: 'https://images.unsplash.com/photo-1607613674874-fa165c2c2844?w=400&h=300&fit=crop',
-            subcategorias: [
-              { id: 1, nombre: 'En Consultorio', precio: 600 },
-              { id: 2, nombre: 'Casero', precio: 400 }
-            ]
-          }
-        ];
-        this.saveToStorage();
-      }
-
-      add(treatment) {
-        treatment.id = Date.now();
-        this.treatments.push(treatment);
-        this.saveToStorage();
-      }
-
-      update(id, treatment) {
-        const index = this.treatments.findIndex(t => t.id === id);
-        if (index !== -1) {
-          this.treatments[index] = { ...treatment, id };
-          this.saveToStorage();
-        }
-      }
-
-      delete(id) {
-        this.treatments = this.treatments.filter(t => t.id !== id);
-        this.saveToStorage();
-      }
-
-      get(id) {
-        return this.treatments.find(t => t.id === id);
-      }
-
-      getAll() {
-        return this.treatments;
-      }
-    }
-
-    class BudgetManager {
-      constructor() {
-        this.budgets = this.loadFromStorage();
-      }
-
-      loadFromStorage() {
-        const data = localStorage.getItem('dental_budgets');
-        return data ? JSON.parse(data) : [];
-      }
-
-      saveToStorage() {
-        localStorage.setItem('dental_budgets', JSON.stringify(this.budgets));
-      }
-
-      add(budget) {
-        budget.id = Date.now();
-        budget.date = new Date().toISOString();
-        this.budgets.push(budget);
-        this.saveToStorage();
-      }
-
-      delete(id) {
-        this.budgets = this.budgets.filter(b => b.id !== id);
-        this.saveToStorage();
-      }
-
-      getAll() {
-        return this.budgets;
-      }
-    }
-
-    const manager = new TreatmentManager();
-    const budgetManager = new BudgetManager();
-
-    // ========== FUNCIONES DE MONEDA ==========
-    function formatPrice(price) {
-      const rate = EXCHANGE_RATES[currentCurrency];
-      const symbol = CURRENCY_SYMBOLS[currentCurrency];
-      const converted = price * rate;
-      return `${symbol} ${converted.toFixed(2)}`;
-    }
-
-    document.getElementById('currencySelector').value = currentCurrency;
-    document.getElementById('currencySelector').addEventListener('change', function() {
-      currentCurrency = this.value;
-      localStorage.setItem('currency', currentCurrency);
-      renderAll();
-    });
-
-    // ========== FUNCIONES DE UI ==========
-    function showSuccess(msg) {
-      const el = document.getElementById('successMessage');
-      el.innerHTML = `<div class="success-message">${msg}</div>`;
-      setTimeout(() => el.innerHTML = '', 3000);
-    }
-
-    function openModal(treatmentId = null) {
-      tempSubcategories = [];
-      document.getElementById('treatmentName').value = '';
-      document.getElementById('treatmentDesc').value = '';
-      document.getElementById('treatmentPrice').value = '';
-      document.getElementById('treatmentImage').value = '';
-      
-      if (treatmentId) {
-        const t = manager.get(treatmentId);
-        if (t) {
-          currentEditId = treatmentId;
-          document.getElementById('modalTitle').textContent = 'Editar Tratamiento';
-          document.getElementById('treatmentName').value = t.nombre;
-          document.getElementById('treatmentDesc').value = t.descripcion;
-          document.getElementById('treatmentPrice').value = t.precio || '';
-          document.getElementById('treatmentImage').value = t.imagen || '';
-          tempSubcategories = t.subcategorias ? [...t.subcategorias] : [];
-        }
-      } else {
-        currentEditId = null;
-        document.getElementById('modalTitle').textContent = 'Nuevo Tratamiento';
-      }
-      
-      renderModalSubs();
-      document.getElementById('treatmentModal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('treatmentModal').classList.remove('active');
-      currentEditId = null;
-      tempSubcategories = [];
-    }
-
-    function addSubcategory() {
-      const name = document.getElementById('subName').value.trim();
-      const price = parseFloat(document.getElementById('subPrice').value);
-      
-      if (!name || !price) {
-        alert('Ingresa nombre y precio');
-        return;
-      }
-      
-      tempSubcategories.push({
-        id: Date.now(),
-        nombre: name,
-        precio: price
-      });
-      
-      document.getElementById('subName').value = '';
-      document.getElementById('subPrice').value = '';
-      renderModalSubs();
-    }
-
-    function removeSubcategory(id) {
-      tempSubcategories = tempSubcategories.filter(s => s.id !== id);
-      renderModalSubs();
-    }
-
-    function renderModalSubs() {
-      const container = document.getElementById('subcategoriesList');
-      if (tempSubcategories.length === 0) {
-        container.innerHTML = '<p style="color: var(--color-text-secondary); padding: 1rem;">Sin subcategorías</p>';
-        return;
-      }
-      
-      container.innerHTML = tempSubcategories.map(sub => `
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #f9fafb; border-radius: 8px; margin-bottom: 0.5rem;">
-          <div>
-            <strong>${sub.nombre}</strong>
-            <span style="color: var(--color-primary); margin-left: 1rem;">${formatPrice(sub.precio)}</span>
-          </div>
-          <button class="btn btn-secondary" onclick="removeSubcategory(${sub.id})" style="padding: 0.5rem 1rem;">🗑️</button>
-        </div>
-      `).join('');
-    }
-
-    function saveTreatment() {
-      const name = document.getElementById('treatmentName').value.trim();
-      const desc = document.getElementById('treatmentDesc').value.trim();
-      const price = parseFloat(document.getElementById('treatmentPrice').value) || 0;
-      const image = document.getElementById('treatmentImage').value.trim();
-      
-      if (!name) {
-        alert('Ingresa el nombre del tratamiento');
-        return;
-      }
-      
-      const treatment = {
-        nombre: name,
-        descripcion: desc,
-        precio: price,
-        imagen: image,
-        subcategorias: tempSubcategories
-      };
-      
-      if (currentEditId) {
-        manager.update(currentEditId, treatment);
-        showSuccess('✅ Tratamiento actualizado');
-      } else {
-        manager.add(treatment);
-        showSuccess('✅ Tratamiento creado');
-      }
-      
-      closeModal();
-      renderAll();
-    }
-
-    function deleteTreatment(id) {
-      if (confirm('¿Eliminar este tratamiento?')) {
-        manager.delete(id);
-        showSuccess('✅ Tratamiento eliminado');
-        renderAll();
-      }
-    }
-
-    function renderTreatmentCard(treatment, showButtons = false) {
-      const hasPrice = treatment.precio && (!treatment.subcategorias || treatment.subcategorias.length === 0);
-      const priceHTML = hasPrice ? `<div class="service-card__price">${formatPrice(treatment.precio)}</div>` : '';
-      
-      let subsHTML = '';
-      if (treatment.subcategorias && treatment.subcategorias.length > 0) {
-        subsHTML = '<div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border);">';
-        subsHTML += '<div style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem; color: var(--color-primary);">💊 Opciones:</div>';
-        treatment.subcategorias.forEach(sub => {
-          subsHTML += `
-            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--color-border);">
-              <span>${sub.nombre}</span>
-              <strong>${formatPrice(sub.precio)}</strong>
-            </div>
-          `;
-        });
-        subsHTML += '</div>';
-      }
-      
-      const imgHTML = treatment.imagen ? `<img src="${treatment.imagen}" alt="${treatment.nombre}">` : '';
-      
-      const buttonsHTML = showButtons ? `
-        <div class="service-card__buttons">
-          <button class="btn btn-primary" onclick="openModal(${treatment.id})">✏️ Editar</button>
-          <button class="btn btn-secondary" onclick="deleteTreatment(${treatment.id})">🗑️</button>
-        </div>
-      ` : '';
-      
-      return `
-        <div class="service-card">
-          ${imgHTML}
-          <div class="service-card__content">
-            <h3 class="service-card__title">${treatment.nombre}</h3>
-            <p class="service-card__description">${treatment.descripcion}</p>
-            ${priceHTML}
-            ${subsHTML}
-            ${buttonsHTML}
-          </div>
-        </div>
-      `;
-    }
-
-    function renderAll() {
-      const treatments = manager.getAll();
-      
-      document.getElementById('servicesGrid').innerHTML = treatments.length > 0
-        ? treatments.map(t => renderTreatmentCard(t, false)).join('')
-        : '<div class="empty-state">Sin tratamientos</div>';
-      
-      document.getElementById('manageGrid').innerHTML = treatments.length > 0
-        ? treatments.map(t => renderTreatmentCard(t, true)).join('')
-        : '<div class="empty-state">Sin tratamientos</div>';
-      
-      populateTreatmentSelect();
-      renderSavedBudgets();
-    }
-
-    // ========== PRESUPUESTOS ==========
-    function populateTreatmentSelect() {
-      const select = document.getElementById('treatmentSelect');
-      select.innerHTML = '<option value="">-- Selecciona un tratamiento --</option>';
-      
-      manager.getAll().forEach(t => {
-        select.innerHTML += `<option value="${t.id}">${t.nombre}</option>`;
-      });
-    }
-
-    document.getElementById('treatmentSelect').addEventListener('change', function() {
-      const treatmentId = parseInt(this.value);
-      const subSelect = document.getElementById('subcategorySelect');
-      
-      subSelect.innerHTML = '<option value="">-- Sin subcategoría --</option>';
-      subSelect.disabled = true;
-      
-      if (treatmentId) {
-        const treatment = manager.get(treatmentId);
-        if (treatment && treatment.subcategorias && treatment.subcategorias.length > 0) {
-          subSelect.disabled = false;
-          treatment.subcategorias.forEach(sub => {
-            subSelect.innerHTML += `<option value="${sub.id}" data-price="${sub.precio}">${sub.nombre} - ${formatPrice(sub.precio)}</option>`;
-          });
-        }
-      }
-    });
-
-    function addToBudget() {
-      const treatmentId = parseInt(document.getElementById('treatmentSelect').value);
-      if (!treatmentId) {
-        alert('Selecciona un tratamiento');
-        return;
-      }
-      
-      const treatment = manager.get(treatmentId);
-      const subId = document.getElementById('subcategorySelect').value;
-      
-      let item = {
-        treatmentId: treatment.id,
-        treatmentName: treatment.nombre,
-        subcategoryId: null,
-        subcategoryName: null,
-        price: treatment.precio
-      };
-      
-      if (subId) {
-        const sub = treatment.subcategorias.find(s => s.id == subId);
-        if (sub) {
-          item.subcategoryId = sub.id;
-          item.subcategoryName = sub.nombre;
-          item.price = sub.precio;
-        }
-      }
-      
-      currentBudgetItems.push(item);
-      renderBudgetItems();
-    }
-
-    function renderBudgetItems() {
-      const tbody = document.getElementById('budgetItems');
-      tbody.innerHTML = '';
-      
-      let total = 0;
-      currentBudgetItems.forEach((item, index) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${item.treatmentName}</td>
-            <td>${item.subcategoryName || '—'}</td>
-            <td>${formatPrice(item.price)}</td>
-            <td><button class="btn btn-secondary" onclick="removeBudgetItem(${index})">🗑️</button></td>
-          </tr>
-        `;
-        total += item.price;
-      });
-      
-      document.getElementById('budgetTotal').textContent = formatPrice(total);
-    }
-
-    function removeBudgetItem(index) {
-      currentBudgetItems.splice(index, 1);
-      renderBudgetItems();
-    }
-
-    function clearBudget() {
-      currentBudgetItems = [];
-      document.getElementById('budgetClientName').value = '';
-      document.getElementById('treatmentSelect').value = '';
-      document.getElementById('subcategorySelect').innerHTML = '<option value="">-- Sin subcategoría --</option>';
-      document.getElementById('subcategorySelect').disabled = true;
-      renderBudgetItems();
-    }
-
-    function saveBudget() {
-      if (currentBudgetItems.length === 0) {
-        alert('Agrega al menos un tratamiento');
-        return;
-      }
-      
-      const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
-      const total = currentBudgetItems.reduce((sum, item) => sum + item.price, 0);
-      
-      budgetManager.add({
-        clientName,
-        items: currentBudgetItems,
-        total
-      });
-      
-      showSuccess('✅ Presupuesto guardado');
-      clearBudget();
-      renderSavedBudgets();
-    }
-
-    function renderSavedBudgets() {
-      const container = document.getElementById('savedBudgets');
-      const budgets = budgetManager.getAll();
-      
-      if (budgets.length === 0) {
-        container.innerHTML = '<div class="empty-state">Sin presupuestos guardados</div>';
-        return;
-      }
-      
-      container.innerHTML = budgets.map(budget => {
-        const date = new Date(budget.date).toLocaleDateString('es-ES', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        });
-        
-        const itemsHTML = budget.items.map(item => `
-          <div class="budget-card__item">
-            <span>${item.treatmentName}${item.subcategoryName ? ' - ' + item.subcategoryName : ''}</span>
-            <strong>${formatPrice(item.price)}</strong>
-          </div>
-        `).join('');
-        
-        return `
-          <div class="budget-card">
-            <div class="budget-card__header">
-              <div class="budget-card__title">${budget.clientName}</div>
-              <div class="budget-card__date">${date}</div>
-            </div>
-            <div class="budget-card__items">${itemsHTML}</div>
-            <div class="budget-total">Total: ${formatPrice(budget.total)}</div>
-            <div class="budget-card__actions">
-              <button class="btn btn-primary" onclick="printBudget(${budget.id})">🖨️ Imprimir</button>
-              <button class="btn btn-success" onclick="sendWhatsApp(${budget.id})">📱 WhatsApp</button>
-              <button class="btn btn-secondary" onclick="deleteBudget(${budget.id})">🗑️</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function deleteBudget(id) {
-      if (confirm('¿Eliminar este presupuesto?')) {
-        budgetManager.delete(id);
-        showSuccess('✅ Presupuesto eliminado');
-        renderSavedBudgets();
-      }
-    }
-
-    function printBudget(id) {
-      const budget = budgetManager.getAll().find(b => b.id === id);
-      if (!budget) return;
-      
-      const date = new Date(budget.date).toLocaleDateString('es-ES');
-      let itemsHTML = '';
-      budget.items.forEach(item => {
-        itemsHTML += `
-          <tr>
-            <td>${item.treatmentName}</td>
-            <td>${item.subcategoryName || '—'}</td>
-            <td>${formatPrice(item.price)}</td>
-          </tr>
-        `;
-      });
-      
-      const html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Presupuesto - ${budget.clientName}</title>
-          <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
-            h1 { text-align: center; color: #218C8D; }
-            table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-            th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-            th { background-color: #218C8D; color: white; }
-            .total { text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 20px; }
-          </style>
-        </head>
-        <body>
-          <h1>Presupuesto Dental</h1>
-          <p><strong>Cliente:</strong> ${budget.clientName}</p>
-          <p><strong>Fecha:</strong> ${date}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Tratamiento</th>
-                <th>Subcategoría</th>
-                <th>Precio</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${itemsHTML}
-            </tbody>
-          </table>
-          <div class="total">TOTAL: ${formatPrice(budget.total)}</div>
-          <script>
-            window.onload = function() { 
-              window.print(); 
-              setTimeout(function() { window.close(); }, 1000);
-            };
-          </script>
-        </body>
-        </html>
-      `;
-      
-      const win = window.open('', '_blank');
-      if (win) {
-        win.document.write(html);
-        win.document.close();
-      } else {
-        alert('Permite ventanas emergentes para imprimir');
-      }
-    }
-
-    function printCurrentBudget() {
-      if (currentBudgetItems.length === 0) {
-        alert('No hay items en el presupuesto');
-        return;
-      }
-      
-      const clientName = document.getElementById('budgetClientName').value.trim() || 'Cliente';
-      const total = currentBudgetItems.reduce((sum, item) => sum + item.price, 0);
-      
-      const tempBudget = {
-        id: Date.now(),
-        clientName,
-        items: currentBudgetItems,
-        total,
-        date: new Date().toISOString()
-      };
-      
-      printBudget(tempBudget.id);
-      budgetManager.budgets.push(tempBudget);
-      setTimeout(() => {
-        budgetManager.budgets = budgetManager.budgets.filter(b => b.id !== tempBudget.id);
-      }, 100);
-    }
-
-    function sendWhatsApp(id) {
-      const budget = budgetManager.getAll().find(b => b.id === id);
-      if (!budget) return;
-      
-      let message = `*Presupuesto Dental*\n\n*Cliente:* ${budget.clientName}\n\n*Tratamientos:*\n`;
-      budget.items.forEach(item => {
-        const sub = item.subcategoryName ? ` (${item.subcategoryName})` : '';
-        message += `• ${item.treatmentName}${sub}: ${formatPrice(item.price)}\n`;
-      });
-      message += `\n*TOTAL:* ${formatPrice(budget.total)}`;
-      
-      const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-    }
-
-    // ========== EXPORT/IMPORT ==========
-    function exportJSON() {
-      const data = JSON.stringify(manager.getAll(), null, 2);
-      const blob = new Blob([data], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `tratamientos_${new Date().toISOString().split('T')[0]}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      showSuccess('✅ JSON descargado');
-    }
-
-    function copyJSON() {
-      const data = JSON.stringify(manager.getAll(), null, 2);
-      navigator.clipboard.writeText(data).then(() => {
-        showSuccess('✅ Copiado al portapapeles');
-      }).catch(() => {
-        alert('Error al copiar');
-      });
-    }
-
-    function importJSON() {
-      document.getElementById('importFile').click();
-    }
-
-    document.getElementById('importFile').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        try {
-          const data = JSON.parse(event.target.result);
-          if (Array.isArray(data)) {
-            manager.treatments = data;
-            manager.saveToStorage();
-            showSuccess('✅ Datos importados');
-            renderAll();
-          } else {
-            alert('Formato JSON inválido');
-          }
-        } catch (e) {
-          alert('Error al leer el archivo');
-        }
-      };
-      reader.readAsText(file);
-    });
-
-    // ========== TABS ==========
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const tabName = this.getAttribute('data-tab');
-        
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        
-        this.classList.add('active');
-        document.getElementById(tabName).classList.add('active');
-      });
-    });
-
-    // ========== INICIALIZACIÓN ==========
-    window.addEventListener('DOMContentLoaded', function() {
-      renderAll();
-    });
-
-    // Cerrar modales al hacer clic fuera
-    document.getElementById('treatmentModal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
-  </script>
+  <!-- JS -->
+  <script src="app.js"></script>
 </body>
 </html>
-
-
