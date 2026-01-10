@@ -43,11 +43,11 @@ class TreatmentManager {
         nombre: 'Ortodoncia',
         descripcion: 'Alineación dental con brackets',
         precio: 2500,
-        imagen: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?fit=crop',
+        imagen: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
         subcategorias: [
-          { id: 1, nombre: 'Brackets Metálicos', precio: 2500 },
-          { id: 2, nombre: 'Brackets Autoligado', precio: 3500 },
-          { id: 3, nombre: 'Alineadores Invisibles', precio: 4500 }
+          { id: 1, nombre: 'Brackets Metálicos', precio: 2500, descripcion: 'Tratamiento clásico con brackets metálicos', imagen: '' },
+          { id: 2, nombre: 'Brackets Autoligado', precio: 3500, descripcion: 'Menos fricción, citas más espaciadas', imagen: '' },
+          { id: 3, nombre: 'Alineadores Invisibles', precio: 4500, descripcion: 'Placas transparentes removibles', imagen: '' }
         ]
       },
       {
@@ -55,10 +55,10 @@ class TreatmentManager {
         nombre: 'Endodoncia',
         descripcion: 'Tratamiento de conducto',
         precio: 700,
-        imagen: 'https://images.unsplash.com/photo-1606811841689-23db3c34146f?fit=crop',
+        imagen: 'https://images.unsplash.com/photo-1606811841689-23db3c34146f?auto=format&fit=crop&w=800&q=80',
         subcategorias: [
-          { id: 1, nombre: 'Monoradicular', precio: 600 },
-          { id: 2, nombre: 'Multiradicular', precio: 1000 }
+          { id: 4, nombre: 'Monoradicular', precio: 600, descripcion: 'Pieza con una sola raíz', imagen: '' },
+          { id: 5, nombre: 'Multiradicular', precio: 1000, descripcion: 'Pieza con múltiples raíces', imagen: '' }
         ]
       },
       {
@@ -66,7 +66,7 @@ class TreatmentManager {
         nombre: 'Limpieza Dental',
         descripcion: 'Profilaxis profesional',
         precio: 120,
-        imagen: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?fit=crop',
+        imagen: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
         subcategorias: []
       },
       {
@@ -74,10 +74,10 @@ class TreatmentManager {
         nombre: 'Implante Dental',
         descripcion: 'Reemplazo permanente',
         precio: 3200,
-        imagen: 'https://images.unsplash.com/photo-1606811841689-23db3c34146f?fit=crop',
+        imagen: 'https://images.unsplash.com/photo-1606811841689-23db3c34146f?auto=format&fit=crop&w=800&q=80',
         subcategorias: [
-          { id: 1, nombre: 'Implante Unitario', precio: 3200 },
-          { id: 2, nombre: 'Implante + Corona', precio: 4500 }
+          { id: 6, nombre: 'Implante Unitario', precio: 3200, descripcion: 'Reemplazo de una sola pieza', imagen: '' },
+          { id: 7, nombre: 'Implante + Corona', precio: 4500, descripcion: 'Incluye corona definitiva', imagen: '' }
         ]
       },
       {
@@ -85,10 +85,10 @@ class TreatmentManager {
         nombre: 'Blanqueamiento',
         descripcion: 'Aclara el color dental',
         precio: 600,
-        imagen: 'https://images.unsplash.com/photo-1607613674874-fa165c2c2844?fit=crop',
+        imagen: 'https://images.unsplash.com/photo-1607613674874-fa165c2c2844?auto=format&fit=crop&w=800&q=80',
         subcategorias: [
-          { id: 1, nombre: 'En Consultorio', precio: 600 },
-          { id: 2, nombre: 'Casero', precio: 400 }
+          { id: 8, nombre: 'En Consultorio', precio: 600, descripcion: 'Aplicación en sillón dental', imagen: '' },
+          { id: 9, nombre: 'Casero', precio: 400, descripcion: 'Ferulas y gel para casa', imagen: '' }
         ]
       }
     ];
@@ -178,7 +178,7 @@ currencySelector.addEventListener('change', function () {
   renderBudgetItems();
 });
 
-// ========== FUNCIONES DE UI ==========
+// ========== UI: MENSAJES ==========
 
 function showSuccess(msg) {
   const el = document.getElementById('successMessage');
@@ -186,12 +186,18 @@ function showSuccess(msg) {
   setTimeout(() => (el.innerHTML = ''), 3000);
 }
 
+// ========== MODAL TRATAMIENTO ==========
+
 function openModal(treatmentId = null) {
   tempSubcategories = [];
   document.getElementById('treatmentName').value = '';
   document.getElementById('treatmentDesc').value = '';
   document.getElementById('treatmentPrice').value = '';
   document.getElementById('treatmentImage').value = '';
+  document.getElementById('subName').value = '';
+  document.getElementById('subPrice').value = '';
+  document.getElementById('subDesc').value = '';
+  document.getElementById('subImage').value = '';
 
   if (treatmentId) {
     const t = manager.get(treatmentId);
@@ -222,6 +228,8 @@ function closeModal() {
 function addSubcategory() {
   const name = document.getElementById('subName').value.trim();
   const price = parseFloat(document.getElementById('subPrice').value);
+  const desc = document.getElementById('subDesc').value.trim();
+  const image = document.getElementById('subImage').value.trim();
 
   if (!name || !price) {
     alert('Ingresa nombre y precio');
@@ -231,11 +239,15 @@ function addSubcategory() {
   tempSubcategories.push({
     id: Date.now(),
     nombre: name,
-    precio: price
+    precio: price,
+    descripcion: desc,
+    imagen: image
   });
 
   document.getElementById('subName').value = '';
   document.getElementById('subPrice').value = '';
+  document.getElementById('subDesc').value = '';
+  document.getElementById('subImage').value = '';
   renderModalSubs();
 }
 
@@ -256,9 +268,18 @@ function renderModalSubs() {
     .map(
       sub => `
       <div class="budget-card__item">
-        <span>${sub.nombre}</span>
-        <span>${formatPrice(sub.precio)}</span>
-        <button class="btn btn-secondary" style="flex:0;" onclick="removeSubcategory(${sub.id})">🗑️</button>
+        <div>
+          <strong>${sub.nombre}</strong>
+          ${
+            sub.descripcion
+              ? `<div style="font-size:0.8rem;color:var(--color-text-secondary);">${sub.descripcion}</div>`
+              : ''
+          }
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <span>${formatPrice(sub.precio)}</span>
+          <button class="btn btn-secondary" style="flex:0;" onclick="removeSubcategory(${sub.id})">🗑️</button>
+        </div>
       </div>
     `
     )
@@ -320,6 +341,8 @@ function deleteTreatment(id) {
   }
 }
 
+// ========== RENDER TARJETAS ==========
+
 function renderTreatmentCard(treatment, showButtons = false) {
   const hasSubs = treatment.subcategorias && treatment.subcategorias.length > 0;
   const showBasePrice = !hasSubs && treatment.precio > 0;
@@ -332,10 +355,25 @@ function renderTreatmentCard(treatment, showButtons = false) {
     subsHTML += '<div class="service-card__description"><strong>💊 Opciones:</strong></div>';
     subsHTML += '<div class="budget-card__items">';
     treatment.subcategorias.forEach(sub => {
+      const subImgHTML = sub.imagen
+        ? `<img src="${sub.imagen}" alt="${sub.nombre}" class="sub-img" data-fullsrc="${sub.imagen}" data-caption="${sub.nombre} - ${sub.descripcion || ''}">`
+        : '';
       subsHTML += `
         <div class="budget-card__item">
-          <span>${sub.nombre}</span>
-          <span>${formatPrice(sub.precio)}</span>
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            ${subImgHTML}
+            <div>
+              <div class="subchip">
+                <span>${sub.nombre}</span>
+                <span>${formatPrice(sub.precio)}</span>
+              </div>
+              ${
+                sub.descripcion
+                  ? `<div style="font-size:0.78rem;color:var(--color-text-secondary);margin-top:0.15rem;">${sub.descripcion}</div>`
+                  : ''
+              }
+            </div>
+          </div>
         </div>
       `;
     });
@@ -343,7 +381,7 @@ function renderTreatmentCard(treatment, showButtons = false) {
   }
 
   const imgHTML = treatment.imagen
-    ? `<img src="${treatment.imagen}" alt="${treatment.nombre}" />`
+    ? `<img src="${treatment.imagen}" alt="${treatment.nombre}" class="treatment-img">`
     : '';
 
   const buttonsHTML = showButtons
@@ -384,6 +422,7 @@ function renderAll() {
 
   populateTreatmentSelect();
   renderSavedBudgets();
+  attachImageClickHandlers();
 }
 
 // ========== PRESUPUESTOS ==========
@@ -532,7 +571,9 @@ function renderSavedBudgets() {
         .map(
           item => `
           <div class="budget-card__item">
-            <span>${item.treatmentName}${item.subcategoryName ? ' - ' + item.subcategoryName : ''}</span>
+            <span>${item.treatmentName}${
+              item.subcategoryName ? ' - ' + item.subcategoryName : ''
+            }</span>
             <span>${formatPrice(item.price)}</span>
           </div>
         `
@@ -569,6 +610,8 @@ function deleteBudget(id) {
     renderSavedBudgets();
   }
 }
+
+// ========== IMPRESIÓN ==========
 
 function printBudget(budgetId) {
   const budget =
@@ -664,6 +707,8 @@ function printCurrentBudget() {
   printBudget(window.__tempBudget.id);
 }
 
+// ========== WHATSAPP ==========
+
 function sendWhatsApp(id) {
   const budget = budgetManager.getAll().find(b => b.id === id);
   if (!budget) return;
@@ -740,6 +785,53 @@ document.getElementById('importFile').addEventListener('change', function (e) {
   reader.readAsText(file);
 });
 
+// ========== LIGHTBOX IMÁGENES ==========
+
+const imageModal = document.getElementById('imageModal');
+const imageModalImg = document.getElementById('imageModalImg');
+const imageModalCaption = document.getElementById('imageModalCaption');
+const imageModalClose = document.getElementById('imageModalClose');
+const imageModalBackdrop = document.getElementById('imageModalBackdrop');
+
+function openImageModal(src, caption) {
+  imageModalImg.src = src;
+  imageModalCaption.textContent = caption || '';
+  imageModal.classList.add('active');
+}
+
+function closeImageModal() {
+  imageModal.classList.remove('active');
+  imageModalImg.src = '';
+  imageModalCaption.textContent = '';
+}
+
+imageModalClose.addEventListener('click', closeImageModal);
+imageModalBackdrop.addEventListener('click', closeImageModal);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && imageModal.classList.contains('active')) {
+    closeImageModal();
+  }
+});
+
+function attachImageClickHandlers() {
+  // Imágenes principales de tratamientos
+  document.querySelectorAll('.treatment-img').forEach(img => {
+    img.addEventListener('click', () => {
+      const caption = img.alt || 'Imagen de tratamiento';
+      openImageModal(img.src, caption);
+    });
+  });
+
+  // Imágenes de subcategorías
+  document.querySelectorAll('.sub-img').forEach(img => {
+    img.addEventListener('click', () => {
+      const fullSrc = img.dataset.fullsrc || img.src;
+      const caption = img.dataset.caption || img.alt || '';
+      openImageModal(fullSrc, caption);
+    });
+  });
+}
+
 // ========== TABS ==========
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -758,7 +850,7 @@ window.addEventListener('DOMContentLoaded', function () {
   renderAll();
 });
 
-// Cerrar modal al hacer clic fuera
+// Cerrar modal de tratamiento al hacer clic fuera
 document.getElementById('treatmentModal').addEventListener('click', function (e) {
   if (e.target === this) closeModal();
 });
