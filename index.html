@@ -142,9 +142,14 @@
 
       <h3>Subcategorías</h3>
 
-      <div class="form-group" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <div
+        class="form-group"
+        style="display: grid; grid-template-columns: 1.4fr 1fr 1.5fr 1.5fr auto; gap: 0.5rem; align-items: center;"
+      >
         <input id="subName" class="form-input" type="text" placeholder="Nombre subcategoría" />
         <input id="subPrice" class="form-input" type="number" step="0.01" placeholder="Precio" />
+        <input id="subDesc" class="form-input" type="text" placeholder="Descripción corta" />
+        <input id="subImage" class="form-input" type="url" placeholder="URL imagen (opcional)" />
         <button class="btn btn-primary" onclick="addSubcategory()">➕</button>
       </div>
 
@@ -154,6 +159,16 @@
         <button class="btn btn-success" onclick="saveTreatment()">💾 Guardar</button>
         <button class="btn btn-secondary" onclick="closeModal()">❌ Cancelar</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal de Imagen (Lightbox) -->
+  <div class="image-modal" id="imageModal">
+    <div class="image-modal__backdrop" id="imageModalBackdrop"></div>
+    <div class="image-modal__content">
+      <button class="image-modal__close" id="imageModalClose">×</button>
+      <img id="imageModalImg" alt="Imagen tratamiento" />
+      <p id="imageModalCaption" class="image-modal__caption"></p>
     </div>
   </div>
 
