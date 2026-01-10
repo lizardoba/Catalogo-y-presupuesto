@@ -1868,7 +1868,8 @@ function deleteBudget(id) {
 }
 
 // ============= IMPRESIÓN FIABLE =============
-function printBudget(budgetId) {
+1934
+  (budgetId) {
   const budget = budgetManager.getAllBudgets().find(b => b.id === budgetId);
   if (!budget) return;
 
@@ -1935,8 +1936,8 @@ function printBudget(budgetId) {
 
   const win = window.open('', '_blank');
   if (win) {
-    win.document.write(htmlContent);
-    win.document.close();
+    win.document.write(htmlContent);    
+                           win.document.close();
   } else {
     alert('Permite ventanas emergentes para imprimir');
   }
