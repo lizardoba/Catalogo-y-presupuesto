@@ -12,6 +12,11 @@ const CURRENCY_SYMBOLS = {
   EUR: '€'
 };
 
+const DEFAULT_SETTINGS = {
+  appName: 'Catálogo Dental',
+  logoUrl: ''
+};
+
 let currentCurrency = localStorage.getItem('currency') || 'PEN';
 let currentEditId = null;
 let tempSubcategories = [];
@@ -43,11 +48,30 @@ class TreatmentManager {
         nombre: 'Ortodoncia',
         descripcion: 'Alineación dental con brackets',
         precio: 2500,
-        imagen: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
+        imagen:
+          'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
         subcategorias: [
-          { id: 1, nombre: 'Brackets Metálicos', precio: 2500, descripcion: 'Tratamiento clásico con brackets metálicos', imagen: '' },
-          { id: 2, nombre: 'Brackets Autoligado', precio: 3500, descripcion: 'Menos fricción, citas más espaciadas', imagen: '' },
-          { id: 3, nombre: 'Alineadores Invisibles', precio: 4500, descripcion: 'Placas transparentes removibles', imagen: '' }
+          {
+            id: 1,
+            nombre: 'Brackets Metálicos',
+            precio: 2500,
+            descripcion: 'Tratamiento clásico con brackets metálicos',
+            imagen: ''
+          },
+          {
+            id: 2,
+            nombre: 'Brackets Autoligado',
+            precio: 3500,
+            descripcion: 'Menos fricción, citas más espaciadas',
+            imagen: ''
+          },
+          {
+            id: 3,
+            nombre: 'Alineadores Invisibles',
+            precio: 4500,
+            descripcion: 'Placas transparentes removibles',
+            imagen: ''
+          }
         ]
       },
       {
@@ -55,10 +79,23 @@ class TreatmentManager {
         nombre: 'Endodoncia',
         descripcion: 'Tratamiento de conducto',
         precio: 700,
-        imagen: 'https://images.unsplash.com/photo-1606811841689-23db3c34146f?auto=format&fit=crop&w=800&q=80',
+        imagen:
+          'https://images.unsplash.com/photo-1606811841689-23db3c34146f?auto=format&fit=crop&w=800&q=80',
         subcategorias: [
-          { id: 4, nombre: 'Monoradicular', precio: 600, descripcion: 'Pieza con una sola raíz', imagen: '' },
-          { id: 5, nombre: 'Multiradicular', precio: 1000, descripcion: 'Pieza con múltiples raíces', imagen: '' }
+          {
+            id: 4,
+            nombre: 'Monoradicular',
+            precio: 600,
+            descripcion: 'Pieza con una sola raíz',
+            imagen: ''
+          },
+          {
+            id: 5,
+            nombre: 'Multiradicular',
+            precio: 1000,
+            descripcion: 'Pieza con múltiples raíces',
+            imagen: ''
+          }
         ]
       },
       {
@@ -66,7 +103,8 @@ class TreatmentManager {
         nombre: 'Limpieza Dental',
         descripcion: 'Profilaxis profesional',
         precio: 120,
-        imagen: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+        imagen:
+          'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
         subcategorias: []
       },
       {
@@ -74,10 +112,23 @@ class TreatmentManager {
         nombre: 'Implante Dental',
         descripcion: 'Reemplazo permanente',
         precio: 3200,
-        imagen: 'https://images.unsplash.com/photo-1606811841689-23db3c34146f?auto=format&fit=crop&w=800&q=80',
+        imagen:
+          'https://images.unsplash.com/photo-1606811841689-23db3c34146f?auto=format&fit=crop&w=800&q=80',
         subcategorias: [
-          { id: 6, nombre: 'Implante Unitario', precio: 3200, descripcion: 'Reemplazo de una sola pieza', imagen: '' },
-          { id: 7, nombre: 'Implante + Corona', precio: 4500, descripcion: 'Incluye corona definitiva', imagen: '' }
+          {
+            id: 6,
+            nombre: 'Implante Unitario',
+            precio: 3200,
+            descripcion: 'Reemplazo de una sola pieza',
+            imagen: ''
+          },
+          {
+            id: 7,
+            nombre: 'Implante + Corona',
+            precio: 4500,
+            descripcion: 'Incluye corona definitiva',
+            imagen: ''
+          }
         ]
       },
       {
@@ -85,10 +136,23 @@ class TreatmentManager {
         nombre: 'Blanqueamiento',
         descripcion: 'Aclara el color dental',
         precio: 600,
-        imagen: 'https://images.unsplash.com/photo-1607613674874-fa165c2c2844?auto=format&fit=crop&w=800&q=80',
+        imagen:
+          'https://images.unsplash.com/photo-1607613674874-fa165c2c2844?auto=format&fit=crop&w=800&q=80',
         subcategorias: [
-          { id: 8, nombre: 'En Consultorio', precio: 600, descripcion: 'Aplicación en sillón dental', imagen: '' },
-          { id: 9, nombre: 'Casero', precio: 400, descripcion: 'Ferulas y gel para casa', imagen: '' }
+          {
+            id: 8,
+            nombre: 'En Consultorio',
+            precio: 600,
+            descripcion: 'Aplicación en sillón dental',
+            imagen: ''
+          },
+          {
+            id: 9,
+            nombre: 'Casero',
+            precio: 400,
+            descripcion: 'Férulas y gel para casa',
+            imagen: ''
+          }
         ]
       }
     ];
@@ -157,6 +221,42 @@ class BudgetManager {
 
 const manager = new TreatmentManager();
 const budgetManager = new BudgetManager();
+
+// ========== SETTINGS ==========
+
+function loadSettings() {
+  const stored = localStorage.getItem('dental_app_settings');
+  if (stored) {
+    try {
+      return { ...DEFAULT_SETTINGS, ...JSON.parse(stored) };
+    } catch {
+      return { ...DEFAULT_SETTINGS };
+    }
+  }
+  return { ...DEFAULT_SETTINGS };
+}
+
+function saveSettingsToStorage(settings) {
+  localStorage.setItem('dental_app_settings', JSON.stringify(settings));
+}
+
+function applySettingsToUI() {
+  const settings = loadSettings();
+  const titleEl = document.getElementById('documentTitle');
+  const appNameDisplay = document.getElementById('appNameDisplay');
+  const logoImg = document.getElementById('appLogoImg');
+
+  titleEl.textContent = `${settings.appName} - Sistema de Tratamientos y Presupuestos`;
+  appNameDisplay.textContent = settings.appName;
+
+  if (settings.logoUrl) {
+    logoImg.src = settings.logoUrl;
+    logoImg.style.display = 'block';
+  } else {
+    logoImg.src = '';
+    logoImg.style.display = 'none';
+  }
+}
 
 // ========== FUNCIONES DE MONEDA ==========
 
@@ -290,7 +390,7 @@ function isValidImageUrl(url) {
   if (!url) return true;
   try {
     new URL(url);
-    return /\.(jpg|jpeg|png|webp|gif)$/i.test(url);
+    return /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(url);
   } catch {
     return false;
   }
@@ -521,6 +621,7 @@ function removeBudgetItem(index) {
 function clearBudget() {
   currentBudgetItems = [];
   document.getElementById('budgetClientName').value = '';
+  document.getElementById('budgetClientPhone').value = '';
   document.getElementById('treatmentSelect').value = '';
   document.getElementById('subcategorySelect').innerHTML = '<option value="">-- Sin subcategoría --</option>';
   document.getElementById('subcategorySelect').disabled = true;
@@ -535,10 +636,12 @@ function saveBudget() {
 
   const clientName =
     document.getElementById('budgetClientName').value.trim() || 'Cliente sin nombre';
+  const clientPhone = document.getElementById('budgetClientPhone').value.trim();
   const total = currentBudgetItems.reduce((sum, item) => sum + item.price, 0);
 
   budgetManager.add({
     clientName,
+    clientPhone,
     items: currentBudgetItems,
     total
   });
@@ -580,12 +683,17 @@ function renderSavedBudgets() {
         )
         .join('');
 
+      const phoneInfo = budget.clientPhone
+        ? `<div class="budget-card__date">WhatsApp: ${budget.clientPhone}</div>`
+        : '';
+
       return `
         <article class="budget-card">
           <div class="budget-card__header">
             <div>
               <div class="budget-card__title">${budget.clientName}</div>
               <div class="budget-card__date">${date}</div>
+              ${phoneInfo}
             </div>
             <div>${formatPrice(budget.total)}</div>
           </div>
@@ -613,6 +721,10 @@ function deleteBudget(id) {
 
 // ========== IMPRESIÓN ==========
 
+function getCurrentSettings() {
+  return loadSettings();
+}
+
 function printBudget(budgetId) {
   const budget =
     typeof budgetId === 'string' && budgetId.startsWith('temp_')
@@ -621,6 +733,7 @@ function printBudget(budgetId) {
 
   if (!budget) return;
 
+  const settings = getCurrentSettings();
   const date = new Date(budget.date).toLocaleDateString('es-ES');
   let rowsHTML = '';
 
@@ -634,13 +747,23 @@ function printBudget(budgetId) {
     `;
   });
 
+  const logoHTML = settings.logoUrl
+    ? `<img src="${settings.logoUrl}" alt="Logo" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin-right:12px;border:2px solid #e5e7eb;">`
+    : '';
+
+  const phoneLine = budget.clientPhone
+    ? `<p><strong>Teléfono/WhatsApp:</strong> ${budget.clientPhone}</p>`
+    : '';
+
   const html = `
     <html>
       <head>
         <title>Presupuesto - ${budget.clientName}</title>
         <style>
           body { font-family: Arial, sans-serif; padding: 20px; }
-          h1 { text-align: center; color: #218C8D; }
+          .print-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+          .print-header-left { display:flex; align-items:center; }
+          h1 { margin:0; color: #218C8D; }
           table { width: 100%; border-collapse: collapse; margin: 20px 0; }
           th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
           th { background-color: #218C8D; color: white; }
@@ -648,9 +771,21 @@ function printBudget(budgetId) {
         </style>
       </head>
       <body>
-        <h1>Presupuesto Dental</h1>
+        <div class="print-header">
+          <div class="print-header-left">
+            ${logoHTML}
+            <div>
+              <h1>${settings.appName}</h1>
+              <div style="font-size:0.85rem;color:#4b5563;">Presupuesto Dental</div>
+            </div>
+          </div>
+          <div style="text-align:right;font-size:0.9rem;color:#4b5563;">
+            <div><strong>Fecha:</strong> ${date}</div>
+          </div>
+        </div>
+
         <p><strong>Cliente:</strong> ${budget.clientName}</p>
-        <p><strong>Fecha:</strong> ${date}</p>
+        ${phoneLine}
 
         <table>
           <thead>
@@ -694,11 +829,13 @@ function printCurrentBudget() {
 
   const clientName =
     document.getElementById('budgetClientName').value.trim() || 'Cliente';
+  const clientPhone = document.getElementById('budgetClientPhone').value.trim();
   const total = currentBudgetItems.reduce((sum, item) => sum + item.price, 0);
 
   window.__tempBudget = {
     id: 'temp_' + Date.now(),
     clientName,
+    clientPhone,
     items: [...currentBudgetItems],
     total,
     date: new Date().toISOString()
@@ -713,6 +850,9 @@ function sendWhatsApp(id) {
   const budget = budgetManager.getAll().find(b => b.id === id);
   if (!budget) return;
 
+  const number = (budget.clientPhone || '').replace(/\s+/g, '');
+  const baseUrl = number ? `https://wa.me/${number}` : 'https://wa.me/';
+
   let message = `*Presupuesto Dental*\n\n*Cliente:* ${budget.clientName}\n\n*Tratamientos:*\n`;
   budget.items.forEach(item => {
     const sub = item.subcategoryName ? ` (${item.subcategoryName})` : '';
@@ -720,7 +860,7 @@ function sendWhatsApp(id) {
   });
   message += `\n*TOTAL:* ${formatPrice(budget.total)}`;
 
-  const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  const url = `${baseUrl}?text=${encodeURIComponent(message)}`; // [web:41][web:42][web:45]
   window.open(url, '_blank');
 }
 
@@ -832,6 +972,38 @@ function attachImageClickHandlers() {
   });
 }
 
+// ========== AJUSTES (MODAL) ==========
+
+const settingsButton = document.getElementById('settingsButton');
+
+settingsButton.addEventListener('click', () => {
+  const settings = loadSettings();
+  document.getElementById('appNameInput').value = settings.appName;
+  document.getElementById('appLogoInput').value = settings.logoUrl;
+  document.getElementById('settingsModal').classList.add('active');
+});
+
+function closeSettings() {
+  document.getElementById('settingsModal').classList.remove('active');
+}
+
+function saveSettings() {
+  const appName = document.getElementById('appNameInput').value.trim() || DEFAULT_SETTINGS.appName;
+  const logoUrl = document.getElementById('appLogoInput').value.trim();
+
+  if (logoUrl && !isValidImageUrl(logoUrl)) {
+    if (!confirm('La URL del logo parece inválida. ¿Guardar de todos modos?')) {
+      return;
+    }
+  }
+
+  const newSettings = { appName, logoUrl };
+  saveSettingsToStorage(newSettings);
+  applySettingsToUI();
+  showSuccess('✅ Ajustes guardados');
+  closeSettings();
+}
+
 // ========== TABS ==========
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -847,10 +1019,16 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 // ========== INICIALIZACIÓN ==========
 
 window.addEventListener('DOMContentLoaded', function () {
+  applySettingsToUI();
   renderAll();
 });
 
 // Cerrar modal de tratamiento al hacer clic fuera
 document.getElementById('treatmentModal').addEventListener('click', function (e) {
   if (e.target === this) closeModal();
+});
+
+// Cerrar modal de ajustes al hacer clic fuera
+document.getElementById('settingsModal').addEventListener('click', function (e) {
+  if (e.target === this) closeSettings();
 });
