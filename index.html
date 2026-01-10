@@ -3,21 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo Dental - Sistema de Tratamientos y Presupuestos</title>
+  <title id="documentTitle">Catálogo Dental - Sistema de Tratamientos y Presupuestos</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="header">
-    <select class="currency-selector" id="currencySelector">
-      <option value="PEN">S/ Soles</option>
-      <option value="USD">US$ Dólares</option>
-      <option value="EUR">€ Euros</option>
-    </select>
+    <div class="header-left">
+      <img id="appLogoImg" class="header-logo" src="" alt="Logo" />
+      <div>
+        <h1 id="appNameDisplay">💊 Catálogo Dental</h1>
+        <p>Gestión de Tratamientos y Presupuestos</p>
+      </div>
+    </div>
 
-    <h1>💊 Catálogo Dental</h1>
-    <p>Gestión de Tratamientos y Presupuestos</p>
+    <div class="header-right">
+      <select class="currency-selector" id="currencySelector">
+        <option value="PEN">S/ Soles</option>
+        <option value="USD">US$ Dólares</option>
+        <option value="EUR">€ Euros</option>
+      </select>
+
+      <button class="btn btn-secondary" id="settingsButton">⚙️ Ajustes</button>
+    </div>
   </header>
 
   <main class="container">
@@ -53,6 +62,19 @@
       <div class="form-group">
         <label class="form-label" for="budgetClientName">Nombre del Cliente</label>
         <input id="budgetClientName" class="form-input" type="text" placeholder="Nombre del cliente" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="budgetClientPhone">Número de celular (WhatsApp)</label>
+        <input
+          id="budgetClientPhone"
+          class="form-input"
+          type="tel"
+          placeholder="Ej: 51987654321 (sin espacios)"
+        />
+        <small style="color: var(--color-text-secondary); font-size: 0.8rem;">
+          Usa formato internacional sin signos (+, -, espacios). Ej: 51987654321.
+        </small>
       </div>
 
       <div class="form-group">
@@ -158,6 +180,32 @@
       <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
         <button class="btn btn-success" onclick="saveTreatment()">💾 Guardar</button>
         <button class="btn btn-secondary" onclick="closeModal()">❌ Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ajustes -->
+  <div class="modal" id="settingsModal">
+    <div class="modal__content">
+      <button class="modal__close" onclick="closeSettings()">×</button>
+      <h2 class="modal__title">Ajustes de la App</h2>
+
+      <div class="form-group">
+        <label class="form-label" for="appNameInput">Nombre de la App</label>
+        <input id="appNameInput" class="form-input" type="text" placeholder="Ej: Catálogo Dental Gniius" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="appLogoInput">URL del Logo</label>
+        <input id="appLogoInput" class="form-input" type="url" placeholder="https://..." />
+        <small style="color: var(--color-text-secondary); font-size: 0.8rem;">
+          Idealmente logo cuadrado o circular en PNG/SVG.
+        </small>
+      </div>
+
+      <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn btn-success" onclick="saveSettings()">💾 Guardar ajustes</button>
+        <button class="btn btn-secondary" onclick="closeSettings()">❌ Cancelar</button>
       </div>
     </div>
   </div>
